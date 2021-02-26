@@ -13,15 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('home', 'SocialController@inicio')->name('home');
 
+
+/*Route::get('/home', function () {
+    return view('home');
+});*/
+
+Route::get('/', 'SocialController@inicio');
+// Route::get('/', 'home');
+
+Auth::routes();
+
+// PANEL DE CONTROL
+Route::get('/home', 'PanelController@inicio');
 Route::get('Panel/inicio', 'PanelController@inicio');
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// RED SOCIAL
+Route::get('Social/inicio', 'SocialController@inicio');
