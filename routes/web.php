@@ -31,3 +31,6 @@ Route::get('Panel/inicio', 'PanelController@inicio');
 
 // RED SOCIAL
 Route::get('Social/inicio', 'SocialController@inicio');
+
+// USUARIOS
+Route::get('User/listado', 'UserController@listado');
