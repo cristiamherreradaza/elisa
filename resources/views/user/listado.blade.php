@@ -9,7 +9,7 @@
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">Basic Demo
+				<h3 class="card-label">Usuarios
 					<span class="d-block text-muted pt-2 font-size-sm">sorting &amp; pagination remote datasource</span></h3>
 				</div>
 				<div class="card-toolbar">
