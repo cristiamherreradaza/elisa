@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 
+        'email', 
+        'password',
+        'perfil_id',
+        'sector_id',
+        'estado',
+        'latitud',
+        'longitud',
+        'direccion',
+        'celulares',
+        'deleted_at',
     ];
 
     /**
@@ -36,4 +48,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sector()
+    {
+        return $this->belongsTo('App\Sector', 'sector_id');
+    }
+
+    public function perfil()
+    {
+        return $this->belongsTo('App\Perfil', 'perfil_id');
+    }
+
 }

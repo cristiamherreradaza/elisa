@@ -21,6 +21,7 @@ class UserController extends Controller
 
     public function nuevo()
     {
-    			
+        
+        return view('user.listado')->with(compact('usuarios'));        			
     }
 }
