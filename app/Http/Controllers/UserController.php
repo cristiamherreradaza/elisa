@@ -27,4 +27,12 @@ class UserController extends Controller
         
         return view('user.nuevo')->with(compact('usuarios'));        			
     }
+
+    public function ajaxDistrito(Request $request)
+    {
+        $distritos = Sector::where('departamento', $request->departamento)
+                        ->get();
+        
+        dd($request->all());
+    }
 }

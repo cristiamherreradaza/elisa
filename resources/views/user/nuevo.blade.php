@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('metadatos')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
+
 @section('css')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 @endsection
@@ -11,11 +15,11 @@
         <!--begin::Card-->
         <div class="card card-custom gutter-b example example-compact">
             <div class="card-header">
-                <h3 class="card-title">Nuevo Alumno</h3>
+                <h3 class="card-title">Nueva Persona</h3>
                 
             </div>
             <!--begin::Form-->
-            <form>
+            <form action="{{ ('User/guarda') }}" method="POST" id="formularioPersona">
                 <div class="card-body">
 
                     <div class="row">
@@ -23,21 +27,28 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Nombre
                                 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required />
+                                <input type="text" class="form-control" id="name" name="name" required />
                             </div>        
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Carnet
                                 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="ci" name="ci" required />
+                                <input type="number" class="form-control" id="ci" name="ci" required />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Email
                                 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="email" name="email" required />
+                                <input type="email" class="form-control" id="email" name="email" required />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Fecha Nacimiento
+                                    <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
                             </div>
                         </div>
                     </div>
@@ -61,10 +72,31 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleSelect1">Perfil <span class="text-danger">*</span></label>
+                                <select class="form-control" id="perfil" name="perfil">
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Encargado">Encargado</option>
+                                    <option value="Cliente">Cliente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password
+                                    <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="password" name="password" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="exampleSelect1">Ciudad <span class="text-danger">*</span></label>
-                                <select class="form-control" id="exampleSelect1">
+                                <label for="exampleSelect1">Departamento <span class="text-danger">*</span></label>
+                                <select class="form-control" id="departamento" name="departamento" onchange="canbiaDepartamento()">
+                                    <option value="">Seleccione</option>
                                     <option value="La Paz">La Paz</option>
                                     <option value="Cochabamba">Cochabamba</option>
                                     <option value="Santa Cruz">Santa Cruz</option>
@@ -93,17 +125,17 @@
                         </div>
                     </div>
 
-                </div>
-                <div class="card-footer">
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="reset" class="btn btn-primary mr-2 btn-block">Submit</button>
+                            <button type="button" class="btn btn-primary mr-2 btn-block" onclick="guarda()">Guardar</button>
                         </div>
                         <div class="col-md-6">
-                            <button type="reset" class="btn btn-secondary btn-block">Cancel</button>
+                            <a href="{{ url('User/listado') }}" class="btn btn-secondary btn-block">Volver</a>
                         </div>
                     </div>
+
                 </div>
+                
             </form>
             <!--end::Form-->
         </div>
@@ -115,11 +147,42 @@
 @stop
 
 @section('js')
-    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/crud/datatables/basic/basic.js') }}"></script>
     <script type="text/javascript">
-    	$(document).ready(function() {
-    	    $('#tabla_usuarios').DataTable();
-    	} );
+        $.ajaxSetup({
+            // definimos cabecera donde estarra el token y poder hacer nuestras operaciones de put,post...
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function guarda()
+        {
+            if ($("#formularioPersona")[0].checkValidity()) {
+
+                $("#formularioPersona").submit();
+                Swal.fire("Excelente!", "Se guardo el distrito!", "success");
+
+            }else{
+                $("#formularioPersona")[0].reportValidity();
+            }
+        }
+
+        function canbiaDepartamento()
+        {
+            let departamento = $("#departamento").val();
+            alert(departamento);
+
+            $.ajax({
+                url: "{{ url('User/ajaxDistrito') }}",
+                data: {departamento: departamento},
+                type: 'POST',
+                success: function(data) {
+                    // $("#listadoProductosAjax").show('slow');
+                    // $("#listadoProductosAjax").html(data);
+                }
+            });
+
+        }
+
     </script>
 @endsection
