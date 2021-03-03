@@ -29,6 +29,11 @@ class SectorController extends Controller
         $distrito->save();
 
         return redirect('Sector/distritos');
+    }
 
+    public function elimina(Request $request, $sector_id = null)
+    {
+        Sector::destroy($sector_id);
+        return redirect('Sector/distritos');
     }
 }

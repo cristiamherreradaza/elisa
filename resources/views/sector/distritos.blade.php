@@ -183,11 +183,16 @@
                         <td>{{ $d->departamento }}</td>
                         <td>{{ $d->nombre }}</td>
                         <td nowrap="nowrap">
+
+                            <a href="{{ url('Sector/otbs') }}" class="btn btn-icon btn-primary btn-sm mr-2">
+                                <i class="flaticon2-list-1"></i>
+                            </a>
+
                             <a href="#" class="btn btn-icon btn-warning btn-sm mr-2" onclick="edita('{{ $d->id }}', '{{ $d->departamento }}', '{{ $d->nombre }}')">
                                 <i class="fas fa-edit"></i>
                             </a>
     
-                            <a href="#" class="btn btn-icon btn-danger btn-sm mr-2">
+                            <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="elimina('{{ $d->id }}', '{{ $d->departamento }}', '{{ $d->nombre }}')">
                                 <i class="flaticon2-delete"></i>
                             </a>
                         </td>
@@ -243,6 +248,39 @@
             $("#modalDistrito").modal('show');
 
         }
+
+        function elimina(id, departamento, nombre)
+        {
+            Swal.fire({
+                title: "Quieres eliminar "+nombre+" de "+departamento+"?",
+                text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, borrar!",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+
+                    window.location.href = "{{ url('Sector/elimina') }}/"+id;
+
+                    Swal.fire(
+                        "Borrado!",
+                        "El registro fue eliminado.",
+                        "success"
+                    )
+                    // result.dismiss can be "cancel", "overlay",
+                    // "close", and "timer"
+                } else if (result.dismiss === "cancel") {
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
+        }
+
     </script>
 
 

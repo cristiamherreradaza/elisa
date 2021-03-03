@@ -39,3 +39,4 @@ Route::get('User/nuevo', 'UserController@nuevo');
 // SECTORES
 Route::get('Sector/distritos', 'SectorController@distritos');
 Route::post('Sector/guarda', 'SectorController@guarda');
+Route::get('Sector/elimina/{sector_id}', 'SectorController@elimina');
