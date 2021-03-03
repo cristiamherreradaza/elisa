@@ -18,7 +18,7 @@ class SectorController extends Controller
     public function guarda(Request $request)
     {
         // dd($request->all());
-        if($request->has('id')){
+        if($request->id != null){
             $distrito = Sector::find($request->id);
         }else{
             $distrito = new Sector();
@@ -36,4 +36,41 @@ class SectorController extends Controller
         Sector::destroy($sector_id);
         return redirect('Sector/distritos');
     }
+
+    public function otbs(Request $request, $distrito_id)
+    {
+        // dd($distrito_id);
+        $otbs = Sector::where('padre_id', $distrito_id)
+                    ->get();
+
+        $distrito = Sector::find($distrito_id);
+
+        return view('sector.otbs')->with(compact('otbs', 'distrito'));
+        // dd($distritos);
+    }
+
+    public function guardaOtb(Request $request)
+    {
+        // dd($request->all());
+        if($request->id != null){
+            $distrito = Sector::find($request->id);
+        }else{
+            $distrito = new Sector();
+        }
+
+        $distrito->padre_id     = $request->padre_id;
+        $distrito->nombre       = $request->nombre;
+        $distrito->departamento = $request->ciudad;
+        $distrito->save();
+
+        return redirect("Sector/otbs/$request->padre_id");
+    }
+
+    public function eliminaOtb(Request $request, $otb_id = null)
+    {
+        $distrito = Sector::find($otb_id);
+        Sector::destroy($otb_id);
+        return redirect("Sector/otbs/$distrito->padre_id");
+    }
+
 }

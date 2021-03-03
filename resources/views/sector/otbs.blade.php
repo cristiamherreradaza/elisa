@@ -11,42 +11,46 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Formulario Distrito</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Formulario Otb</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('Sector/guarda') }}" method="POST" id="formularioDistritos">
+                    <form action="{{ url('Sector/guardaOtb') }}" method="POST" id="formularioOtbs">
                         @csrf
                         <div class="row">
 
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" />
-                                    <label for="exampleSelect1">Ciudad <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="departamento" name="departamento">
-                                        <option value="La Paz">La Paz</option>
-                                        <option value="Cochabamba">Cochabamba</option>
-                                        <option value="Santa Cruz">Santa Cruz</option>
-                                        <option value="Oruro">Oruro</option>
-                                        <option value="Tarija">Tarija</option>
-                                        <option value="Sucre">Sucre</option>
-                                        <option value="Potosi">Potosi</option>
-                                        <option value="Beni">Beni</option>
-                                        <option value="Pando">Pandoa</option>
-                                    </select>
+                                    <input type="hidden" name="ciudad" id="ciudad" value="{{ $distrito->departamento }}" />
+                                    <input type="hidden" name="padre_id" id="padre_id" value="{{ $distrito->id }}" />
+                                    <label for="exampleSelect1">Ciudad </label>
+                                    <input type="text" class="form-control" id="ciudad" name="ciudad" value="{{ $distrito->departamento }}" disabled />
                                 </div>        
                             </div>
 
                             <div class="col-md-7">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Distrito
+                                        </label>
+                                    <input type="text" class="form-control" id="distrito" name="distrito" value="{{ $distrito->nombre }}" disabled />
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="row">
+                        
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Nombre
                                         <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="nombre" name="nombre" required />
                                 </div>
                             </div>
-                            
+                        
                         </div>
                     
                         <div class="row">
@@ -70,13 +74,12 @@
 	<div class="card card-custom gutter-b">
         <div class="card-header flex-wrap py-3">
             <div class="card-title">
-                <h3 class="card-label">Distritos
+                <h3 class="card-label">OTBS - {{ $distrito->nombre }}
                 </h3>
             </div>
             <div class="card-toolbar">
-                
                 <!--begin::Button-->
-                <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevoDistrito();">
+                <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevaOtb();">
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -90,7 +93,7 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>Nuevo Distrito</a>
+                    </span>Nueva Otb</a>
                 <!--end::Button-->
             </div>
         </div>
@@ -106,22 +109,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($distritos as $d)
+                    @foreach ($otbs as $o)
                     <tr>
-                        <td>{{ $d->id }}</td>
-                        <td>{{ $d->departamento }}</td>
-                        <td>{{ $d->nombre }}</td>
+                        <td>{{ $o->id }}</td>
+                        <td>{{ $o->departamento }}</td>
+                        <td>{{ $o->nombre }}</td>
                         <td nowrap="nowrap">
 
-                            <a href='{{ url("Sector/otbs/$d->id") }}' class="btn btn-icon btn-primary btn-sm mr-2">
-                                <i class="flaticon2-list-1"></i>
-                            </a>
-
-                            <a href="#" class="btn btn-icon btn-warning btn-sm mr-2" onclick="edita('{{ $d->id }}', '{{ $d->departamento }}', '{{ $d->nombre }}')">
+                            <a href="#" class="btn btn-icon btn-warning btn-sm mr-2" onclick="edita('{{ $o->id }}', '{{ $o->departamento }}', '{{ $o->nombre }}')">
                                 <i class="fas fa-edit"></i>
                             </a>
     
-                            <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="elimina('{{ $d->id }}', '{{ $d->departamento }}', '{{ $d->nombre }}')">
+                            <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="elimina('{{ $o->id }}', '{{ $o->departamento }}', '{{ $o->nombre }}')">
                                 <i class="flaticon2-delete"></i>
                             </a>
                         </td>
@@ -148,7 +147,7 @@
             });
     	} );
 
-        function nuevoDistrito()
+        function nuevaOtb()
         {
             $("#id").val("");
             $("#nombre").val("");
@@ -158,13 +157,13 @@
 
         function guarda()
         {
-            if ($("#formularioDistritos")[0].checkValidity()) {
+            if ($("#formularioOtbs")[0].checkValidity()) {
 
-                $("#formularioDistritos").submit();
+                $("#formularioOtbs").submit();
                 Swal.fire("Excelente!", "Se guardo el distrito!", "success");
 
             }else{
-                $("#formularioDistritos")[0].reportValidity();
+                $("#formularioOtbs")[0].reportValidity();
             }
         }
 
@@ -180,8 +179,9 @@
 
         function elimina(id, departamento, nombre)
         {
+            let distrito = '{{ $distrito->nombre }}';
             Swal.fire({
-                title: "Quieres eliminar "+nombre+" de "+departamento+"?",
+                title: "Quieres eliminar "+nombre+" del "+distrito+"?",
                 text: "Ya no podras recuperarlo!",
                 icon: "warning",
                 showCancelButton: true,
@@ -191,7 +191,7 @@
             }).then(function(result) {
                 if (result.value) {
 
-                    window.location.href = "{{ url('Sector/elimina') }}/"+id;
+                    window.location.href = "{{ url('Sector/eliminaOtb') }}/"+id;
 
                     Swal.fire(
                         "Borrado!",
