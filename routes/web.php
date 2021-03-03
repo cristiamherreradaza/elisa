@@ -35,3 +35,7 @@ Route::get('Social/inicio', 'SocialController@inicio');
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');
 Route::get('User/nuevo', 'UserController@nuevo');
+
+// SECTORES
+Route::get('Sector/distritos', 'SectorController@distritos');
+Route::post('Sector/guarda', 'SectorController@guarda');
