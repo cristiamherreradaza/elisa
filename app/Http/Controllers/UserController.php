@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
+use App\Sector;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -21,7 +22,9 @@ class UserController extends Controller
 
     public function nuevo()
     {
+        $sectores = Sector::all();
+        // dd($sectores);
         
-        return view('user.listado')->with(compact('usuarios'));        			
+        return view('user.nuevo')->with(compact('usuarios'));        			
     }
 }
