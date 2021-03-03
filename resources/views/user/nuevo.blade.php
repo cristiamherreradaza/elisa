@@ -12,82 +12,97 @@
         <div class="card card-custom gutter-b example example-compact">
             <div class="card-header">
                 <h3 class="card-title">Nuevo Alumno</h3>
-                <div class="card-toolbar">
-                    <div class="example-tools justify-content-center">
-                        <span class="example-toggle" data-toggle="tooltip" title="View code"></span>
-                        <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
-                    </div>
-                </div>
+                
             </div>
             <!--begin::Form-->
             <form>
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Nombre
                                 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                                <input type="text" class="form-control" id="nombre" name="nombre" required />
                             </div>        
                         </div>
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email address
-                        <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" placeholder="Enter email" />
-                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password
-                        <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-                    </div>
-                    <div class="form-group">
-                        <label>Static:</label>
-                        <p class="form-control-plaintext text-muted">email@example.com</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleSelect1">Example select
-                        <span class="text-danger">*</span></label>
-                        <select class="form-control" id="exampleSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleSelect2">Example multiple select
-                        <span class="text-danger">*</span></label>
-                        <select multiple="multiple" class="form-control" id="exampleSelect2">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-1">
-                        <label for="exampleTextarea">Example textarea
-                        <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                    </div>
-                    <!--begin: Code-->
-                    <div class="example-code mt-10">
-                        <div class="example-highlight">
-
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Carnet
+                                <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="ci" name="ci" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Email
+                                <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="email" name="email" required />
+                            </div>
                         </div>
                     </div>
-                    <!--end: Code-->
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Direccion
+                                <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="direccion" name="direccion" required />
+                            </div>        
+                        </div>
+                        
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Telefonos
+                                <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="celulares" name="celulares" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleSelect1">Ciudad <span class="text-danger">*</span></label>
+                                <select class="form-control" id="exampleSelect1">
+                                    <option value="La Paz">La Paz</option>
+                                    <option value="Cochabamba">Cochabamba</option>
+                                    <option value="Santa Cruz">Santa Cruz</option>
+                                    <option value="Oruro">Oruro</option>
+                                    <option value="Tarija">Tarija</option>
+                                    <option value="Sucre">Sucre</option>
+                                    <option value="Potosi">Potosi</option>
+                                    <option value="Beni">Beni</option>
+                                    <option value="Pando">Pandoa</option>
+                                </select>
+                           </div>        
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Distrito
+                                <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="ci" name="ci" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">OTB
+                                <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="email" name="email" required />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="card-footer">
-                    <button type="reset" class="btn btn-primary mr-2">Submit</button>
-                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="reset" class="btn btn-primary mr-2 btn-block">Submit</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="reset" class="btn btn-secondary btn-block">Cancel</button>
+                        </div>
+                    </div>
                 </div>
             </form>
             <!--end::Form-->
