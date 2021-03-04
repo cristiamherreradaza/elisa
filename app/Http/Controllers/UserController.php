@@ -6,6 +6,7 @@ use App\User;
 use App\Sector;
 use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,7 +19,7 @@ class UserController extends Controller
     {
     	// $usuarios = User::all();
     	// dd($usuarios);
-    	return view('user.listado');
+        return view('user.listado');
     }
 
     public function ajax_listado()
@@ -63,7 +64,7 @@ class UserController extends Controller
         $persona->name             = $request->name;
         $persona->ci               = $request->ci;
         $persona->email            = $request->email;
-        $persona->password         = $request->password;
+        $persona->password         = Hash::make($request->password);
         $persona->fecha_nacimiento = $request->fecha_nacimiento;
         $persona->direccion        = $request->direccion;
         $persona->celulares        = $request->celulares;

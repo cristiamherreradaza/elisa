@@ -87,7 +87,7 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password
                                     <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="password" name="password" required />
+                                <input type="password" class="form-control" id="password" name="password" required />
                             </div>
                         </div>
                     </div>
