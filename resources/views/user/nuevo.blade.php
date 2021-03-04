@@ -19,7 +19,8 @@
                 
             </div>
             <!--begin::Form-->
-            <form action="{{ ('User/guarda') }}" method="POST" id="formularioPersona">
+            <form action="{{ url('User/guarda') }}" method="POST" id="formularioPersona">
+                @csrf
                 <div class="card-body">
 
                     <div class="row">
@@ -113,14 +114,19 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Distrito
                                 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="ci" name="ci" required />
+                                <div id="ajaxDistritos">
+                                    
+                                </div>
+
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">OTB
                                 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="email" name="email" required />
+                                <div id="ajaxOtb">
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -170,14 +176,13 @@
         function canbiaDepartamento()
         {
             let departamento = $("#departamento").val();
-            alert(departamento);
 
             $.ajax({
                 url: "{{ url('User/ajaxDistrito') }}",
                 data: {departamento: departamento},
                 type: 'POST',
                 success: function(data) {
-                    // $("#listadoProductosAjax").show('slow');
+                    $("#ajaxDistritos").html(data);
                     // $("#listadoProductosAjax").html(data);
                 }
             });

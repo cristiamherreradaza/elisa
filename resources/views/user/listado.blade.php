@@ -41,32 +41,12 @@
 						<th>Nombre</th>
 						<th>Carnet</th>
 						<th>Email</th>
-						<th>Rol</th>
+						<th>Perfil</th>
 						<th>Celulares</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					@foreach ($usuarios as $u)
-					{{-- expr --}}
-					@endforeach
-					<tr>
-						<td>{{ $u->id }}</td>
-						<td>{{ $u->name }}</td>
-						<td>{{ $u->ci }}</td>
-						<td>{{ $u->email }}</td>
-						<td>{{ $u->perfil }}</td>
-						<td>{{ $u->celulares }}</td>
-						<td nowrap="nowrap">
-							<a href="#" class="btn btn-icon btn-warning btn-sm mr-2">
-								<i class="flaticon-edit"></i>
-							</a>
-	
-							<a href="#" class="btn btn-icon btn-danger btn-sm mr-2">
-								<i class="flaticon2-delete"></i>
-							</a>
-						</td>
-					</tr>
 				</tbody>
 			</table>
 			<!--end: Datatable-->
@@ -80,7 +60,25 @@
     <script src="{{ asset('assets/js/pages/crud/datatables/basic/basic.js') }}"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
-    	    $('#tabla_usuarios').DataTable();
+    	    $('#tabla_usuarios').DataTable({
+				iDisplayLength: 10,
+				processing: true,
+				serverSide: true,
+				ajax: "{{ url('User/ajax_listado') }}",
+				"order": [[ 0, "desc" ]],
+				columns: [
+					{data: 'id', name: 'id'},
+					{data: 'name', name: 'name'},
+					{data: 'ci', name: 'ci'},
+					{data: 'email', name: 'email'},
+					{data: 'perfil', name: 'perfil'},
+					{data: 'celulares', name: 'celulares'},
+					{data: 'action'},
+				],
+                language: {
+                    url: '{{ asset('datatableEs.json') }}'
+                }
+            });
     	} );
     </script>
 @endsection

@@ -36,6 +36,9 @@ Route::get('Social/inicio', 'SocialController@inicio');
 Route::get('User/listado', 'UserController@listado');
 Route::get('User/nuevo', 'UserController@nuevo');
 Route::post('User/ajaxDistrito', 'UserController@ajaxDistrito');
+Route::post('User/ajaxOtb', 'UserController@ajaxOtb');
+Route::post('User/guarda', 'UserController@guarda');
+Route::get('User/ajax_listado', 'UserController@ajax_listado');
 
 // SECTORES
 Route::get('Sector/distritos', 'SectorController@distritos');
