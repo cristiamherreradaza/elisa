@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::get('Publicaciones/listado', 'api\PublicacionesController@listado');
+Route::post('Dispositivos/registra', 'api\DispositivosController@registra');

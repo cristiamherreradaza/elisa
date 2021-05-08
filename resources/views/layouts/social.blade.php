@@ -70,9 +70,10 @@
 							<div class="d-flex align-items-stretch mr-3">
 								<!--begin::Header Logo-->
 								<div class="header-logo">
+									<br>
 									<a href="index.html">
-										<img alt="Logo" src="{{ asset('assets/media/logos/logo-letter-9.png') }}" class="logo-default max-h-40px" />
-										<img alt="Logo" src="{{ asset('assets/media/logos/logo-letter-1.png') }}" class="logo-sticky max-h-40px" />
+										<img alt="Logo" src="{{ asset('assets/logoElisa.jpg') }}" class="logo-default max-h-40px" />
+										{{-- <img alt="Logo" src="{{ asset('assets/media/logos/logo-letter-1.png') }}" class="logo-sticky max-h-40px" /> --}}
 									</a>
 								</div>
 								<!--end::Header Logo-->
@@ -118,7 +119,7 @@
 									<!--begin::Heading-->
 									<div class="d-flex flex-column">
 										<!--begin::Title-->
-										<h2 class="text-white font-weight-bold my-2 mr-5">Dashboard</h2>
+										<h2 class="text-white font-weight-bold my-2 mr-5">Panel</h2>
 										<!--end::Title-->
 										<!--begin::Breadcrumb-->
 										<div class="d-flex align-items-center font-weight-bold my-2">
@@ -237,33 +238,42 @@
 											<div class="card-header">
 												<div class="card-title">
 													<h3 class="card-label">
-														Basic Card
-														<small>sub title</small>
+														CATEGORIAS
+														<small></small>
 													</h3>
 												</div>
 											</div>
 											<div class="card-body">
-												...
+												<button type="button" class="btn btn-primary">INICIO</button>
+												<p>&nbsp;</p>
+												<button type="button" class="btn btn-warning">DESAPARECIDOS</button>
+												<p>&nbsp;</p>
+												<button type="button" class="btn btn-info">MASCOTAS</button>
 											</div>
 										</div>
 									</div>
 
 									<div class="col-md-7">
+
 										<div class="row">
 											<div class="col-md-12">
 												<div class="card card-custom gutter-b">
 													<div class="card-header">
 														<div class="card-title">
 															<h3 class="card-label">
-																Basic Card
-																<small>sub title</small>
+																NOTICIA 3
+																{{-- <small>sub title</small> --}}
 															</h3>
 														</div>
 													</div>
 													<div class="card-body">
-														Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
-
-														Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
+														<center>
+															<img src="{{ asset('assets/2.png') }}" alt="" class="w-100">
+														</center>
+														<br />
+														Dos ciudadanas de nacionalidad argentina, que eran víctimas de una red de trata con fines de explotación
+														sexual,
+														volvieron el sábado 1 de mayo a su país, informó la fiscal departamental de Potosí, Roxana Choque.
 													</div>
 												</div>
 											</div>
@@ -275,15 +285,42 @@
 													<div class="card-header">
 														<div class="card-title">
 															<h3 class="card-label">
-																Basic Card
-																<small>sub title</small>
+																NOTICIA 2
+																{{-- <small>sub title</small> --}}
 															</h3>
 														</div>
 													</div>
 													<div class="card-body">
-														Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
+														<center>
+														<img src="{{ asset('assets/3.jpg') }}" alt="" class="w-100">
+														</center>
+														<br />
+														Dos ciudadanas de nacionalidad argentina, que eran víctimas de una red de trata con fines de explotación sexual,
+														volvieron el sábado 1 de mayo a su país, informó la fiscal departamental de Potosí, Roxana Choque.
+													</div>
+												</div>
+											</div>
+										</div>
 
-														Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
+										<div class="row">
+											<div class="col-md-12">
+												<div class="card card-custom gutter-b">
+													<div class="card-header">
+														<div class="card-title">
+															<h3 class="card-label">
+																NOTICIA 1
+																{{-- <small>sub title</small> --}}
+															</h3>
+														</div>
+													</div>
+													<div class="card-body">
+														<center>
+															<img src="{{ asset('assets/1.png') }}" alt="" class="w-100">
+														</center>
+														<br />
+														Dos ciudadanas de nacionalidad argentina, que eran víctimas de una red de trata con fines de explotación
+														sexual,
+														volvieron el sábado 1 de mayo a su país, informó la fiscal departamental de Potosí, Roxana Choque.
 													</div>
 												</div>
 											</div>

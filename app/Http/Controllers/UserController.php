@@ -27,15 +27,17 @@ class UserController extends Controller
         $usuarios = User::all();
         return Datatables::of($usuarios)
                 ->addColumn('action', function($usuarios){
-                    return '<button onclick="muestra(' . $usuarios->id . ')" class="btn btn-info" title="Ver detalle"><i class="fas fa-eye"></i></button>';
+                    return '<a href="#" class="btn btn-icon btn-warning btn-sm mr-2" onclick="edita('.$usuarios->id.')">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="elimina('.$usuarios->id.', '.$usuarios->name.')">
+                                <i class="flaticon2-delete"></i>
+                            </a>';
                 })->make(true);
     }
 
     public function nuevo()
     {
-        $sectores = Sector::all();
-        // dd($sectores);
-        
         return view('user.nuevo')->with(compact('usuarios'));        			
     }
 
@@ -73,5 +75,11 @@ class UserController extends Controller
 
         return redirect('User/listado');
 
+    }
+
+    public function edita(Request $request, $id)
+    {
+        $datosUsuario = User::findOrfail($id);
+        return view('user.nuevo')->with(compact('datosUsuario'));                   
     }
 }
