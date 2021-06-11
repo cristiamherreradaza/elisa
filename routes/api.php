@@ -21,3 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('Publicaciones/listado', 'api\PublicacionesController@listado');
 Route::post('Dispositivos/registra', 'api\DispositivosController@registra');
+
+// USUARIOS
+Route::post('User/registra', 'api\UserController@registra');
+Route::get('User/inicio', 'api\UserController@inicio');
+Route::post('User/familiares', 'api\UserController@familiares');
