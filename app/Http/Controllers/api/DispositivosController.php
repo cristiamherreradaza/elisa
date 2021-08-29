@@ -14,7 +14,7 @@ class DispositivosController extends Controller
         $dispositivo->user_id = 1;
         $dispositivo->nombre  = $request->nombre;
         $dispositivo->serie   = $request->serie;
-        echo $dispositivo->save();
+            echo $dispositivo->save();
 
         // return Dispositivo::all();
     }
