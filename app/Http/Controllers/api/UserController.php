@@ -36,6 +36,10 @@ class UserController extends Controller
 
         $usuarioId = $user->id;
 
-        return response()->json(['usuario' => $usuarioId]);
+        return response()->json([
+            'usuario' => $usuarioId,
+            'nombre' => $request->name,
+            'email' => $request->email
+        ]);
     }
 }
