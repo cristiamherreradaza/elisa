@@ -3,6 +3,9 @@
 @section('css')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 @endsection
+@section('metadatos')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
 
 @section('content')
 	<!--begin::Card-->
@@ -33,22 +36,49 @@
 			</div>
 		</div>
 		<div class="card-body">
+			<form  id="formulario-busqueda-usuarios">
+				@csrf
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label for="exampleInputPassword1">NOMBRE</label>
+							<input type="text" class="form-control" id="nombre" name="nombre" />
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+							<label for="exampleInputPassword1">CARNET</label>
+							<input type="text" class="form-control" id="ci" name="ci" />
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+							<label for="exampleInputPassword1">EMAIL</label>
+							<input type="text" class="form-control" id="email" name="email" />
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div class="form-group">
+							<label for="exampleInputPassword1">PERFIL</label>
+							<input type="text" class="form-control" id="perfil" name="perfil" />
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+							<p style="margin-top: 24px;"></p>
+							<button class="btn btn-success btn-block" type="button" onclick="buscaUsuario()" ><i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</form>
 			<!--begin: Datatable-->
-			<table class="table table-bordered table-hover table-striped" id="tabla_usuarios">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Nombre</th>
-						<th>Carnet</th>
-						<th>Email</th>
-						<th>Perfil</th>
-						<th>Celulares</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
+			<div class="table-responsive m-t-40" id="ajaxUser">
+
+			</div>
 			<!--end: Datatable-->
 		</div>
 	</div>
@@ -59,31 +89,75 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/pages/crud/datatables/basic/basic.js') }}"></script>
     <script type="text/javascript">
-    	$(document).ready(function() {
-    	    $('#tabla_usuarios').DataTable({
-				iDisplayLength: 10,
-				processing: true,
-				serverSide: true,
-				ajax: "{{ url('User/ajax_listado') }}",
-				"order": [[ 0, "desc" ]],
-				columns: [
-					{data: 'id', name: 'id'},
-					{data: 'name', name: 'name'},
-					{data: 'ci', name: 'ci'},
-					{data: 'email', name: 'email'},
-					{data: 'perfil', name: 'perfil'},
-					{data: 'celulares', name: 'celulares'},
-					{data: 'action'},
-				],
-                language: {
-                    url: '{{ asset('datatableEs.json') }}'
-                }
-            });
-    	} );
+		//Llamamamos a lista de ajax
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
 
-    	function edita(id)
-    	{
-    		window.location.href = "{{ url('User/edita') }}/"+id;
-    	}
+		$(function () {
+			// funcion para llamar a los datos iniciales de la tabla
+			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
+
+			$.ajax({
+				url: "{{ url('User/ajaxListado') }}",
+				data: datosBusquda,
+				type: 'POST',
+				success: function(data) {
+					$('#ajaxUser').html(data);
+				}
+			});
+    	});
+
+		function buscaUsuario(){
+
+			let datosBusqueda = $('#formulario-busqueda-usuarios').serializeArray();
+
+			$.ajax({
+				url: "{{ url('User/ajaxListado') }}",
+				data: datosBusqueda,
+				type: 'POST',
+				success: function(data) {
+					$('#ajaxUser').html(data);
+				}
+			});
+
+		}
+
+		function listaFamiliar(id){
+			window.location.href = "{{ url('User/listaFamiliar')}}/"+id;
+		}
+
+		function listaSector(id){
+			window.location.href = "{{ url('User/listaSector')}}/"+id;
+		}
+    	// $(document).ready(function() {
+    	//     $('#tabla_usuarios').DataTable({
+		// 		iDisplayLength: 10,
+		// 		processing: true,
+		// 		browser: false,
+		// 		serverSide: true,
+		// 		ajax: "{{ url('User/ajax_listado') }}",
+		// 		"order": [[ 0, "desc" ]],
+		// 		columns: [
+		// 			{data: 'id', name: 'id'},
+		// 			{data: 'name', name: 'name'},
+		// 			{data: 'ci', name: 'ci'},
+		// 			{data: 'email', name: 'email'},
+		// 			{data: 'perfil', name: 'perfil'},
+		// 			{data: 'celulares', name: 'celulares'},
+		// 			{data: 'action'},
+		// 		],
+        //         language: {
+        //             url: '{{ asset('datatableEs.json') }}'
+        //         }
+        //     });
+    	// } );
+
+    	// function edita(id)
+    	// {
+    	// 	window.location.href = "{{ url('User/edita') }}/"+id;
+    	// }
     </script>
 @endsection

@@ -34,12 +34,21 @@ Route::get('Social/inicio', 'SocialController@inicio');
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');
+Route::post('User/ajaxListado', 'UserController@ajaxlistado');
 Route::get('User/nuevo', 'UserController@nuevo');
 Route::post('User/ajaxDistrito', 'UserController@ajaxDistrito');
 Route::post('User/ajaxOtb', 'UserController@ajaxOtb');
 Route::post('User/guarda', 'UserController@guarda');
 Route::get('User/ajax_listado', 'UserController@ajax_listado');
 Route::get('User/edita/{id}', 'UserController@edita');
+Route::get('User/listaFamiliar/{user_id}', 'UserController@listaFamiliar');
+Route::post('User/ajaxBuscaUsuario', 'UserController@ajaxBuscaUsuario');
+Route::post('User/agregaFamiliar', 'UserController@agregaFamiliar');
+Route::get('User/listaSector/{user_id}', 'UserController@listaSector');
+Route::post('User/ajaxBuscaSector', 'UserController@ajaxBuscaSector');
+Route::post('User/agregaSector', 'UserController@agregaSector');
+
+
 
 // SECTORES
 Route::get('Sector/distritos', 'SectorController@distritos');

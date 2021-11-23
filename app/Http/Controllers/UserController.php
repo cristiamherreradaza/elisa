@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Sector;
 use DataTables;
+use App\Familiar;
+use App\Encargado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,7 +40,8 @@ class UserController extends Controller
 
     public function nuevo()
     {
-        return view('user.nuevo')->with(compact('usuarios'));        			
+        // return view('user.nuevo')->with(compact('usuarios'));        			
+        return view('user.nuevo');        			
     }
 
     public function ajaxDistrito(Request $request)
@@ -81,5 +84,106 @@ class UserController extends Controller
     {
         $datosUsuario = User::findOrfail($id);
         return view('user.nuevo')->with(compact('datosUsuario'));                   
+    }
+
+    public function ajaxlistado(Request $request){
+        // dd("En desarroolo :v");
+        
+        $userEjemplares = User::orderBy('id', 'desc');
+                            
+        if ($request->filled('nombre')) {
+            $nombre = $request->input('nombre');
+            $userEjemplares->where('name', 'like', "%$nombre%");
+        }
+
+        if ($request->filled('ci')) {
+            $ci = $request->input('ci');
+            $userEjemplares->where('ci', 'like', "%$ci%");
+        }
+
+        if ($request->filled('email')) {
+            $email = $request->input('email');
+            $userEjemplares->where('email', 'like', "%$email%");
+        }
+
+        if ($request->filled('perfil')) {
+            $perfil = $request->input('perfil');
+            $userEjemplares->where('perfils','like', "%$perfil%");
+        }
+
+        if ($request->filled('nombre') || $request->filled('ci') || $request->filled('email') || $request->filled('perfil')) {
+            $userEjemplares->limit(300);
+        }else{
+            $userEjemplares->limit(200);
+        }
+
+
+        $usuarios = $userEjemplares->get();
+        
+        return view('user.ajaxListado')->with(compact('usuarios'));
+    }
+    public function listaFamiliar(Request $request, $user_id){
+
+        $user = User::find($user_id);
+        
+        $parientes = Familiar::where('user_id',$user_id)->get();
+        // dd($parientes);
+
+        return view('user.listaFamiliar')->with(compact('parientes','user'));
+    }
+
+    public function ajaxBuscaUsuario(Request $request){
+        // dd($request->input('ci'));
+        // dd("en desaroolo");
+        $cedula = $request->input('ci');
+        $usuarios = User::where('ci','like',"%$cedula%")->take(5)->get();
+
+        return view('user.ajaxBuscaUsuario')->with(compact('usuarios'));
+    }
+
+    public function agregaFamiliar(Request $request){
+        // dd($request->all());
+        $familiar = new Familiar();
+
+        $familiar->user_id       = $request->input('user_id');
+        $familiar->pariente_id   = $request->input('familiar-agregar');
+        $familiar->relacion      = $request->input('relacion');
+
+        $familiar->save();
+
+        return redirect("User/listaFamiliar/".$familiar->user_id);
+    }
+
+    public function listaSector(Request $request, $user_id){
+        // dd("en desarrollo :v");
+        
+        $user = User::find($user_id);
+        
+        $encargados = Encargado::where('user_id',$user_id)->get();
+        // dd($parientes);
+
+        return view('user.listaSector')->with(compact('encargados','user'));
+    }
+
+    public function ajaxBuscaSector(Request $request){
+        
+        $nombre = $request->input('nombre');
+        $sectores = Sector::where('nombre','like',"%$nombre%")
+                            ->whereNotNull('padre_id')
+                            ->take(5)->get();
+
+        return view('user.ajaxBuscaSector')->with(compact('sectores'));
+    }
+
+    public function agregaSector(Request $request){
+
+        $encargado = new Encargado();
+
+        $encargado->user_id       = $request->input('user_id');
+        $encargado->sector_id   = $request->input('sector-agregar');
+
+        $encargado->save();
+
+        return redirect("User/listaSector/".$encargado->user_id);
     }
 }
