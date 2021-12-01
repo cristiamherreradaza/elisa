@@ -57,3 +57,6 @@ Route::get('Sector/elimina/{sector_id}', 'SectorController@elimina');
 Route::get('Sector/otbs/{distrito_id}', 'SectorController@otbs');
 Route::post('Sector/guardaOtb', 'SectorController@guardaOtb');
 Route::get('Sector/eliminaOtb/{otb_id}', 'SectorController@eliminaOtb');
+
+// LOCALIZACION
+Route::get('localizacion/mapa', 'LocalizacionController@mapa');
