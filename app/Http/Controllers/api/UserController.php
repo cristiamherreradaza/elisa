@@ -42,4 +42,13 @@ class UserController extends Controller
             'email' => $request->email
         ]);
     }
+
+    public function localizacion(Request $request){
+
+        $localizacion = new Localizacion();
+        $localizacion->user_id = $request->user_id;
+        $localizacion->latitud = $request->latitud;
+        $localizacion->longitud = $request->longitud;
+        $localizacion->save();
+    }
 }

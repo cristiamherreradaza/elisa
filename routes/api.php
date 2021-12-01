@@ -26,3 +26,6 @@ Route::post('Dispositivos/registra', 'api\DispositivosController@registra');
 Route::post('User/registra', 'api\UserController@registra');
 Route::get('User/inicio', 'api\UserController@inicio');
 Route::post('User/familiares', 'api\UserController@familiares');
+
+// LOCALIZACION
+Route::post('User/localizacion', 'api\UserController@localizacion');

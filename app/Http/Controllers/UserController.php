@@ -186,4 +186,6 @@ class UserController extends Controller
 
         return redirect("User/listaSector/".$encargado->user_id);
     }
+
+    
 }
