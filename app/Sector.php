@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sector extends Model
 {
-    protected $table = 'Sectores';
+    protected $table = 'sectores';
     use SoftDeletes;
 
     protected $fillable = [
