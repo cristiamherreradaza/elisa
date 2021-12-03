@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\User;
+use App\Localizacion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -43,8 +44,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function localizacion(Request $request){
-
+    public function localizacion(Request $request)
+    {
+        // se guarda la localizacion
         $localizacion = new Localizacion();
         $localizacion->user_id = $request->user_id;
         $localizacion->latitud = $request->latitud;
