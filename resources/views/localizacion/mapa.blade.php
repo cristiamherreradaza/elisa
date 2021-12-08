@@ -17,7 +17,7 @@
         </div>
         
     </div>
-    <div class="card-body">
+    <div class="card-body" id="cargaMapa">
         
         <div class="row">
           <div class="col-md-12">
@@ -58,9 +58,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDi5qf2KXyB7kq7BOO-i9bVUNaq-paBe3A&callback=initMap&v=weekly" async></script>
 <script type="text/javascript">
 
-    // let map, infoWindow;
-
-
 function initMap() {
   const myLatLng = { lat: {{ $ultimaLocalizacion->latitud }}, lng: {{ $ultimaLocalizacion->longitud }} };
   const map = new google.maps.Map(document.getElementById("map"), {
@@ -74,6 +71,22 @@ function initMap() {
     title: "Hello World!",
   });
 }
+
+    // let map, infoWindow;
+function loadlink(){
+    // initMap();
+    console.log('entro cada 5 segundos');
+    $("#cargaMapa").load("{{ url('localizacion/ajaxMapa') }}");
+}
+
+// loadlink(); // This will run on page load
+setInterval(function(){
+    loadlink() // this will run after every 5 seconds
+}, 15000);
+
+
+
+
 
 
 </script>

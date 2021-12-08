@@ -60,3 +60,4 @@ Route::get('Sector/eliminaOtb/{otb_id}', 'SectorController@eliminaOtb');
 
 // LOCALIZACION
 Route::get('localizacion/mapa', 'LocalizacionController@mapa');
+Route::get('localizacion/ajaxMapa', 'LocalizacionController@ajaxMapa');

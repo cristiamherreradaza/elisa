@@ -15,4 +15,13 @@ class LocalizacionController extends Controller
 
         return view('localizacion.mapa')->with(compact('localizaciones', 'ultimaLocalizacion'));
     }
+
+    public function ajaxMapa(){
+        $localizaciones = Localizacion::all();
+        $ultimaLocalizacion = Localizacion::latest()->first();
+        // dd($localizaciones);
+
+        return view('localizacion.ajaxMapa')->with(compact('localizaciones', 'ultimaLocalizacion'));
+        
+    }
 }
