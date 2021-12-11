@@ -33,7 +33,7 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDi5qf2KXyB7kq7BOO-i9bVUNaq-paBe3A&callback=initMap&v=weekly"
     async></script>
 <script type="text/javascript">
-    function initMap() {
+function initMap() {
   const myLatLng = { lat: {{ $ultimaLocalizacion->latitud }}, lng: {{ $ultimaLocalizacion->longitud }} };
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 16,

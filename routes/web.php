@@ -32,6 +32,9 @@ Route::get('Panel/inicio', 'PanelController@inicio');
 // RED SOCIAL
 Route::get('Social/inicio', 'SocialController@inicio');
 
+// RED SOCIAL
+Route::get('Social/muromobil', 'SocialController@muromobil');
+
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');
 Route::post('User/ajaxListado', 'UserController@ajaxlistado');

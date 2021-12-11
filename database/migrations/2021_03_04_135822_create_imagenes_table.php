@@ -17,7 +17,7 @@ class CreateImagenesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('publicacion_id')->nullable();
             $table->foreign('publicacion_id')->references('id')->on('publicaciones');
-            $table->string('imagnen', 150)->nullable();
+            $table->string('imagen', 150)->nullable();
             $table->string('estado', 30)->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();
