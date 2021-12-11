@@ -34,6 +34,7 @@ Route::get('Social/inicio', 'SocialController@inicio');
 
 // RED SOCIAL
 Route::get('Social/muromobil', 'SocialController@muromobil');
+Route::post('Social/guarda', 'SocialController@guarda');
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');

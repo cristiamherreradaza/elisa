@@ -14,8 +14,23 @@ class SocialController extends Controller
 
     public function muromobil()
     {
-        $publicaciones = Publicacion::all();
+        $publicaciones = Publicacion::orderBy('id', 'desc')
+                                    ->get();
 
         return view('social.muromobil')->with(compact('publicaciones'));
+    }
+
+    public function guarda(Request $request){
+
+        // dd($request->all());
+
+        $publicacion               = new Publicacion();
+        $publicacion->user_id      = 1;
+        $publicacion->categoria_id = 1;
+        $publicacion->contenido    = $request->input('contenido');
+        $publicacion->save();
+
+        return redirect("Social/muromobil");
+
     }
 }

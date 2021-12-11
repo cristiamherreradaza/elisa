@@ -54,7 +54,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="#" method="POST" id="formulario-padres">
+                                <form action="{{ url('Social/guarda') }}" method="POST" id="formulario-padres">
                                     @csrf
                                     <div class="row">
                 
@@ -62,7 +62,7 @@
                                             <div class="form-group">
                                                 <label for="kcb">CONTENIDO
                                                 </label>
-                                                <textarea class="form-control"> </textarea>
+                                                <textarea class="form-control" name="contenido"></textarea>
                                             </div>
                                         </div>
                 
@@ -73,12 +73,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
-                                <div class="row">
-                                    <div class="col-md-12" id="ajaxEjemplar">
-                
+                                    <br />
+                                    <div class="row">
+                                        <button type="submit" class="btn btn-success btn-block">GUARDAR</button>
                                     </div>
-                                </div>
+
+                                </form>
+                                
                             </div>
                         </div>
                     </div>
