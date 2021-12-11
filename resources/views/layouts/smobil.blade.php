@@ -68,17 +68,9 @@
                 
                                         <div class="col-md-12">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="archivo[]" id="customFile_1"
-                                                    onchange="showMyImage(this, 1)" />
+                                                <input type="file" class="custom-file-input" name="foto" id="customFile_1" />
                                                 <label class="custom-file-label" for="customFile">Elegir</label>
                                             </div>
-                                            {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
-                                            <img id="thumbnil_1" class="img-fluid" style="margin-top: 10px;" />
-                                            <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_1" style="display:none;"
-                                                onclick="mueveImagen(1)">Quitar Imagen
-                                            </button>
-                                        
-                                            {{-- <div id="drag-drop-area"></div> --}}
                                         </div>
                                     </div>
                                 </form>
