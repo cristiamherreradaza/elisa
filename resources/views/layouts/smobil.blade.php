@@ -48,7 +48,7 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">BUSQUEDA DE EJEMPLARES</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">NUEVA PUBLICACION</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <i aria-hidden="true" class="ki ki-close"></i>
                                 </button>
@@ -58,23 +58,27 @@
                                     @csrf
                                     <div class="row">
                 
-                                        <div class="col-md-4">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="kcb">KCB
+                                                <label for="kcb">CONTENIDO
                                                 </label>
-                                                <input type="hidden" name="sexo-modal" id="sexo-modal" value="todos">
-                                                <input type="text" class="form-control" id="busqueda-kcb" name="busqueda-kcb"
-                                                    autocomplete="off" />
+                                                <textarea class="form-control"> </textarea>
                                             </div>
                                         </div>
                 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label for="nombre">Nombre
-                                                </label>
-                                                <input type="text" class="form-control" id="busqueda-nombre" name="busqueda-nombre"
-                                                    autocomplete="off" />
+                                        <div class="col-md-12">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="archivo[]" id="customFile_1"
+                                                    onchange="showMyImage(this, 1)" />
+                                                <label class="custom-file-label" for="customFile">Elegir</label>
                                             </div>
+                                            {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
+                                            <img id="thumbnil_1" class="img-fluid" style="margin-top: 10px;" />
+                                            <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_1" style="display:none;"
+                                                onclick="mueveImagen(1)">Quitar Imagen
+                                            </button>
+                                        
+                                            {{-- <div id="drag-drop-area"></div> --}}
                                         </div>
                                     </div>
                                 </form>
