@@ -9,7 +9,12 @@ class SocialController extends Controller
 {
     public function inicio()
     {
-        return view('social.inicio');
+
+        $publicaciones = Publicacion::orderBy('id', 'desc')
+                                    ->get();
+
+        return view('social.inicio')->with(compact('publicaciones'));
+
     }
 
     public function muromobil()

@@ -255,74 +255,7 @@
 									<div class="col-md-7">
 
 										<div class="row">
-											<div class="col-md-12">
-												<div class="card card-custom gutter-b">
-													<div class="card-header">
-														<div class="card-title">
-															<h3 class="card-label">
-																NOTICIA 3
-																{{-- <small>sub title</small> --}}
-															</h3>
-														</div>
-													</div>
-													<div class="card-body">
-														<center>
-															<img src="{{ asset('assets/2.png') }}" alt="" class="w-100">
-														</center>
-														<br />
-														Dos ciudadanas de nacionalidad argentina, que eran víctimas de una red de trata con fines de explotación
-														sexual,
-														volvieron el sábado 1 de mayo a su país, informó la fiscal departamental de Potosí, Roxana Choque.
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-12">
-												<div class="card card-custom gutter-b">
-													<div class="card-header">
-														<div class="card-title">
-															<h3 class="card-label">
-																NOTICIA 2
-																{{-- <small>sub title</small> --}}
-															</h3>
-														</div>
-													</div>
-													<div class="card-body">
-														<center>
-														<img src="{{ asset('assets/3.jpg') }}" alt="" class="w-100">
-														</center>
-														<br />
-														Dos ciudadanas de nacionalidad argentina, que eran víctimas de una red de trata con fines de explotación sexual,
-														volvieron el sábado 1 de mayo a su país, informó la fiscal departamental de Potosí, Roxana Choque.
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-12">
-												<div class="card card-custom gutter-b">
-													<div class="card-header">
-														<div class="card-title">
-															<h3 class="card-label">
-																NOTICIA 1
-																{{-- <small>sub title</small> --}}
-															</h3>
-														</div>
-													</div>
-													<div class="card-body">
-														<center>
-															<img src="{{ asset('assets/1.png') }}" alt="" class="w-100">
-														</center>
-														<br />
-														Dos ciudadanas de nacionalidad argentina, que eran víctimas de una red de trata con fines de explotación
-														sexual,
-														volvieron el sábado 1 de mayo a su país, informó la fiscal departamental de Potosí, Roxana Choque.
-													</div>
-												</div>
-											</div>
+											@yield('content')
 										</div>
 										
 									</div>
