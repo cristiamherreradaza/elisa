@@ -96,7 +96,7 @@
                 <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     <!--begin::Subheader-->
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-4">
                             <button type="button" class="btn btn-success btn-block">INICIO</button>
                         </div>
@@ -106,7 +106,7 @@
                         <div class="col-md-4">
                             <button type="button" class="btn btn-secondary btn-block">MASCOTAS</button>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <br />
                     <div class="row">
