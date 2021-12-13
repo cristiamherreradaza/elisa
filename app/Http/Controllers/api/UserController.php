@@ -29,6 +29,12 @@ class UserController extends Controller
 
     public function registra(Request $request)
     {
+        $validateData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string',
+        ]);
+
         $user           = new User();
         $user->name     = $request->name;
         $user->email    = $request->email;
@@ -37,11 +43,37 @@ class UserController extends Controller
 
         $usuarioId = $user->id;
 
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         return response()->json([
             'usuario' => $usuarioId,
             'nombre' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'token' => $token,
+            'token_type' => 'Bearer'
         ]);
+    }
+
+    public function login(Request $request)
+    {
+        if(!Auth::attemp($request->only('email', 'password'))){
+            return response()->json([
+                'message' => "Usuario invalido",
+            ], 401);
+        }
+
+        $user = User::where('email', $request->email)->firstOrFail();
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'usuario'    => $user->id,
+            'nombre'     => $user->name,
+            'email'      => $user->email,
+            'token'      => $token,
+            'token_type' => 'Bearer'
+        ]);
+
     }
 
     public function localizacion(Request $request)

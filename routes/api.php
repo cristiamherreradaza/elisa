@@ -29,3 +29,4 @@ Route::post('User/familiares', 'api\UserController@familiares');
 
 // LOCALIZACION
 Route::post('User/localizacion', 'api\UserController@localizacion');
+Route::post('User/login', 'api\UserController@login');
