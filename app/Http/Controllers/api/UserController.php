@@ -63,7 +63,7 @@ class UserController extends Controller
             ], 401);
         }*/
 
-        $user = User::where('email', $request->email)->firstOrFail(); 
+        $user = User::where('email', $request->email)->first(); 
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             // throw ValidationException::withMessages([
