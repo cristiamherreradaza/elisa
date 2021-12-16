@@ -7,6 +7,7 @@ use App\Localizacion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -56,13 +57,22 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        if(!Auth::attemp($request->only('email', 'password'))){
+        /*if(!Auth::attemp($request->only('email', 'password'))){
             return response()->json([
                 'message' => "Usuario invalido",
             ], 401);
-        }
+        }*/
 
-        $user = User::where('email', $request->email)->firstOrFail();
+        $user = User::where('email', $request->email)->firstOrFail(); 
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            // throw ValidationException::withMessages([
+            //     'msg' => ['error.'],
+            // ]);
+            return response()->json([
+                'mensaje' => "error",
+            ], 401);
+        }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
