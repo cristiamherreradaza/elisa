@@ -30,8 +30,8 @@
 		<!--begin::Header Mobile-->
 		<div id="kt_header_mobile" class="header-mobile">
 			<!--begin::Logo-->
-			<a href="index.html">
-				<img alt="Logo" src="{{ asset('assets/media/logos/logo-letter-1.png') }}" class="logo-default max-h-30px" />
+			<a href="#">
+				<img alt="Logo" src="{{ asset('assets/logo_blanco.png') }}" class="logo-default max-h-30px" />
 			</a>
 			<!--end::Logo-->
 			<!--begin::Toolbar-->
@@ -56,13 +56,13 @@
 			<!--end::Toolbar-->
 		</div>
 		<!--end::Header Mobile-->
-		<div class="d-flex flex-column flex-root">
+		<div class="d-flex flex-column flex-root" style="background-image: url('{{ url('assets/fnd_elisa.jpg') }}'); background-repeat: no-repeat;background-attachment: fixed;">
 			<!--begin::Page-->
 			<div class="d-flex flex-row flex-column-fluid page">
 				<!--begin::Wrapper-->
-				<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+				<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper" >
 					<!--begin::Header-->
-					<div id="kt_header" class="header header-fixed">
+					<div id="kt_header" class="header header-fixed" style="background-color: #000;">
 						<!--begin::Container-->
 						<div class="container d-flex align-items-stretch justify-content-between">
 							<!--begin::Left-->
@@ -71,7 +71,7 @@
 								<div class="header-logo">
 									<br>
 									<a href="index.html">
-										<img alt="Logo" src="{{ asset('assets/logoElisa.jpg') }}" class="logo-default max-h-40px" />
+										<img alt="Logo" src="{{ asset('assets/logo_blanco.png') }}" class="logo-default max-h-40px" />
 										{{-- <img alt="Logo" src="{{ asset('assets/media/logos/logo-letter-1.png') }}" class="logo-sticky max-h-40px" /> --}}
 									</a>
 								</div>
@@ -111,164 +111,9 @@
 					<!--begin::Content-->
 					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 						<!--begin::Subheader-->
-						<div class="subheader py-2 py-lg-12 subheader-transparent" id="kt_subheader">
-							<div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-								<!--begin::Info-->
-								<div class="d-flex align-items-center flex-wrap mr-1">
-									<!--begin::Heading-->
-									<div class="d-flex flex-column">
-										<!--begin::Title-->
-										<h2 class="text-white font-weight-bold my-2 mr-5">Panel</h2>
-										<!--end::Title-->
-										<!--begin::Breadcrumb-->
-										<div class="d-flex align-items-center font-weight-bold my-2">
-											<!--begin::Item-->
-											<a href="#" class="opacity-75 hover-opacity-100">
-												<i class="flaticon2-shelter text-white icon-1x"></i>
-											</a>
-											<!--end::Item-->
-											<!--begin::Item-->
-											<span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
-											<a href="" class="text-white text-hover-white opacity-75 hover-opacity-100">Dashboard</a>
-											<!--end::Item-->
-											<!--begin::Item-->
-											<span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
-											<a href="" class="text-white text-hover-white opacity-75 hover-opacity-100">Latest Updated</a>
-											<!--end::Item-->
-										</div>
-										<!--end::Breadcrumb-->
-									</div>
-									<!--end::Heading-->
-								</div>
-								<!--end::Info-->
-								<!--begin::Toolbar-->
-								<div class="d-flex align-items-center">
-									<!--begin::Button-->
-									<a href="#" class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-2">Reports</a>
-									<!--end::Button-->
-									<!--begin::Dropdown-->
-									<div class="dropdown dropdown-inline ml-2" data-toggle="tooltip" title="Quick actions" data-placement="top">
-										<a href="#" class="btn btn-white font-weight-bold py-3 px-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
-										<div class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right">
-											<!--begin::Navigation-->
-											<ul class="navi navi-hover py-5">
-												<li class="navi-item">
-													<a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-drop"></i>
-														</span>
-														<span class="navi-text">New Group</span>
-													</a>
-												</li>
-												<li class="navi-item">
-													<a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-list-3"></i>
-														</span>
-														<span class="navi-text">Contacts</span>
-													</a>
-												</li>
-												<li class="navi-item">
-													<a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-rocket-1"></i>
-														</span>
-														<span class="navi-text">Groups</span>
-														<span class="navi-link-badge">
-															<span class="label label-light-primary label-inline font-weight-bold">new</span>
-														</span>
-													</a>
-												</li>
-												<li class="navi-item">
-													<a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-bell-2"></i>
-														</span>
-														<span class="navi-text">Calls</span>
-													</a>
-												</li>
-												<li class="navi-item">
-													<a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-gear"></i>
-														</span>
-														<span class="navi-text">Settings</span>
-													</a>
-												</li>
-												<li class="navi-separator my-3"></li>
-												<li class="navi-item">
-													<a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-magnifier-tool"></i>
-														</span>
-														<span class="navi-text">Help</span>
-													</a>
-												</li>
-												<li class="navi-item">
-													<a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-bell-2"></i>
-														</span>
-														<span class="navi-text">Privacy</span>
-														<span class="navi-link-badge">
-															<span class="label label-light-danger label-rounded font-weight-bold">5</span>
-														</span>
-													</a>
-												</li>
-											</ul>
-											<!--end::Navigation-->
-										</div>
-									</div>
-									<!--end::Dropdown-->
-								</div>
-								<!--end::Toolbar-->
-							</div>
-						</div>
-						<!--end::Subheader-->
-						<!--begin::Entry-->
-						<div class="d-flex flex-column-fluid">
-							<!--begin::Container-->
-							<div class="container">
-								<!--begin::Dashboard-->
-								<!--begin::Row-->
-								<div class="row">
-									<div class="col-md-3">
-										<div class="card card-custom gutter-b">
-											<div class="card-header">
-												<div class="card-title">
-													<h3 class="card-label">
-														CATEGORIAS
-														<small></small>
-													</h3>
-												</div>
-											</div>
-											<div class="card-body">
-												<button type="button" class="btn btn-primary">INICIO</button>
-												<p>&nbsp;</p>
-												<button type="button" class="btn btn-warning">DESAPARECIDOS</button>
-												<p>&nbsp;</p>
-												<button type="button" class="btn btn-info">MASCOTAS</button>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-md-7">
-
-										<div class="row">
-											@yield('content')
-										</div>
+						
+					@yield('content')
 										
-									</div>
-								</div>
-								
-								<!--end::Row-->
-							
-								<!--end::Dashboard-->
-							</div>
-							<!--end::Container-->
-						</div>
-						<!--end::Entry-->
-					</div>
 					<!--end::Content-->
 					<!--begin::Footer-->
 					<div class="footer bg-white py-4 d-flex flex-lg-column" id="kt_footer">
