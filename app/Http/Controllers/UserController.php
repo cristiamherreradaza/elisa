@@ -8,13 +8,30 @@ use DataTables;
 use App\Familiar;
 use App\Encargado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['verificaUser']]);
+
+    }
+
+    public function verificaUser(Request $request){
+        // dd($request->all());
+        $email = $request->input('email');
+        $password = $request->input('contrasenia');
+
+        if(Auth::attempt(['email' => $email, 'password' => $password])){
+            return 'Ustes esta logeado';
+            request()->session()->regenerate();
+        }
+        
+        return 'Ustes NO esta logeado';
+
     }
 
     public function listado()

@@ -25,6 +25,9 @@ Route::get('/', 'SocialController@inicio');
 
 Auth::routes();
 
+// Route::post('login', 'UserController@login');
+Route::post('User/verificaUser','UserController@verificaUser');
+
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
 Route::get('Panel/inicio', 'PanelController@inicio');

@@ -28,6 +28,47 @@
 	<body id="kt_body" style="background-image: url({{ asset('assets/media/bg/bg-10.jpg') }});background-repeat: no-repeat;" class="quick-panel-right demo-panel-right offcanvas-right header-fixed subheader-enabled page-loading">
 		<!--begin::Main-->
 		<!--begin::Header Mobile-->
+		<div class="modal fade" id="modal-publicacion" data-backdrop="static" tabindex="-1" role="dialog"
+			aria-labelledby="staticBackdrop" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">INISIO DE SESION</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<i aria-hidden="true" class="ki ki-close"></i>
+						</button>
+					</div>
+					<div class="modal-body">
+						{{-- <form method="POST" action="{{ route('login') }}"> --}}
+						<form method="POST" action="{{ url('User/verificaUser') }}">
+							@csrf
+							<div class="row">
+								<div class="col-md-12">
+									<label for="">Email</label>
+									<div class="form-group">
+										<input type="text" name="email" class="form-control" required>
+									</div>	
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label for="">Contraseña</label>
+									<div class="form-group">
+										<input type="password" name="contrasenia" class="form-control" required>
+									</div>	
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<button type="submit" class="btn btn-info btn-block">Login</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div id="kt_header_mobile" class="header-mobile">
 			<!--begin::Logo-->
 			<a href="#">
@@ -88,7 +129,8 @@
 								<div class="dropdown">
 									<!--begin::Toggle-->
 									<div class="topbar-item">
-										<a href="{{ url('login') }}" class="text-white">INGRESAR</a>
+										{{-- <a href="{{ url('login') }}" class="text-white">INGRESAR</a> --}}
+										<a onclick="inicio()" class="text-white">INGRESAR</a>
 {{--										<div class="btn btn-icon btn-hover-transparent-white d-flex align-items-center btn-lg px-md-2 w-md-auto" id="kt_quick_user_toggle">
 											<span class="text-white opacity-70 font-weight-bold font-size-base d-none d-md-inline mr-1"></span>
 											<span class="text-white opacity-90 font-weight-bolder font-size-base d-none d-md-inline mr-4"><a href="{{ url('login') }}" class="text-white">INGRESAR</a></span>
@@ -1229,3 +1271,10 @@
 	</body>
 	<!--end::Body-->
 </html>
+
+<script>
+	function inicio(){
+		// alert("En desarrollo :v");
+		$('#modal-publicacion').modal('show');
+	}
+</script>
