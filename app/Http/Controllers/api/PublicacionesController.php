@@ -14,4 +14,6 @@ class PublicacionesController extends Controller
         // dd($usuarios);
         return response()->json($usuarios);
     }
+
+    
 }

@@ -10,6 +10,8 @@ use App\Encargado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+
 
 class UserController extends Controller
 {
@@ -21,16 +23,21 @@ class UserController extends Controller
     }
 
     public function verificaUser(Request $request){
-        // dd($request->all());
         $email = $request->input('email');
+
         $password = $request->input('contrasenia');
 
-        if(Auth::attempt(['email' => $email, 'password' => $password])){
-            return 'Ustes esta logeado';
-            request()->session()->regenerate();
+        $user = User::where('email',$email)->first();
+
+        if($user && Hash::check($password,$user->password)){
+
+            $request->session()->put('user', $user);
+
         }
-        
-        return 'Ustes NO esta logeado';
+
+        // dd($request->session()->get('user'));
+
+        return redirect('/');
 
     }
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Imagen;
+use App\Categoria;
 use App\Publicacion;
 use Illuminate\Http\Request;
 
@@ -13,7 +15,9 @@ class SocialController extends Controller
         $publicaciones = Publicacion::orderBy('id', 'desc')
                                     ->get();
 
-        return view('social.inicio')->with(compact('publicaciones'));
+        $categorias = Categoria::all();
+
+        return view('social.inicio')->with(compact('publicaciones','categorias'));
 
     }
 
@@ -27,15 +31,35 @@ class SocialController extends Controller
 
     public function guarda(Request $request){
 
+        // dd($request->session()->get('user')->id);
         // dd($request->all());
 
         $publicacion               = new Publicacion();
-        $publicacion->user_id      = 1;
-        $publicacion->categoria_id = 1;
-        $publicacion->contenido    = $request->input('contenido');
+
+        $publicacion->user_id      = $request->session()->get('user')->id;
+        $publicacion->categoria_id = $request->input('categoria');
+        $publicacion->contenido    = $request->input('comentario');
+
         $publicacion->save();
 
-        return redirect("Social/muromobil");
+
+        $imagen = new Imagen();
+
+        $imagen->publicacion_id = $publicacion->id;
+        // $imagen->imagen         = $request->input('foto');
+        $nombrearchivo          = date('Ymd').'publicacion';
+
+        $foto                   = $request->input('foto');
+
+        $direccion              = 'img_publicaciones/';
+
+        $foto->move($direccion,$nombrearchivo);
+
+        $imagen->save();
+
+        // return redirect("Social/muromobil");
+
+        return redirect('/');
 
     }
 }

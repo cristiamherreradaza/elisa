@@ -3,6 +3,60 @@
 
 <!--end::Subheader-->
 <!--begin::Entry-->
+<style>
+    .pink-textarea textarea.md-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #f48fb1;
+  box-shadow: 0 1px 0 0 #f48fb1;
+}
+.active-pink-textarea.md-form label.active {
+  color: #f48fb1;
+}
+.active-pink-textarea.md-form textarea.md-textarea:focus:not([readonly])+label {
+  color: #f48fb1;
+}
+
+
+.amber-textarea textarea.md-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #ffa000;
+  box-shadow: 0 1px 0 0 #ffa000;
+}
+.active-amber-textarea.md-form label.active {
+  color: #ffa000;
+}
+.active-amber-textarea.md-form textarea.md-textarea:focus:not([readonly])+label {
+  color: #ffa000;
+}
+
+
+.active-pink-textarea-2 textarea.md-textarea {
+  border-bottom: 1px solid #f48fb1;
+  box-shadow: 0 1px 0 0 #f48fb1;
+}
+.active-pink-textarea-2.md-form label.active {
+  color: #f48fb1;
+}
+.active-pink-textarea-2.md-form label {
+  color: #f48fb1;
+}
+.active-pink-textarea-2.md-form textarea.md-textarea:focus:not([readonly])+label {
+  color: #f48fb1;
+}
+
+
+.active-amber-textarea-2 textarea.md-textarea {
+  border-bottom: 1px solid #ffa000;
+  box-shadow: 0 1px 0 0 #ffa000;
+}
+.active-amber-textarea-2.md-form label.active {
+  color: #ffa000;
+}
+.active-amber-textarea-2.md-form label {
+  color: #ffa000;
+}
+.active-amber-textarea-2.md-form textarea.md-textarea:focus:not([readonly])+label {
+  color: #ffa000;
+}
+</style>
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container">
@@ -15,6 +69,8 @@
 
         <!--begin::Row-->
         <div class="row" data-sticky-container>
+            {{-- @dd($publicaciones) --}}
+            {{ session()->get('user')}}
             {{-- lado izquierdo --}}
             
             <div class="col-md-3">
@@ -169,71 +225,124 @@
 
                 {{-- crea publicacion --}}
                 <div class="row" data-sticky-container>
-                    <div class="col-md-12">
-                        <div class="card card-custom gutter-b">
-                            <!--begin::Body-->
-                            <div class="card-body">
-                                <!--begin::Top-->
-                                <div class="d-flex align-items-center">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-40 symbol-light-success mr-5">
-                                        <span class="symbol-label">
-                                            <img src="assets/media/svg/avatars/007-boy-2.svg" class="h-75 align-self-end" alt="" />
-                                        </span>
+                    @if (session()->get('user'))
+                        {{-- modal registrar --}}
+
+                        <div class="modal fade" id="modal-publicacion-articulos" data-backdrop="static" tabindex="-1" role="dialog"
+                            aria-labelledby="staticBackdrop" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content ">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-center" id="exampleModalLabel">Crear publicación</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                        </button>
                                     </div>
-                                    <!--end::Symbol-->
-                                    <!--begin::Description-->
-                                    <span class="text-muted font-weight-bold font-size-lg">Que estas pensando, Cristiam?</span>
-                                    <!--end::Description-->
+                                    <div class="modal-body">
+                                        <div class="col-md-12">
+                                            <div class="card card-custom gutter-b">
+                                                <!--begin::Body-->
+                                                <div class="card-body">
+                                                    <!--begin::Top-->
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Symbol-->
+                                                        <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                            <span class="symbol-label">
+                                                                <img src="assets/media/svg/avatars/007-boy-2.svg" class="h-75 align-self-end" alt="" />
+                                                            </span>
+                                                        </div>
+                                                        <!--end::Symbol-->
+                                                        <!--begin::Description-->
+                                                        <span class="text-muted font-weight-bold font-size-lg">Que estas pensando, {{ session()->get('user')->name }}?</span>
+                                                        <!--end::Description-->
+                                                    </div>
+                                                    <!--end::Top-->
+                                                    <!--begin::Form-->
+                                                    <form method="POST" action="{{ url('Social/guarda') }}" id="kt_forms_widget_2_form" class="pt-10 ql-quil ql-quil-plain">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <select name="categoria" id="categoria" class="form-control">
+                                                                        @foreach ($categorias as $c)
+                                                                            <option value="{{ $c->id }}">{{ $c->nombre }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input name="foto" type="file" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+
+                                                        <!--Basic textarea-->
+                                                        <div class="md-form amber-textarea active-amber-textarea-2">
+                                                            <textarea name="comentario" id="comentario" class="md-textarea form-control" rows="3"></textarea>
+                                                            <label for="form16">Material textarea always colorful</label>
+                                                        </div>
+                                                        <br>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <button type="submit" class="btn btn-primary btn-block">Publicar</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <!--end::Form-->
+                                                </div>
+                                                <!--end::Body-->
+                                            </div>
+                                        </div> 
+                                    </div>
                                 </div>
-                                <!--end::Top-->
-                                <!--begin::Form-->
-                                <form id="kt_forms_widget_2_form" class="pt-10 ql-quil ql-quil-plain">
-                                    <!--begin::Editor-->
-                                    <div id="kt_forms_widget_2_editor"></div>
-                                    <!--end::Editor-->
-                                    <div class="border-top my-5"></div>
-                                    <!--begin::Toolbar-->
-                                    <div id="kt_forms_widget_2_editor_toolbar"
-                                        class="ql-toolbar d-flex align-items-center justify-content-between">
-                                        <div class="mr-2">
-                                            <span class="ql-formats ml-0">
-                                                <select class="ql-size w-75px">
-                                                    <option value="10px">Small</option>
-                                                    <option selected="selected">Normal</option>
-                                                    <option value="18px">Large</option>
-                                                    <option value="32px">Huge</option>
-                                                </select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-bold"></button>
-                                                <button class="ql-italic"></button>
-                                                <button class="ql-underline"></button>
-                                                <button class="ql-strike"></button>
-                                                <button class="ql-image"></button>
-                                                <button class="ql-link"></button>
-                                                <button class="ql-clean"></button>
-                                            </span>
-                                        </div>
-                                        <div class="">
-                                            <span class="btn btn-icon btn-sm btn-hover-icon-primary">
-                                                <i class="flaticon2-clip-symbol icon-ms"></i>
-                                            </span>
-                                            <span class="btn btn-icon btn-sm btn-hover-icon-primary">
-                                                <i class="flaticon2-pin icon-ms"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!--end::Toolbar-->
-                                </form>
-                                <!--end::Form-->
                             </div>
-                            <!--end::Body-->
                         </div>
-                    </div>
+
+                        {{-- end modal registrar --}}
+
+                        {{-- <a onclick="abre_modal()"> --}}
+                        <div class="col-md-12">
+                            <div class="card card-custom gutter-b">
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <!--begin::Top-->
+                                    <div class="d-flex align-items-center">
+                                        <!--begin::Symbol-->
+                                        <div class="symbol symbol-40 symbol-light-success mr-5">
+                                            <span class="symbol-label">
+                                                <img src="assets/media/svg/avatars/007-boy-2.svg" class="h-75 align-self-end" alt="" />
+                                            </span>
+                                        </div>
+                                        <!--end::Symbol-->
+                                        <!--begin::Description-->
+                                        <span class="text-muted font-weight-bold font-size-lg">Que estas pensando, {{ session()->get('user')->name }}?</span>
+                                        <!--end::Description-->
+                                    </div>
+                                    <!--end::Top-->
+                                    <!--begin::Form-->
+                                    <form id="kt_forms_widget_2_form" class="pt-10 ql-quil ql-quil-plain">
+                                        <!--begin::Editor-->
+                                        <input type="text" class="form-control" placeholder="Cuentanos que estas pensando..." onclick="abre_modal()">
+                                        <!--end::Editor-->
+                                        <div class="border-top my-5"></div>
+                                        <!--end::Toolbar-->
+                                    </form>
+                                    <!--end::Form-->
+                                </div>
+                                <!--end::Body-->
+                            </div>
+                        </div>      
+                        {{-- </a>                         --}}
+                    @else
+                        <button class="btn btn-block btn-primary">Registrarse</button>
+                        
+                    @endif
+                    
+
                 </div>
                 {{-- fin crea publicacion --}}
-                
+                <br>
                 <div class="row">
                    
                     <div class="col-md-12">
@@ -716,3 +825,10 @@
 @section('js')
 <script src="{{ url('assets/js/pages/features/miscellaneous/sticky-panels.js') }}"></script>
 @endsection
+
+<script>
+    function abre_modal(){
+        // alert("en desarrollo :v");
+        $('#modal-publicacion-articulos').modal('show');
+    }
+</script>

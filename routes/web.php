@@ -34,6 +34,8 @@ Route::get('Panel/inicio', 'PanelController@inicio');
 
 // RED SOCIAL
 Route::get('Social/inicio', 'SocialController@inicio');
+Route::post('Social/guarda', 'SocialController@guarda');
+
 
 // RED SOCIAL
 Route::get('Social/muromobil', 'SocialController@muromobil');
@@ -68,3 +70,5 @@ Route::get('Sector/eliminaOtb/{otb_id}', 'SectorController@eliminaOtb');
 // LOCALIZACION
 Route::get('localizacion/mapa', 'LocalizacionController@mapa');
 Route::get('localizacion/ajaxMapa', 'LocalizacionController@ajaxMapa');
+
+//PUBLICACIONES
