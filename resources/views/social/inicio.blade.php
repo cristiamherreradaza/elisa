@@ -226,9 +226,92 @@
                 {{-- crea publicacion --}}
                 <div class="row" data-sticky-container>
                     @if (session()->get('user'))
-                        {{-- modal registrar --}}
+                        {{-- modal registra publicacion --}}
 
                         <div class="modal fade" id="modal-publicacion-articulos" data-backdrop="static" tabindex="-1" role="dialog"
+                            aria-labelledby="staticBackdrop" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    
+                                    <div class="modal-body">
+                                        {{-- <form method="POST" action="{{ route('login') }}"> --}}
+                                        <form method="POST" action="{{ url('User/verificaUser') }}">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Symbol-->
+                                                        <div class="symbol symbol-40 symbol-light-success mr-5">
+                                                            <span class="symbol-label">
+                                                                <img src="assets/media/svg/avatars/007-boy-2.svg" class="h-75 align-self-end" alt="">
+                                                            </span>
+                                                        </div>
+                                                        <!--end::Symbol-->
+                                                        <!--begin::Description-->
+                                                        <span class="text-muted font-weight-bold font-size-lg">{{ session()->get('user')->name }}</span>
+                                                        <!--end::Description-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3>&nbsp;</h3>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="radio-inline">
+                                                            @foreach ($categorias as $c)
+                                                                <label class="radio">
+                                                                    <input type="radio" @if($loop->first) checked="checked" @endif name="radios3_1" />
+                                                                    <span></span>
+                                                                    {{ $c->nombre }}
+                                                                </label>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <textarea name="publiacion" class="form-control" rows="3" placeholder="Escribe aqui"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <form>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="archivo[]"
+                                                            id="customFile_1" onchange="showMyImage(this, 1)" />
+                                                        <label class="custom-file-label" for="customFile">Elegir</label>
+                                                    </div>
+                                                    {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
+                                                    <center>
+                                                    <img id="thumbnil_1" class="img-fluid" style="margin-top: 10px;" />
+                                                    </center>
+                                                    <button type="button" class="btn btn-danger mr-2 btn-block"
+                                                        id="btnRimg_1" style="display:none;"
+                                                        onclick="mueveImagen(1)">Quitar Imagen
+                                                    </button>
+
+                                                    {{-- <div id="drag-drop-area"></div> --}}
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button type="submit" class="btn btn-success btn-block">PUBLICAR</button>
+                                                </div>
+                                            </div>
+                                            </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="modal fade" id="modal-publicacion-articulos_2" data-backdrop="static" tabindex="-1" role="dialog"
                             aria-labelledby="staticBackdrop" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content ">
@@ -240,11 +323,10 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="col-md-12">
-                                            <div class="card card-custom gutter-b">
                                                 <!--begin::Body-->
                                                 <div class="card-body">
                                                     <!--begin::Top-->
-                                                    <div class="d-flex align-items-center">
+                                                    
                                                         <!--begin::Symbol-->
                                                         <div class="symbol symbol-40 symbol-light-success mr-5">
                                                             <span class="symbol-label">
@@ -255,7 +337,7 @@
                                                         <!--begin::Description-->
                                                         <span class="text-muted font-weight-bold font-size-lg">Que estas pensando, {{ session()->get('user')->name }}?</span>
                                                         <!--end::Description-->
-                                                    </div>
+                                                  
                                                     <!--end::Top-->
                                                     <!--begin::Form-->
                                                     <form method="POST" action="{{ url('Social/guarda') }}" id="kt_forms_widget_2_form" class="pt-10 ql-quil ql-quil-plain">
@@ -292,7 +374,7 @@
                                                     <!--end::Form-->
                                                 </div>
                                                 <!--end::Body-->
-                                            </div>
+                                            
                                         </div> 
                                     </div>
                                 </div>
@@ -830,5 +912,34 @@
     function abre_modal(){
         // alert("en desarrollo :v");
         $('#modal-publicacion-articulos').modal('show');
+    }
+
+    function showMyImage(fileInput, numero) {
+
+        var files = fileInput.files;
+        $("#btnRimg_"+numero).show();
+        console.log(numero);
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var imageType = /image.*/;
+            if (!file.type.match(imageType)) {
+                continue;
+            }
+            var img = document.getElementById("thumbnil_"+numero);
+            img.file = file;
+            var reader = new FileReader();
+            reader.onload = (function (aImg) {
+                return function (e) {
+                    aImg.src = e.target.result;
+                };
+            })(img);
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function mueveImagen(numero){
+        $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");
+        $("#customFile_"+numero).val('');
+        $("#btnRimg_1").hide();            
     }
 </script>
