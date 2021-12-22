@@ -71,4 +71,9 @@ Route::get('Sector/eliminaOtb/{otb_id}', 'SectorController@eliminaOtb');
 Route::get('localizacion/mapa', 'LocalizacionController@mapa');
 Route::get('localizacion/ajaxMapa', 'LocalizacionController@ajaxMapa');
 
-//PUBLICACIONES
+//CLIENTES
+Route::get('Cliente/listado', 'ClienteController@listado');
+Route::post('Cliente/guarda', 'ClienteController@guarda');
+Route::get('Cliente/elimina/{cliente_id}', 'ClienteController@elimina');
+
+
