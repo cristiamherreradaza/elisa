@@ -76,4 +76,7 @@ Route::get('Cliente/listado', 'ClienteController@listado');
 Route::post('Cliente/guarda', 'ClienteController@guarda');
 Route::get('Cliente/elimina/{cliente_id}', 'ClienteController@elimina');
 
+//PUBLICIDAD
+Route::post('Publicidad/guarda', 'PublicidadController@guarda');
+
 
