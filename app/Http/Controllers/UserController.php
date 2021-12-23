@@ -32,7 +32,6 @@ class UserController extends Controller
         if($user && Hash::check($password,$user->password)){
 
             $request->session()->put('user', $user);
-
         }
 
         // dd($request->session()->get('user'));

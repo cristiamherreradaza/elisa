@@ -35,27 +35,24 @@ class SocialController extends Controller
         // dd($request->all());
 
         $publicacion               = new Publicacion();
-
         $publicacion->user_id      = $request->session()->get('user')->id;
-        $publicacion->categoria_id = $request->input('categoria');
-        $publicacion->contenido    = $request->input('comentario');
+        $publicacion->categoria_id = $request->input('categoria_id');
+        $publicacion->contenido    = $request->input('publicacion');
 
         $publicacion->save();
 
+        if($request->has('archivo'))
+        {
+            $archivo = $request->file('archivo');
+            $direccion = 'img_publicaciones/'; // upload path
+            $nombreArchivo = date('YmdHis'). "." . $archivo->getClientOriginalExtension();
+            $archivo->move($direccion, $nombreArchivo);
 
-        $imagen = new Imagen();
-
-        $imagen->publicacion_id = $publicacion->id;
-        // $imagen->imagen         = $request->input('foto');
-        $nombrearchivo          = date('Ymd').'publicacion';
-
-        $foto                   = $request->input('foto');
-
-        $direccion              = 'img_publicaciones/';
-
-        $foto->move($direccion,$nombrearchivo);
-
-        $imagen->save();
+            $imagen = new Imagen();
+            $imagen->publicacion_id = $publicacion->id;
+            $imagen->imagen         = $nombreArchivo;
+            $imagen->save();
+        }
 
         // return redirect("Social/muromobil");
 
