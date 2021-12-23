@@ -118,7 +118,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <textarea name="publicacion" class="form-control" rows="3"
-                                                    placeholder="Escribe aqui"></textarea>
+                                                    placeholder="Escribe aqui" required></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                         <div class="col-md-12">
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input" name="archivo" id="customFile_1"
-                                                    onchange="showMyImage(this, 1)" />
+                                                    onchange="showMyImage(this, 1)" required />
                                                 <label class="custom-file-label" for="customFile">Elegir</label>
                                             </div>
                                             {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
