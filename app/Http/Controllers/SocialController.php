@@ -59,4 +59,14 @@ class SocialController extends Controller
         return redirect('/');
 
     }
+
+    public function ajaxPublicaciones(Request $request){
+
+        $publicaciones = Publicacion::orderBy('id', 'desc')
+                                    ->limit(20)
+                                    ->get();
+
+        return view('social.ajaxPublicaciones')->with(compact('publicaciones'));
+        
+    }
 }

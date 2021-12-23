@@ -35,7 +35,7 @@ Route::get('Panel/inicio', 'PanelController@inicio');
 // RED SOCIAL
 Route::get('Social/inicio', 'SocialController@inicio');
 Route::post('Social/guarda', 'SocialController@guarda');
-
+Route::get('Social/ajaxPublicaciones', 'SocialController@ajaxPublicaciones');
 
 // RED SOCIAL
 Route::get('Social/muromobil', 'SocialController@muromobil');

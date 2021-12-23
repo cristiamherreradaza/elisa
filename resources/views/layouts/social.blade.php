@@ -1264,15 +1264,18 @@
 		<script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
 		<!--end::Page Vendors-->
 		<!--begin::Page Scripts(used by this page)-->
-		<script src="{{ asset('assets/js/pages/widgets.js') }}"></script>
+		{{-- <script src="{{ asset('assets/js/pages/widgets.js') }}"></script> --}}
+		{{-- <script src="{{ asset('assets/js/pages/features/miscellaneous/sticky-panels.js') }}"></script> --}}
 		<!--end::Page Scripts-->
+		<script>
+			function inicio(){
+				// alert("En desarrollo :v");
+				$('#modal-publicacion').modal('show');
+			}
+		</script>
+
+		@section('js')
+		@show
 	</body>
 	<!--end::Body-->
 </html>
-
-<script>
-	function inicio(){
-		// alert("En desarrollo :v");
-		$('#modal-publicacion').modal('show');
-	}
-</script>

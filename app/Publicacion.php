@@ -18,4 +18,15 @@ class Publicacion extends Model
         'deleted_at',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo('App\Categoria', 'categoria_id');
+    }
+
+
 }
