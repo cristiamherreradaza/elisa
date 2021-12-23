@@ -11,6 +11,88 @@
 	<!--begin::Card-->
 	<div class="card card-custom gutter-b">
         <!-- Modal-->
+        <div class="modal fade" id="modal-publicicdad" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">AGREGAR PUBLICDAD <span class="text-primary"></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('Publicidad/guarda') }}" method="POST" id="formulario-permiso" enctype = "multipart/form-data">
+                            @csrf
+                            <input type="hidden" id="cliente_id" name="cliente_id" value="0">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Descripcion
+                                        <span class="text-danger">*</span></label>
+                                        <input type="text"  id="descripcion" name="descripcion" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="archivo[]"
+                                            id="customFile_1" onchange="showMyImage(this, 1)" />
+                                        <label class="custom-file-label" for="customFile">Elegir</label>
+                                    </div>
+                                    {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
+                                    <center>
+                                    <div style="width: 250px;">
+                                        <img id="thumbnil_1" class="img-fluid" style="margin-top: 10px;" width="80%" />
+                                    </div>
+                                    </center>
+                                    <br>
+                                    <button type="button" class="btn btn-danger mr-2 btn-block"
+                                        id="btnRimg_1" style="display:none;"
+                                        onclick="mueveImagen(1)">Quitar Imagen
+                                    </button>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Fecha Inicio
+                                        <span class="text-danger">*</span></label>
+                                        <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Fecha Fin
+                                        <span class="text-danger">*</span></label>
+                                        <input type="date" id="fecha_fin" name="fecha_fin" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Cantidad de publicaciones
+                                        <span class="text-danger">*</span></label>
+                                        <input type="number" id="cantidad_publicaciones" name="cantidad_publicaciones" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-block btn-success">Registrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- fin inicio modal  --}}
+
+        <!-- Modal-->
         <div class="modal fade" id="modal-nuevo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -159,6 +241,7 @@
                         <td>{{ $cli->direccion }}</td>
                         {{-- <td>{{ $cli->celulares }}</td> --}}
                         <td style="width: 10%">
+                            <button type="button" class='btn btn-success' onclick="publicidad('{{ $cli->id }}')"><i class="fas fa-landmark"></i></button>
                             <button type="button" class="btn btn-warning" onclick="editar('{{ $cli->id }}', '{{ $cli->nombre }}', '{{ $cli->contacto }}', '{{ $cli->telefonos }}', '{{ $cli->direccion }}')"><i class="fas fa-edit"></i></button>
                             <button type="button" class="btn btn-danger" onclick="eliminar('{{ $cli->id }}', '{{ $cli->nombre }}')"><i class="fas fa-trash"></i></button>
                         </td>
@@ -240,6 +323,41 @@
                     )
                 }
             });
+        }
+
+        function publicidad(id){
+            $('#cliente_id').val(id);
+            $('#modal-publicicdad').modal('show');
+            // alert(id);
+        }
+
+        function showMyImage(fileInput, numero) {
+
+            var files = fileInput.files;
+            $("#btnRimg_"+numero).show();
+            console.log(numero);
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var imageType = /image.*/;
+                if (!file.type.match(imageType)) {
+                    continue;
+                }
+                var img = document.getElementById("thumbnil_"+numero);
+                img.file = file;
+                var reader = new FileReader();
+                reader.onload = (function (aImg) {
+                    return function (e) {
+                        aImg.src = e.target.result;
+                    };
+                })(img);
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function mueveImagen(numero){
+            $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");
+            $("#customFile_"+numero).val('');
+            $("#btnRimg_1").hide();            
         }
 		// $(function () {
 		// 	// funcion para llamar a los datos iniciales de la tabla
