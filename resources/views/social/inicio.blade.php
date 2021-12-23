@@ -71,6 +71,10 @@
         <div class="row" data-sticky-container>
             {{-- @dd($publicaciones) --}}
             {{ session()->get('user')}}
+
+            @auth
+                dd(Auth::user());
+            @endauth
             {{-- lado izquierdo --}}
             
             <div class="col-md-3">
@@ -235,7 +239,7 @@
                                     
                                     <div class="modal-body">
                                         {{-- <form method="POST" action="{{ route('login') }}"> --}}
-                                        <form method="POST" action="{{ url('User/verificaUser') }}">
+                                        <form method="POST" action="{{ url('Social/guarda') }}" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -261,7 +265,7 @@
                                                         <div class="radio-inline">
                                                             @foreach ($categorias as $c)
                                                                 <label class="radio">
-                                                                    <input type="radio" @if($loop->first) checked="checked" @endif name="radios3_1" />
+                                                                    <input type="radio" @if($loop->first) checked="checked" @endif name="categoria_id" value="{{ $c->id }}" />
                                                                     <span></span>
                                                                     {{ $c->nombre }}
                                                                 </label>
@@ -274,15 +278,14 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <textarea name="publiacion" class="form-control" rows="3" placeholder="Escribe aqui"></textarea>
+                                                        <textarea name="publicacion" class="form-control" rows="3" placeholder="Escribe aqui"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" name="archivo[]"
+                                                        <input type="file" class="custom-file-input" name="archivo"
                                                             id="customFile_1" onchange="showMyImage(this, 1)" />
                                                         <label class="custom-file-label" for="customFile">Elegir</label>
                                                     </div>
@@ -295,13 +298,17 @@
                                                         onclick="mueveImagen(1)">Quitar Imagen
                                                     </button>
 
-                                                    {{-- <div id="drag-drop-area"></div> --}}
+                                                    <h3>&nbsp;</h3>
                                                 </div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <button type="submit" class="btn btn-success btn-block">PUBLICAR</button>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <button type="button" class="btn btn-light-dark font-weight-bold btn-block" data-dismiss="modal">CERRAR</button>
                                                 </div>
                                             </div>
                                             </form>
@@ -918,7 +925,7 @@
 
         var files = fileInput.files;
         $("#btnRimg_"+numero).show();
-        console.log(numero);
+        // console.log(numero);
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
             var imageType = /image.*/;
