@@ -112,61 +112,104 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span>24 Comments</a>
-                    </div>
-                    <!--end::Action-->
-                    <!--begin::Item-->
-                    <div class="d-flex pt-5">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5 mt-1">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="">
                             </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Info-->
-                        <div class="d-flex flex-column flex-row-fluid">
-                            <!--begin::Info-->
-                            <div class="d-flex align-items-center flex-wrap">
-                                <a href="#"
-                                    class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder pr-6">Mr.
-                                    Anderson</a>
-                                <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">1 Day ago</span>
-                                <span class="text-muted font-weight-normal font-size-sm">Reply</span>
-                            </div>
-                            <span class="text-dark-75 font-size-sm font-weight-normal pt-1">Long before you sit dow to
-                                put
-                                digital pen to paper you need to make sure you have to sit down and write.</span>
-                            <!--end::Info-->
-                        </div>
-                        <!--end::Info-->
+                            @php
+                                $coments = App\Comentario::where('publicacion_id',$p->id)->count();
+                                if($coments != 0){
+                                    echo $coments.' Comentarios';
+                                }else{
+                                    echo  'Se el primero en comentar';
+                                }
+                            @endphp
+                            {{-- 24 Comments --}}
+                        </a>
                     </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="d-flex pt-6">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-40 symbol-light-success mr-5 mt-1">
-                            <span class="symbol-label">
-                                <img src="assets/media/svg/avatars/003-girl-1.svg" class="h-75 align-self-end" alt="">
-                            </span>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Info-->
-                        <div class="d-flex flex-column flex-row-fluid">
-                            <!--begin::Info-->
-                            <div class="d-flex align-items-center flex-wrap">
-                                <a href="#"
-                                    class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder pr-6">Mrs.
-                                    Anderson</a>
-                                <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">2 Days ago</span>
-                                <span class="text-muted font-weight-normal font-size-sm">Reply</span>
+
+                    <div id="block-coments{{ $p->id }}">
+                        @php
+                            $coments = App\Comentario::where('publicacion_id',$p->id)
+                                                    ->limit(3)
+                                                    ->orderBy('id', 'desc')
+                                                    ->get();
+                        @endphp
+                        @foreach ($coments as $co)
+                            <div class="d-flex pt-5">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40 symbol-light-success mr-5 mt-1">
+                                    <span class="symbol-label">
+                                        <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="">
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Info-->
+                                <div class="d-flex flex-column flex-row-fluid">
+                                    <!--begin::Info-->
+                                    <div class="d-flex align-items-center flex-wrap">
+                                        <a href="#"
+                                            class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder pr-6">{{ $co->usuario->name }}</a>
+                                        <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">{{ $co->created_at }}</span>
+                                        <span class="text-muted font-weight-normal font-size-sm">Reply</span>
+                                    </div>
+                                    <span class="text-dark-75 font-size-sm font-weight-normal pt-1">{{ $co->comentario }}</span>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Info-->
+                            </div>    
+                        @endforeach
+                        <!--end::Action-->
+                        <!--begin::Item-->
+                        {{-- <div class="d-flex pt-5">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40 symbol-light-success mr-5 mt-1">
+                                <span class="symbol-label">
+                                    <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="">
+                                </span>
                             </div>
-                            <span class="text-dark-75 font-size-sm font-weight-normal pt-1">Long before you sit down to
-                                put
-                                digital pen to paper</span>
+                            <!--end::Symbol-->
+                            <!--begin::Info-->
+                            <div class="d-flex flex-column flex-row-fluid">
+                                <!--begin::Info-->
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <a href="#"
+                                        class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder pr-6">Mr.
+                                        Anderson</a>
+                                    <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">1 Day ago</span>
+                                    <span class="text-muted font-weight-normal font-size-sm">Reply</span>
+                                </div>
+                                <span class="text-dark-75 font-size-sm font-weight-normal pt-1">Long before you sit dow to
+                                    put
+                                    digital pen to paper you need to make sure you have to sit down and write.</span>
+                                <!--end::Info-->
+                            </div>
                             <!--end::Info-->
-                        </div>
-                        <!--end::Info-->
+                        </div> --}}
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        {{-- <div class="d-flex pt-6">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40 symbol-light-success mr-5 mt-1">
+                                <span class="symbol-label">
+                                    <img src="assets/media/svg/avatars/003-girl-1.svg" class="h-75 align-self-end" alt="">
+                                </span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Info-->
+                            <div class="d-flex flex-column flex-row-fluid">
+                                <!--begin::Info-->
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <a href="#"
+                                        class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder pr-6">Mrs.
+                                        Anderson</a>
+                                    <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">2 Days ago</span>
+                                    <span class="text-muted font-weight-normal font-size-sm">Reply</span>
+                                </div>
+                                <span class="text-dark-75 font-size-sm font-weight-normal pt-1">Long before you sit down to
+                                    put
+                                    digital pen to paper</span>
+                                <!--end::Info-->
+                            </div>
+                            <!--end::Info-->
+                        </div> --}}
                     </div>
                     <!--end::Item-->
                 </div>
@@ -176,11 +219,13 @@
                 <!--end::Separator-->
                 <!--begin::Editor-->
                 <form class="position-relative">
-                    <textarea id="kt_forms_widget_11_input" class="form-control border-0 p-0 pr-10 resize-none" rows="1"
-                        placeholder="Any Question?"
+                    @csrf
+                    {{-- <input type="text" name="publicacion_id" value="{{ $p->id }}"> --}}
+                    <textarea id="kt_forms_widget_11_input{{ $p->id }}" class="form-control border-0 p-0 pr-10 resize-none" rows="1"
+                        placeholder="Escribe un comentario..."
                         style="overflow: hidden; overflow-wrap: break-word; height: 20px;"></textarea>
                     <div class="position-absolute top-0 right-0 mt-n1 mr-n2">
-                        <span class="btn btn-icon btn-sm btn-hover-icon-primary">
+                        <span class="btn btn-icon btn-sm btn-hover-icon-primary" onclick="addComent({{ $p->id }})">
                             <i class="flaticon2-clip-symbol icon-ms"></i>
                         </span>
                     </div>

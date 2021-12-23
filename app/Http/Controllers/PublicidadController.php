@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
 use App\Publicidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,5 +42,14 @@ class PublicidadController extends Controller
 
         return redirect('Cliente/listado');
         
+    }
+
+    public function listado(Request $request, $cliente_id){
+        // dd($cliente_id);
+        $publicidades = Publicidad::where('cliente_id',$cliente_id)->get();
+
+        $cliente = Cliente::find($cliente_id);
+
+        return view('publicidad.listado')->with(compact('publicidades','cliente'));
     }
 }

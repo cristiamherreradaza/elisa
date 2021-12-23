@@ -40,6 +40,7 @@ Route::get('Social/ajaxPublicaciones', 'SocialController@ajaxPublicaciones');
 // RED SOCIAL
 Route::get('Social/muromobil', 'SocialController@muromobil');
 Route::post('Social/guarda', 'SocialController@guarda');
+Route::get('Social/addComent', 'SocialController@addComent');
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');
@@ -78,5 +79,6 @@ Route::get('Cliente/elimina/{cliente_id}', 'ClienteController@elimina');
 
 //PUBLICIDAD
 Route::post('Publicidad/guarda', 'PublicidadController@guarda');
+Route::get('Publicidad/listado/{cliente_id}', 'PublicidadController@listado');
 
 

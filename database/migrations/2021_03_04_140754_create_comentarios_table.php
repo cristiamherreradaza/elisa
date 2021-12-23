@@ -17,6 +17,8 @@ class CreateComentariosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('publicacion_id')->nullable();
             $table->foreign('publicacion_id')->references('id')->on('publicaciones');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('comentario', 255)->nullable();
             $table->string('estado', 30)->nullable();
             $table->datetime('deleted_at')->nullable();

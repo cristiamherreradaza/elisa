@@ -1,4 +1,7 @@
 @extends('layouts.social')
+@section('metadatos')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
 @section('content')
 
 <!--end::Subheader-->
@@ -520,6 +523,7 @@
                                 <!--end::Separator-->
                                 <!--begin::Editor-->
                                 <form class="position-relative">
+                                    @csrf
                                     <textarea id="kt_forms_widget_4_input"
                                         class="form-control border-0 p-0 pr-10 resize-none" rows="1"
                                         placeholder="Reply..."></textarea>
@@ -540,34 +544,8 @@
                     </div>
 
                     <div class="col-md-12">
-                        
-                        
 
                     </div>
-                    @foreach ($publicaciones as $p)
-                    <div class="col-md-12">
-
-
-                        <div class="card card-custom gutter-b">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <h3 class="card-label">
-                                        GENERAL
-                                        {{-- <small>sub title</small> --}}
-                                    </h3>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <center>
-                                    <img src="{{ asset('assets/2.png') }}" alt="" class="w-100">
-                                </center>
-                                <br />
-                                {{ $p->contenido }}
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-
                 </div>
 
             </div>
@@ -608,7 +586,12 @@
 
 @section('js')
 
-<script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     /*$(document).ready(function() {
         console.log( "ready!" );
@@ -663,6 +646,25 @@
             $("#formulario-publicacion")[0].reportValidity();
         }
     }
+
+    function addComent(coment_id){
+        // alert("en desarrollo :v");
+        var coment = $('#kt_forms_widget_11_input'+coment_id).val();
+        // alert(coment);
+        $.ajax({
+            url: "{{ url('Social/addComent') }}",
+            data: {coment: coment,
+                    publicacion_id: coment_id,    
+            },
+            type: 'GET',
+            success: function(data) {
+                $('#block-coments'+coment_id).html(data);
+                $('#kt_forms_widget_11_input'+coment_id).val('')
+            }
+        });
+    }
+
+    
 
 </script>
 @endsection

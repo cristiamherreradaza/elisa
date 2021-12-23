@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imagen;
 use App\Categoria;
+use App\Comentario;
 use App\Publicacion;
 use Illuminate\Http\Request;
 
@@ -68,5 +69,22 @@ class SocialController extends Controller
 
         return view('social.ajaxPublicaciones')->with(compact('publicaciones'));
         
+    }
+
+    public function addComent(Request $request){        
+        // dd($request->input('coment'));
+        // dd($request->all());
+        $coment =  new Comentario();
+
+        $coment->publicacion_id = $request->input('publicacion_id');
+        $coment->user_id        = $request->session()->get('user')->id;
+        $coment->comentario     =  $request->input('coment');
+
+        $coment->save();
+
+        $coments = Comentario::where('publicacion_id',$request->input('publicacion_id'))->orderBy('id','desc')->get();
+
+        return view('social.ajaxComent')->with(compact('coments'));
+
     }
 }

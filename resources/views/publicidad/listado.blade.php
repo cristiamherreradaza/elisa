@@ -155,11 +155,11 @@
 
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">Listado de Cleintes
+				<h3 class="card-label">Listado de Publiciades del CLiente de <span class="text-primary"> <b> {{ $cliente->nombre }}</b></span>
 				</h3>
 			</div>
 			<div class="card-toolbar">
-				<!--begin::Button-->
+				{{-- <!--begin::Button-->
 				<a onclick="nuevoCliente()" class="btn btn-primary font-weight-bolder">
 					<span class="svg-icon svg-icon-md">
 						<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
@@ -175,77 +175,33 @@
 						</svg>
 						<!--end::Svg Icon-->
 					</span>Nuevo Cliente</a>
-				<!--end::Button-->
+				<!--end::Button--> --}}
 			</div>
 		</div>
 		<div class="card-body">
-			{{-- <form  id="formulario-busqueda-usuarios">
-				@csrf
-				<div class="row">
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="exampleInputPassword1">NOMBRE</label>
-							<input type="text" class="form-control" id="nombre" name="nombre" />
-						</div>
-					</div>
-
-					<div class="col-md-2">
-						<div class="form-group">
-							<label for="exampleInputPassword1">CARNET</label>
-							<input type="text" class="form-control" id="ci" name="ci" />
-						</div>
-					</div>
-
-					<div class="col-md-2">
-						<div class="form-group">
-							<label for="exampleInputPassword1">EMAIL</label>
-							<input type="text" class="form-control" id="email" name="email" />
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="exampleInputPassword1">PERFIL</label>
-							<input type="text" class="form-control" id="perfil" name="perfil" />
-						</div>
-					</div>
-
-					<div class="col-md-2">
-						<div class="form-group">
-							<p style="margin-top: 24px;"></p>
-							<button class="btn btn-success btn-block" type="button" onclick="buscaUsuario()" ><i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</form> --}}
-			<!--begin: Datatable-->
 			<table class="table table-bordered table-hover table-striped" id="tabla_criaderos">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>NOMBRE</th>
-                        <th>CONTACTO</th>
-                        <th>TELEFONOS</th>
-                        <th>DIRECCION</th>
+                        <th>DESCRIPCION</th>
+                        <th>FECHA DE INICIO</th>
+                        <th>FECHA FIN</th>
+                        <th>CANTIDAD DE PUBLICACIONES</th>
+                        <th>PUBLICACIONES</th>
                         {{-- <th>Criaderos</th> --}}
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($clientes as $cli)
+                    @forelse ($publicidades as $pu)
                     <tr>
-                        <td>{{ $cli->id }}</td>
-                        <td>{{ $cli->nombre }}</td>
-                        <td>{{ $cli->contacto }}</td>
-                        <td>{{ $cli->telefonos }}</td>
-                        <td>{{ $cli->direccion }}</td>
-                        {{-- <td>{{ $cli->celulares }}</td> --}}
-                        <td style="width: 10%">
-                            <button type="button" class='btn btn-info' onclick="publicidades('{{ $cli->id }}')"><i class="fas fa-eye"></i></button>
-                            <button type="button" class='btn btn-success' onclick="publicidad('{{ $cli->id }}')"><i class="fas fa-landmark"></i></button>
-                            <button type="button" class="btn btn-warning" onclick="editar('{{ $cli->id }}', '{{ $cli->nombre }}', '{{ $cli->contacto }}', '{{ $cli->telefonos }}', '{{ $cli->direccion }}')"><i class="fas fa-edit"></i></button>
-                            <button type="button" class="btn btn-danger" onclick="eliminar('{{ $cli->id }}', '{{ $cli->nombre }}')"><i class="fas fa-trash"></i></button>
-                        </td>
+                        <td>{{ $pu->id }}</td>
+                        <td>{{ $pu->descripcion }}</td>
+                        <td>{{ $pu->fecha_inicio }}</td>
+                        <td>{{ $pu->fecha_fin }}</td>
+                        <td>{{ $pu->cantidad_publicaciones }}</td>
+                        <td>{{ $pu->publicaciones }}</td>
+                        <td></td>
                     </tr>
                     @empty
                     <h3 class="text-danger">NO EXISTEN DATOS</h3>
@@ -360,44 +316,6 @@
             $("#customFile_"+numero).val('');
             $("#btnRimg_1").hide();            
         }
-        function publicidades(id){
-            window.location.href = "{{ url('Publicidad/listado')}}/"+id;
-        }
-		// $(function () {
-		// 	// funcion para llamar a los datos iniciales de la tabla
-		// 	let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
-
-		// 	$.ajax({
-		// 		url: "{{ url('User/ajaxListado') }}",
-		// 		data: datosBusquda,
-		// 		type: 'POST',
-		// 		success: function(data) {
-		// 			$('#ajaxUser').html(data);
-		// 		}
-		// 	});
-    	// });
-
-		// function buscaUsuario(){
-
-		// 	let datosBusqueda = $('#formulario-busqueda-usuarios').serializeArray();
-
-		// 	$.ajax({
-		// 		url: "{{ url('User/ajaxListado') }}",
-		// 		data: datosBusqueda,
-		// 		type: 'POST',
-		// 		success: function(data) {
-		// 			$('#ajaxUser').html(data);
-		// 		}
-		// 	});
-
-		// }
-
-		// function listaFamiliar(id){
-		// 	window.location.href = "{{ url('User/listaFamiliar')}}/"+id;
-		// }
-
-		// function listaSector(id){
-		// 	window.location.href = "{{ url('User/listaSector')}}/"+id;
-		// }
+		
     </script>
 @endsection
