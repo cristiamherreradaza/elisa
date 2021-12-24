@@ -558,16 +558,45 @@
 
                 <div class="card card-custom sticky" data-sticky="true" data-margin-top="90" data-sticky-for="1023"
                     data-sticky-class="stickyjs">
-                        
                        <div class="alert mb-5 p-5" role="alert">
                             <h4 class="alert-heading">PUBLICIDAD</h4>
+                            @php
+                                 $fotos = App\Publicidad::all();
+                                $cantFotos = App\Publicidad::count();
+                                
+                                $ran = rand(0,($cantFotos-1));
 
+                                $arrayShow = array();
+
+                                while(in_array($ran, $arrayShow)){
+                                    $ran = rand(0,($cantFotos-1));
+                                }
+                                array_push($arrayShow,$ran);
+                            @endphp
                             <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
-                                style="background-image: url(assets/media/stock-600x400/img-39.jpg)"></div>
-                            
+                                style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
+                            </div>
+                            @php
+                                while(in_array($ran, $arrayShow)){
+                                    $ran = rand(0,($cantFotos-1));
+                                }
+                                array_push($arrayShow,$ran);
+                            @endphp
+                            <br>
+                            <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
+                                style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
+                            </div>
+                            @php                            
+                                while(in_array($ran, $arrayShow)){
+                                    $ran = rand(0,($cantFotos-1));
+                                }
+                                array_push($arrayShow,$ran);
+                            @endphp
+                            <br>
+                            <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
+                                style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
+                            </div>
                         </div>
-                            
-
                 </div>
             </div>
 

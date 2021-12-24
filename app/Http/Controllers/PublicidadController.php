@@ -36,7 +36,6 @@ class PublicidadController extends Controller
         $publicidad->fecha_inicio               = $request->input('fecha_inicio');
         $publicidad->fecha_fin                  = $request->input('fecha_fin');
         $publicidad->cantidad_publicaciones     = $request->input('cantidad_publicaciones');
-        $publicidad->estado                     = "null";
 
         $publicidad->save();
 
