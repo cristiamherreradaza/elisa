@@ -220,7 +220,6 @@
                 <!--begin::Editor-->
                 <form class="position-relative">
                     @csrf
-                    {{-- <input type="text" name="publicacion_id" value="{{ $p->id }}"> --}}
                     <textarea id="kt_forms_widget_11_input{{ $p->id }}" class="form-control border-0 p-0 pr-10 resize-none" rows="1"
                         placeholder="Escribe un comentario..."
                         style="overflow: hidden; overflow-wrap: break-word; height: 20px;"></textarea>
