@@ -82,7 +82,40 @@ class SocialController extends Controller
 
         $coment->save();
 
-        $coments = Comentario::where('publicacion_id',$request->input('publicacion_id'))->orderBy('id','desc')->get();
+        $coments = Comentario::where('publicacion_id',$request->input('publicacion_id'))
+                            ->limit(3)
+                            ->orderBy('id','desc')
+                            ->get();
+
+        return view('social.ajaxComent')->with(compact('coments'));
+
+    }
+
+    public function editComent(Request $request){
+
+        $coment = Comentario::find($request->input('coment_id'));
+
+        $coment->comentario = $request->input('coment');
+
+        $coment->save();
+
+        $coments = Comentario::where('publicacion_id',$request->input('publicacion_id'))
+                            ->limit(3)
+                            ->orderBy('id','desc')
+                            ->get();
+
+        return view('social.ajaxComent')->with(compact('coments'));
+    }
+
+    public function deleteComent(Request $request){
+        // dd($request->all());
+
+        Comentario::destroy($request->input('coment_id'));
+
+        $coments = Comentario::where('publicacion_id',$request->input('publicacion_id'))
+                            ->limit(3)
+                            ->orderBy('id','desc')
+                            ->get();
 
         return view('social.ajaxComent')->with(compact('coments'));
 

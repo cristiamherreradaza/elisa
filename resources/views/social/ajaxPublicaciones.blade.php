@@ -128,7 +128,7 @@
                     <div id="block-coments{{ $p->id }}">
                         @php
                             $coments = App\Comentario::where('publicacion_id',$p->id)
-                                                    ->limit(3)
+                                                    ->limit(2)
                                                     ->orderBy('id', 'desc')
                                                     ->get();
                         @endphp
@@ -148,7 +148,9 @@
                                         <a href="#"
                                             class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder pr-6">{{ $co->usuario->name }}</a>
                                         <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">{{ $co->created_at }}</span>
-                                        <span class="text-muted font-weight-normal font-size-sm">Reply</span>
+                                        @if (session()->get('user')->id == $co->user_id)
+                                            <button class="btn" onclick="editComent('{{ $p->id }}','{{ $co->id }}','{{ $co->comentario }}')"><span class="text-muted font-weight-normal font-size-sm">Edit</span></button>
+                                        @endif
                                     </div>
                                     <span class="text-dark-75 font-size-sm font-weight-normal pt-1">{{ $co->comentario }}</span>
                                     <!--end::Info-->
@@ -225,7 +227,7 @@
                         style="overflow: hidden; overflow-wrap: break-word; height: 20px;"></textarea>
                     <div class="position-absolute top-0 right-0 mt-n1 mr-n2">
                         <span class="btn btn-icon btn-sm btn-hover-icon-primary" onclick="addComent({{ $p->id }})">
-                            <i class="flaticon2-clip-symbol icon-ms"></i>
+                            <i class="fas fa-paper-plane icon-ms"></i>
                         </span>
                     </div>
                 </form>

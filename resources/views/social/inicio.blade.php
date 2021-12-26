@@ -728,6 +728,105 @@
         });
     }
 
+    function editComent(publicacion_id, coment_id, coment){
+
+        Swal.fire({
+            input: 'textarea',
+            inputLabel: 'Edicion de Comentario',
+            inputValue: coment,
+            inputPlaceholder: 'Escriba un comentario...',
+            confirmButtonColor: '#C0BD0D',
+            confirmButtonText: 'Editar',
+            showDenyButton: true,
+            denyButtonText: `Eliminar`,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Debe escribir un Cometario!'
+                }
+            },
+            inputAttributes: {
+                'aria-label': 'Escriba un comentario'
+            },
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+        }).then(resultado => {
+            if (resultado.isConfirmed) {
+                if (resultado.value) {
+                    $.ajax({
+                        url: "{{ url('Social/editComent') }}",
+                        data: {coment: resultado.value,
+                                publicacion_id: publicacion_id,
+                                coment_id:  coment_id  
+                        },
+                        type: 'GET',
+                        success: function(data) {
+                            //console.log(data);
+                            $('#block-coments'+publicacion_id).html(data);
+                            //$('#kt_forms_widget_11_input'+coment_id).val('')
+                        }
+                    })
+                    //let nombre = resultado.value;
+                    //console.log("Hola, " + nombre);
+                }
+                Swal.fire('Saved!', '', 'success')
+            } else if (resultado.isDenied) {
+                $.ajax({
+                    url: "{{ url('Social/deleteComent') }}",
+                    data: {
+                        publicacion_id: publicacion_id,
+                        coment_id:  coment_id  
+                    },
+                    type: 'GET',
+                    success: function(data) {
+                        //console.log(data);
+                        $('#block-coments'+publicacion_id).html(data);
+                        //$('#kt_forms_widget_11_input'+coment_id).val('')
+                    }
+                })
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+            
+        });
+
+        /*
+        (async () => {
+            const { value: text } = await Swal.fire({
+            input: 'textarea',
+            inputLabel: 'Edicion de Comentario',
+            inputValue: coment,
+            inputPlaceholder: 'Escriba un comentario...',
+            confirmButtonColor: '#C0BD0D',
+            confirmButtonText: 'Editar',
+            showDenyButton: true,
+            denyButtonText: `Eliminar`,
+
+            inputAttributes: {
+              'aria-label': 'Escriba un comentario'
+            },
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Debe escribir un Cometario!'
+                }
+            },
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
+              console.log(text)
+            //if (text) {
+            //    Swal.fire(text)
+            //}
+        })()
+        */
+    }
+
     
 
 </script>
