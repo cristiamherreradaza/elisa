@@ -148,8 +148,10 @@
                                         <a href="#"
                                             class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder pr-6">{{ $co->usuario->name }}</a>
                                         <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">{{ $co->created_at }}</span>
-                                        @if (session()->get('user')->id == $co->user_id)
-                                            <button class="btn" onclick="editComent('{{ $p->id }}','{{ $co->id }}','{{ $co->comentario }}')"><span class="text-muted font-weight-normal font-size-sm">Edit</span></button>
+                                        @if (session()->get('user'))
+                                            @if (session()->get('user')->id == $co->user_id)
+                                                <button class="btn" onclick="editComent('{{ $p->id }}','{{ $co->id }}','{{ $co->comentario }}')"><span class="text-muted font-weight-normal font-size-sm">Edit</span></button>
+                                            @endif
                                         @endif
                                     </div>
                                     <span class="text-dark-75 font-size-sm font-weight-normal pt-1">{{ $co->comentario }}</span>
@@ -158,60 +160,6 @@
                                 <!--end::Info-->
                             </div>    
                         @endforeach
-                        <!--end::Action-->
-                        <!--begin::Item-->
-                        {{-- <div class="d-flex pt-5">
-                            <!--begin::Symbol-->
-                            <div class="symbol symbol-40 symbol-light-success mr-5 mt-1">
-                                <span class="symbol-label">
-                                    <img src="assets/media/svg/avatars/009-boy-4.svg" class="h-75 align-self-end" alt="">
-                                </span>
-                            </div>
-                            <!--end::Symbol-->
-                            <!--begin::Info-->
-                            <div class="d-flex flex-column flex-row-fluid">
-                                <!--begin::Info-->
-                                <div class="d-flex align-items-center flex-wrap">
-                                    <a href="#"
-                                        class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder pr-6">Mr.
-                                        Anderson</a>
-                                    <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">1 Day ago</span>
-                                    <span class="text-muted font-weight-normal font-size-sm">Reply</span>
-                                </div>
-                                <span class="text-dark-75 font-size-sm font-weight-normal pt-1">Long before you sit dow to
-                                    put
-                                    digital pen to paper you need to make sure you have to sit down and write.</span>
-                                <!--end::Info-->
-                            </div>
-                            <!--end::Info-->
-                        </div> --}}
-                        <!--end::Item-->
-                        <!--begin::Item-->
-                        {{-- <div class="d-flex pt-6">
-                            <!--begin::Symbol-->
-                            <div class="symbol symbol-40 symbol-light-success mr-5 mt-1">
-                                <span class="symbol-label">
-                                    <img src="assets/media/svg/avatars/003-girl-1.svg" class="h-75 align-self-end" alt="">
-                                </span>
-                            </div>
-                            <!--end::Symbol-->
-                            <!--begin::Info-->
-                            <div class="d-flex flex-column flex-row-fluid">
-                                <!--begin::Info-->
-                                <div class="d-flex align-items-center flex-wrap">
-                                    <a href="#"
-                                        class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder pr-6">Mrs.
-                                        Anderson</a>
-                                    <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">2 Days ago</span>
-                                    <span class="text-muted font-weight-normal font-size-sm">Reply</span>
-                                </div>
-                                <span class="text-dark-75 font-size-sm font-weight-normal pt-1">Long before you sit down to
-                                    put
-                                    digital pen to paper</span>
-                                <!--end::Info-->
-                            </div>
-                            <!--end::Info-->
-                        </div> --}}
                     </div>
                     <!--end::Item-->
                 </div>
@@ -220,17 +168,19 @@
                 <div class="separator separator-solid mt-9 mb-4"></div>
                 <!--end::Separator-->
                 <!--begin::Editor-->
-                <form class="position-relative">
-                    @csrf
-                    <textarea id="kt_forms_widget_11_input{{ $p->id }}" class="form-control border-0 p-0 pr-10 resize-none" rows="1"
-                        placeholder="Escribe un comentario..."
-                        style="overflow: hidden; overflow-wrap: break-word; height: 20px;"></textarea>
-                    <div class="position-absolute top-0 right-0 mt-n1 mr-n2">
-                        <span class="btn btn-icon btn-sm btn-hover-icon-primary" onclick="addComent({{ $p->id }})">
-                            <i class="fas fa-paper-plane icon-ms"></i>
-                        </span>
-                    </div>
-                </form>
+                @if (session()->get('user'))
+                    <form class="position-relative">
+                        @csrf
+                        <textarea id="kt_forms_widget_11_input{{ $p->id }}" class="form-control border-0 p-0 pr-10 resize-none" rows="1"
+                            placeholder="Escribe un comentario..."
+                            style="overflow: hidden; overflow-wrap: break-word; height: 20px;"></textarea>
+                        <div class="position-absolute top-0 right-0 mt-n1 mr-n2">
+                            <span class="btn btn-icon btn-sm btn-hover-icon-primary" onclick="addComent({{ $p->id }})">
+                                <i class="fas fa-paper-plane icon-ms"></i>
+                            </span>
+                        </div>
+                    </form>
+                @endif
                 <!--edit::Editor-->
             </div>
             <!--end::Body-->

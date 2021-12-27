@@ -27,6 +27,9 @@ Auth::routes();
 
 // Route::post('login', 'UserController@login');
 Route::post('User/verificaUser','UserController@verificaUser');
+Route::post('User/addUser','UserController@addUser');
+Route::get('User/logout','UserController@logout');
+
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');

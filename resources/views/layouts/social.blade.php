@@ -69,6 +69,63 @@
 			</div>
 		</div>
 
+
+		{{-- MODAL DE NUEVO REGISTRO --}}
+
+		<div class="modal fade" id="modal-register" data-backdrop="static" tabindex="-1" role="dialog"
+			aria-labelledby="staticBackdrop" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">REGISTRO DE USUARIO</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<i aria-hidden="true" class="ki ki-close"></i>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form method="POST" action="{{ url('User/addUser') }}">
+							@csrf
+							<div class="row">
+								<div class="col-md-6">
+									<label for="">Nombre</label>
+									<div class="form-group">
+										<input type="text" name="nombre" class="form-control" required>
+									</div>	
+								</div>
+								<div class="col-md-6">
+									<label for="">Email</label>
+									<div class="form-group">
+										<input type="text" name="email" class="form-control" required>
+									</div>	
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label for="">Contraseña</label>
+									<div class="form-group">
+										<input type="password" id="contrasenia" name="contrasenia" class="form-control" required>
+									</div>	
+								</div>
+								<div class="col-md-6">
+									<label for="">Confirme su contraseña</label>
+									<div class="form-group">
+										<input type="password" id="confir-contrasenia" name="confir-contrasenia" class="form-control" required>
+									</div>	
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<button type="submit" class="btn btn-info btn-block">Registrarse</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{{-- END MODAL DE NUEVO REGISTRO --}}
+
 		<div id="kt_header_mobile" class="header-mobile">
 			<!--begin::Logo-->
 			<a href="#">
@@ -130,7 +187,16 @@
 									<!--begin::Toggle-->
 									<div class="topbar-item">
 										{{-- <a href="{{ url('login') }}" class="text-white">INGRESAR</a> --}}
-										<a onclick="inicio()" class="text-white">INGRESAR</a>
+										{{-- @dd(session('user')) --}}
+										@if (!session('user'))
+											<a onclick="regustrase()" class="text-white">REGISTRAR</a>
+											<p style="padding: 10px"></p>												
+											<a onclick="inicio()" class="text-white">INGRESAR</a>
+										@else
+											<a onclick="cerrar_session()" class="text-white">CERRAR SESION</a>
+										@endif
+
+										
 {{--										<div class="btn btn-icon btn-hover-transparent-white d-flex align-items-center btn-lg px-md-2 w-md-auto" id="kt_quick_user_toggle">
 											<span class="text-white opacity-70 font-weight-bold font-size-base d-none d-md-inline mr-1"></span>
 											<span class="text-white opacity-90 font-weight-bolder font-size-base d-none d-md-inline mr-4"><a href="{{ url('login') }}" class="text-white">INGRESAR</a></span>
@@ -1272,6 +1338,26 @@
 				// alert("En desarrollo :v");
 				$('#modal-publicacion').modal('show');
 			}
+
+			function regustrase(){
+				$('#modal-register').modal('show');
+			}
+
+			function cerrar_session(){
+				// alert('en desarrollo :v');
+				window.location.href = "{{ url('User/logout')}}"
+			}
+
+			$("#confir-contrasenia").on("change paste keyup", function() {
+				let passPrimer 	= $('#contrasenia').val();
+				let writePass 	= $('#confir-contrasenia').val();
+				if(passPrimer == writePass){
+                    $("#confir-contrasenia").removeClass("is-invalid");
+                    $("#confir-contrasenia").addClass("is-valid");
+				}else{
+                    $("#confir-contrasenia").addClass("is-invalid");
+				}
+			});
 		</script>
 
 		@section('js')

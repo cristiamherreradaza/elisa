@@ -18,7 +18,7 @@ class UserController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
-        $this->middleware('auth', ['except' => ['verificaUser']]);
+        $this->middleware('auth', ['except' => ['verificaUser', 'logout', 'addUser']]);
 
     }
 
@@ -38,6 +38,28 @@ class UserController extends Controller
 
         return redirect('/');
 
+    }
+
+    public function addUser(Request $request){
+
+        $user = new User();
+
+        $user->name     = $request->input('nombre');
+        $user->email    = $request->input('email');
+        $user->password = Hash::make($request->input('contrasenia'));
+
+        $user->save();
+
+        $request->session()->put('user', $user);
+
+        return redirect('/');
+    }
+
+    public function logout(Request $request){
+
+        $request->session()->flush();
+
+        return redirect('/');
     }
 
     public function listado()
