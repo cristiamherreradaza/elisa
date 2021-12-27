@@ -41,6 +41,8 @@ Route::get('Social/ajaxPublicaciones', 'SocialController@ajaxPublicaciones');
 Route::get('Social/muromobil', 'SocialController@muromobil');
 Route::post('Social/guarda', 'SocialController@guarda');
 Route::get('Social/addComent', 'SocialController@addComent');
+Route::get('Social/editComent', 'SocialController@editComent');
+Route::get('Social/deleteComent', 'SocialController@deleteComent');
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');

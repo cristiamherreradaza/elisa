@@ -6,60 +6,58 @@
 
 <!--end::Subheader-->
 <!--begin::Entry-->
-<style>
+{{--  <style>
     .pink-textarea textarea.md-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #f48fb1;
-  box-shadow: 0 1px 0 0 #f48fb1;
-}
-.active-pink-textarea.md-form label.active {
-  color: #f48fb1;
-}
-.active-pink-textarea.md-form textarea.md-textarea:focus:not([readonly])+label {
-  color: #f48fb1;
-}
+    border-bottom: 1px solid #f48fb1;
+    box-shadow: 0 1px 0 0 #f48fb1;
+    }
+    .active-pink-textarea.md-form label.active {
+    color: #f48fb1;
+    }
+    .active-pink-textarea.md-form textarea.md-textarea:focus:not([readonly])+label {
+    color: #f48fb1;
+    }
+    .amber-textarea textarea.md-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #ffa000;
+    box-shadow: 0 1px 0 0 #ffa000;
+    }
+    .active-amber-textarea.md-form label.active {
+    color: #ffa000;
+    }
+    .active-amber-textarea.md-form textarea.md-textarea:focus:not([readonly])+label {
+    color: #ffa000;
+    }
 
 
-.amber-textarea textarea.md-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #ffa000;
-  box-shadow: 0 1px 0 0 #ffa000;
-}
-.active-amber-textarea.md-form label.active {
-  color: #ffa000;
-}
-.active-amber-textarea.md-form textarea.md-textarea:focus:not([readonly])+label {
-  color: #ffa000;
-}
+    .active-pink-textarea-2 textarea.md-textarea {
+    border-bottom: 1px solid #f48fb1;
+    box-shadow: 0 1px 0 0 #f48fb1;
+    }
+    .active-pink-textarea-2.md-form label.active {
+    color: #f48fb1;
+    }
+    .active-pink-textarea-2.md-form label {
+    color: #f48fb1;
+    }
+    .active-pink-textarea-2.md-form textarea.md-textarea:focus:not([readonly])+label {
+    color: #f48fb1;
+    }
 
 
-.active-pink-textarea-2 textarea.md-textarea {
-  border-bottom: 1px solid #f48fb1;
-  box-shadow: 0 1px 0 0 #f48fb1;
-}
-.active-pink-textarea-2.md-form label.active {
-  color: #f48fb1;
-}
-.active-pink-textarea-2.md-form label {
-  color: #f48fb1;
-}
-.active-pink-textarea-2.md-form textarea.md-textarea:focus:not([readonly])+label {
-  color: #f48fb1;
-}
-
-
-.active-amber-textarea-2 textarea.md-textarea {
-  border-bottom: 1px solid #ffa000;
-  box-shadow: 0 1px 0 0 #ffa000;
-}
-.active-amber-textarea-2.md-form label.active {
-  color: #ffa000;
-}
-.active-amber-textarea-2.md-form label {
-  color: #ffa000;
-}
-.active-amber-textarea-2.md-form textarea.md-textarea:focus:not([readonly])+label {
-  color: #ffa000;
-}
-</style>
+    .active-amber-textarea-2 textarea.md-textarea {
+    border-bottom: 1px solid #ffa000;
+    box-shadow: 0 1px 0 0 #ffa000;
+    }
+    .active-amber-textarea-2.md-form label.active {
+    color: #ffa000;
+    }
+    .active-amber-textarea-2.md-form label {
+    color: #ffa000;
+    }
+    .active-amber-textarea-2.md-form textarea.md-textarea:focus:not([readonly])+label {
+    color: #ffa000;
+    }
+</style>  --}}
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container">
@@ -590,44 +588,81 @@
 
                 <div class="card card-custom sticky" data-sticky="true" data-margin-top="90" data-sticky-for="1023"
                     data-sticky-class="stickyjs">
-                       <div class="alert mb-5 p-5" role="alert">
+                        <div class="alert mb-5 p-5" role="alert">
                             <h4 class="alert-heading">PUBLICIDAD</h4>
                             @php
-                                 $fotos = App\Publicidad::all();
+                                $fotos = App\Publicidad::all();
                                 $cantFotos = App\Publicidad::count();
+                            @endphp
+                            @if ($cantFotos != 0 )
+                                @if ($cantFotos == 1)
+                                    <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
+                                        style="background-image: url({{ asset('img_publicidad/'.$fotos[0]->banner) }})">
+                                    </div>    
+                                @elseif ($cantFotos == 2)
+                                    @php
+                                        $ran = rand(0,($cantFotos-1));
+
+                                        $arrayShow = array();
+
+                                        while(in_array($ran, $arrayShow)){
+                                            $ran = rand(0,($cantFotos-1));
+                                        }
+                                        array_push($arrayShow,$ran);
+                                    @endphp
+                                    <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
+                                        style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
+                                    </div>
+                                    @php
+                                        while(in_array($ran, $arrayShow)){
+                                            $ran = rand(0,($cantFotos-1));
+                                        }
+                                        array_push($arrayShow,$ran);
+                                    @endphp
+                                    <br>
+                                    <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
+                                        style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
+                                    </div>
+                                @else
+                                    @php
+                                        $ran = rand(0,($cantFotos-1));
+
+                                        $arrayShow = array();
+
+                                        while(in_array($ran, $arrayShow)){
+                                            $ran = rand(0,($cantFotos-1));
+                                        }
+                                        array_push($arrayShow,$ran);
+                                    @endphp
+                                    <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
+                                        style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
+                                    </div>
+                                    @php
+                                        while(in_array($ran, $arrayShow)){
+                                            $ran = rand(0,($cantFotos-1));
+                                        }
+                                        array_push($arrayShow,$ran);
+                                    @endphp
+                                    <br>
+                                    <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
+                                        style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
+                                    </div>
+                                    @php                            
+                                        while(in_array($ran, $arrayShow)){
+                                            $ran = rand(0,($cantFotos-1));
+                                        }
+                                        array_push($arrayShow,$ran);
+                                    @endphp
+                                    <br>
+                                    <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
+                                        style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
+                                    </div>
+                                @endif
                                 
-                                $ran = rand(0,($cantFotos-1));
-
-                                $arrayShow = array();
-
-                                while(in_array($ran, $arrayShow)){
-                                    $ran = rand(0,($cantFotos-1));
-                                }
-                                array_push($arrayShow,$ran);
-                            @endphp
-                            <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
-                                style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
-                            </div>
-                            @php
-                                while(in_array($ran, $arrayShow)){
-                                    $ran = rand(0,($cantFotos-1));
-                                }
-                                array_push($arrayShow,$ran);
-                            @endphp
-                            <br>
-                            <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
-                                style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
-                            </div>
-                            @php                            
-                                while(in_array($ran, $arrayShow)){
-                                    $ran = rand(0,($cantFotos-1));
-                                }
-                                array_push($arrayShow,$ran);
-                            @endphp
-                            <br>
-                            <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
-                                style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
-                            </div>
+                            @else
+                                
+                            @endif
+                            
                         </div>
                 </div>
             </div>
@@ -725,8 +760,103 @@
         });
     }
 
-    function categoria(categoria){
-        window.location.href = "{{ url('')}}"
+    function editComent(publicacion_id, coment_id, coment){
+
+        Swal.fire({
+            input: 'textarea',
+            inputLabel: 'Edicion de Comentario',
+            inputValue: coment,
+            inputPlaceholder: 'Escriba un comentario...',
+            confirmButtonColor: '#C0BD0D',
+            confirmButtonText: 'Editar',
+            showDenyButton: true,
+            denyButtonText: `Eliminar`,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Debe escribir un Cometario!'
+                }
+            },
+            inputAttributes: {
+                'aria-label': 'Escriba un comentario'
+            },
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+        }).then(resultado => {
+            if (resultado.isConfirmed) {
+                if (resultado.value) {
+                    $.ajax({
+                        url: "{{ url('Social/editComent') }}",
+                        data: {coment: resultado.value,
+                                publicacion_id: publicacion_id,
+                                coment_id:  coment_id  
+                        },
+                        type: 'GET',
+                        success: function(data) {
+                            //console.log(data);
+                            $('#block-coments'+publicacion_id).html(data);
+                            //$('#kt_forms_widget_11_input'+coment_id).val('')
+                        }
+                    })
+                    //let nombre = resultado.value;
+                    //console.log("Hola, " + nombre);
+                }
+                Swal.fire('Saved!', '', 'success')
+            } else if (resultado.isDenied) {
+                $.ajax({
+                    url: "{{ url('Social/deleteComent') }}",
+                    data: {
+                        publicacion_id: publicacion_id,
+                        coment_id:  coment_id  
+                    },
+                    type: 'GET',
+                    success: function(data) {
+                        //console.log(data);
+                        $('#block-coments'+publicacion_id).html(data);
+                        //$('#kt_forms_widget_11_input'+coment_id).val('')
+                    }
+                })
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+            
+        });
+
+        /*
+        (async () => {
+            const { value: text } = await Swal.fire({
+            input: 'textarea',
+            inputLabel: 'Edicion de Comentario',
+            inputValue: coment,
+            inputPlaceholder: 'Escriba un comentario...',
+            confirmButtonColor: '#C0BD0D',
+            confirmButtonText: 'Editar',
+            showDenyButton: true,
+            denyButtonText: `Eliminar`,
+
+            inputAttributes: {
+              'aria-label': 'Escriba un comentario'
+            },
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Debe escribir un Cometario!'
+                }
+            },
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
+              console.log(text)
+            //if (text) {
+            //    Swal.fire(text)
+            //}
+        })()
+        */
     }
 
     
