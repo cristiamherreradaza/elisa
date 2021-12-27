@@ -859,6 +859,22 @@
         */
     }
 
+    function categoria(categoria){
+        // window.location.href = "{{ url('Social/muestraCategoria')}}"
+        $.ajax({
+            url: "{{ url('Social/muestraCategoria') }}",
+            data: {categoria: categoria,
+            },
+            type: 'GET',
+            success: function(data) {
+                $("#publicacionesAjax").html(data);
+                //console.log(data);
+                // $('#block-coments'+publicacion_id).html(data);
+                //$('#kt_forms_widget_11_input'+coment_id).val('')
+            }
+        })
+    }
+
     
 
 </script>

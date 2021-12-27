@@ -43,6 +43,7 @@ Route::post('Social/guarda', 'SocialController@guarda');
 Route::get('Social/addComent', 'SocialController@addComent');
 Route::get('Social/editComent', 'SocialController@editComent');
 Route::get('Social/deleteComent', 'SocialController@deleteComent');
+Route::get('Social/muestraCategoria', 'SocialController@muestraCategoria');
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');

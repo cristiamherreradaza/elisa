@@ -120,4 +120,28 @@ class SocialController extends Controller
         return view('social.ajaxComent')->with(compact('coments'));
 
     }
+
+    public function muestraCategoria(Request $request){
+        // dd($request->input('categoria'));
+        if($request->input('categoria') ==  'todos'){
+            $publicaciones = Publicacion::orderBy('id', 'desc')
+                                        ->get();
+        }elseif($request->input('categoria') ==  'general'){
+            $publicaciones = Publicacion::where('categoria_id',1)
+                                        ->orderBy('id', 'desc')
+                                        ->get();
+        }elseif($request->input('categoria') ==  'desaparecidos'){
+            $publicaciones = Publicacion::where('categoria_id',2)
+                                        ->orderBy('id', 'desc')
+                                        ->get();
+        }else{
+            $publicaciones = Publicacion::where('categoria_id',3)
+                                        ->orderBy('id', 'desc')
+                                        ->get();
+        }
+
+        $categorias = Categoria::all();
+
+        return view('social.ajaxPublicaciones')->with(compact('publicaciones','categorias'));
+    }
 }
