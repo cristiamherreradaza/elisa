@@ -14,22 +14,31 @@ class PublicidadController extends Controller
 
         // dd($request->all());
 
-        $publicidad =  new Publicidad();
+        if($request->input('publicidad_id') != 0){
 
-        $publicidad->user_id        = Auth::user()->id;
-        $publicidad->cliente_id     = $request->input('cliente_id');
+            $publicidad_id = $request->input('publicidad_id');
+            $publicidad = Publicidad::find($publicidad_id);
 
-        $fotos = $request->file('archivo');
-        // dd($fotos->getClientOriginalExtension());
+        }else{
 
-        foreach ($fotos as $key => $value) {
-            $archivo = $value;
-            $direccion = 'img_publicidad/';
-            $nombrearchivo = date('YmdHis').$key.'.'.$value->getClientOriginalExtension();
+            $publicidad =  new Publicidad();
+            $publicidad->user_id        = Auth::user()->id;
+            $publicidad->cliente_id     = $request->input('cliente_id');
 
-            $archivo->move($direccion,$nombrearchivo);
+        }
 
-            $publicidad->banner = $nombrearchivo;
+        if($request->has('archivo')){
+            $fotos = $request->file('archivo');
+    
+            foreach ($fotos as $key => $value) {
+                $archivo = $value;
+                $direccion = 'img_publicidad/';
+                $nombrearchivo = date('YmdHis').$key.'.'.$value->getClientOriginalExtension();
+    
+                $archivo->move($direccion,$nombrearchivo);
+    
+                $publicidad->banner = $nombrearchivo;
+            }
         }
 
         $publicidad->descripcion                = $request->input('descripcion');
@@ -39,8 +48,7 @@ class PublicidadController extends Controller
 
         $publicidad->save();
 
-        return redirect('Cliente/listado');
-        
+        return redirect('Publicidad/listado/'.$publicidad->cliente_id);
     }
 
     public function listado(Request $request, $cliente_id){
@@ -50,5 +58,14 @@ class PublicidadController extends Controller
         $cliente = Cliente::find($cliente_id);
 
         return view('publicidad.listado')->with(compact('publicidades','cliente'));
+    }
+
+    public function delet(Request $request, $publicidad_id){
+
+        $cliente_id = Publicidad::find($publicidad_id)->cliente_id;
+
+        Publicidad::destroy($publicidad_id);
+
+        return redirect('Publicidad/listado/'.$cliente_id);
     }
 }

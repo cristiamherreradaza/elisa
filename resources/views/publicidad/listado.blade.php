@@ -15,7 +15,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">AGREGAR PUBLICDAD <span class="text-primary"></span></h5>
+                        <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE PUBLICIDAD<span class="text-primary"></span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <i aria-hidden="true" class="ki ki-close"></i>
                         </button>
@@ -23,7 +23,8 @@
                     <div class="modal-body">
                         <form action="{{ url('Publicidad/guarda') }}" method="POST" id="formulario-permiso" enctype = "multipart/form-data">
                             @csrf
-                            <input type="hidden" id="cliente_id" name="cliente_id" value="0">
+                            <input type="text" id="publicidad_id" name="publicidad_id" value="0">
+                            <input type="text" id="cliente_id" name="cliente_id" value="{{ $cliente->id }}">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -92,67 +93,6 @@
         </div>
         {{-- fin inicio modal  --}}
 
-        <!-- Modal-->
-        <div class="modal fade" id="modal-nuevo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">PERMISOS DEL USUARIOS <span class="text-primary"></span></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <i aria-hidden="true" class="ki ki-close"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ url('Cliente/guarda') }}" method="POST" id="formulario-permiso">
-                            @csrf
-                            <input type="hidden" id="editar-cliente" name="editar-cliente" value="0">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Nombre
-                                        <span class="text-danger">*</span></label>
-                                        <input type="text"  id="nombre" name="nombre" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Contacto
-                                        <span class="text-danger">*</span></label>
-                                        <input type="text" id="contacto" name="contacto" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Telefonos
-                                        <span class="text-danger">*</span></label>
-                                        <input type="text" id="telefonos" name="telefonos" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Direccion
-                                        <span class="text-danger">*</span></label>
-                                        <input type="text" id="direccion" name="direccion" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-block btn-success">Registrar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- fin inicio modal  --}}
-
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
 				<h3 class="card-label">Listado de Publiciades del CLiente de <span class="text-primary"> <b> {{ $cliente->nombre }}</b></span>
@@ -187,7 +127,7 @@
                         <th>FECHA DE INICIO</th>
                         <th>FECHA FIN</th>
                         <th>CANTIDAD DE PUBLICACIONES</th>
-                        <th>PUBLICACIONES</th>
+                        <th>IMAGEN</th>
                         {{-- <th>Criaderos</th> --}}
                         <th></th>
                     </tr>
@@ -200,8 +140,14 @@
                         <td>{{ $pu->fecha_inicio }}</td>
                         <td>{{ $pu->fecha_fin }}</td>
                         <td>{{ $pu->cantidad_publicaciones }}</td>
-                        <td>{{ $pu->publicaciones }}</td>
-                        <td></td>
+                        <td>
+                            {{-- {{ $pu->banner }} --}}
+                            <img src="{{ asset('img_publicidad')."/".$pu->banner }}" width="100px" alt="aqui la imagen">
+                        </td>
+                        <td>
+                            <button type="button" onclick="edit('{{ $pu->id }}','{{ $pu->descripcion }}','{{ $pu->fecha_inicio }}','{{ $pu->fecha_fin }}','{{ $pu->cantidad_publicaciones }}','{{ $pu->banner }}')" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                            <button type="button" onclick="delet('{{ $pu->id }}','{{ $pu->descripcion }}')" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </td>
                     </tr>
                     @empty
                     <h3 class="text-danger">NO EXISTEN DATOS</h3>
@@ -291,8 +237,9 @@
         function showMyImage(fileInput, numero) {
 
             var files = fileInput.files;
+
             $("#btnRimg_"+numero).show();
-            console.log(numero);
+            console.log(numero+"show");
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 var imageType = /image.*/;
@@ -315,6 +262,44 @@
             $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");
             $("#customFile_"+numero).val('');
             $("#btnRimg_1").hide();            
+        }
+
+        function edit(id, descripcion, fecha_inicio, fecha_fin, cantidad_publicaciones, banner){
+            $('#publicidad_id').val(id);
+            $('#descripcion').val(descripcion);
+            $('#fecha_inicio').val(fecha_inicio);
+            $('#fecha_fin').val(fecha_fin);
+            $('#cantidad_publicaciones').val(cantidad_publicaciones);
+
+            src = "{{ asset('img_publicidad')}}"+"/"+banner,
+
+            $("#thumbnil_1").attr("src",src);
+
+            $('#modal-publicicdad').modal('show');
+
+            // window.location.href = "{{ url('Publicidad/editPublicidad')}}/"+id;
+            // alert(id);
+        }
+
+        function delet(id, nombre){
+            Swal.fire({
+                title: 'Esta seguro de elimnar '+nombre+'?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, bórralo!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                '¡Eliminado!',
+                'Su archivo ha sido eliminado.',
+                'success'
+                )
+                window.location.href = "{{ url('Publicidad/delet')}}/"+id;
+            }
+            })
         }
 		
     </script>

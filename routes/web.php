@@ -86,5 +86,8 @@ Route::get('Cliente/elimina/{cliente_id}', 'ClienteController@elimina');
 //PUBLICIDAD
 Route::post('Publicidad/guarda', 'PublicidadController@guarda');
 Route::get('Publicidad/listado/{cliente_id}', 'PublicidadController@listado');
+Route::get('Publicidad/editPublicidad/{publicidad_id}', 'PublicidadController@editPublicidad');
+Route::get('Publicidad/delet/{publicidad_id}', 'PublicidadController@delet');
+
 
 
