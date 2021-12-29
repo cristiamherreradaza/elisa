@@ -24,6 +24,8 @@
                         <form action="{{ url('Publicidad/guarda') }}" method="POST" id="formulario-permiso" enctype = "multipart/form-data">
                             @csrf
                             <input type="hidden" id="cliente_id" name="cliente_id" value="0">
+                            <input type="text" id="publicidad_id" name="publicidad_id" value="0">
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
