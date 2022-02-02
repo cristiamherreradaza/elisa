@@ -194,7 +194,13 @@
 											<a onclick="inicio()" class="text-white">INGRESAR</a>
 										@else
 											<a onclick="cerrar_session()" class="text-white">CERRAR SESION</a>
+											@if (session()->get('user')->perfil == 'Administrador')
+												<a href="{{ url('/login', []) }}" class="text-white">&nbsp; ADMINISTRACION</a>											
+											@endif
+
 										@endif
+
+										
 
 										
 {{--										<div class="btn btn-icon btn-hover-transparent-white d-flex align-items-center btn-lg px-md-2 w-md-auto" id="kt_quick_user_toggle">

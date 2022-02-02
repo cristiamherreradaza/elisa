@@ -81,15 +81,16 @@
                     </div>
                     <!--end::Info-->
                     <!--begin::Dropdown-->
-                    
-                    @if ($p->user_id == session()->get('user')->id)
-                        <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip" title="" data-placement="left"
-                            data-original-title="Quick actions">
-                            <a href="#" onclick="eliminaPublicacion('{{ $p->id }}');" class="btn btn-danger btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="icon ki ki-close"></i>
-                            </a>
-                        </div>
+                    @if (session('user'))                    
+                        @if ($p->user_id == session()->get('user')->id)
+                            <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip" title="" data-placement="left"
+                                data-original-title="Quick actions">
+                                <a href="#" onclick="eliminaPublicacion('{{ $p->id }}');" class="btn btn-danger btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="icon ki ki-close"></i>
+                                </a>
+                            </div>
+                        @endif
                     @endif
                     <!--end::Dropdown-->
                 </div>
