@@ -6,7 +6,14 @@
 			<li class="menu-item" aria-haspopup="true">
 				<a href="{{ url('localizacion/mapa') }}" class="menu-link">
 					<i class="icon-xl fas fa-solar-panel"></i>
-					<span class="menu-text">Mapa</span>
+					<span class="menu-text">&nbsp;Mapa</span>
+				</a>
+			</li>
+
+			<li class="menu-item" aria-haspopup="true">
+				<a href="{{ url('/') }}" class="menu-link" target="_blank">
+					<i class="icon-xl far fa-user-circle"></i>
+					<span class="menu-text">&nbsp;Social</span>
 				</a>
 			</li>
 			<li class="menu-section">
