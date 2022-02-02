@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\User;
-use App\Http\Controllers\Controller;
+use App\Publicacion;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PublicacionesController extends Controller
 {
@@ -14,6 +15,5 @@ class PublicacionesController extends Controller
         // dd($usuarios);
         return response()->json($usuarios);
     }
-
     
 }

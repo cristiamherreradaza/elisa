@@ -144,4 +144,13 @@ class SocialController extends Controller
 
         return view('social.ajaxPublicaciones')->with(compact('publicaciones','categorias'));
     }
+
+    public function eliminaPublicacion(Request $request, $publicacion_id)
+    {
+        // $publicidadId = Publicacion::find($publicacion_id);
+        Publicacion::destroy($publicacion_id);
+
+        return redirect('/');
+
+    }
 }

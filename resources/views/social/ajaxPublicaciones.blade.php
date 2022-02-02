@@ -27,6 +27,7 @@
                                         </rect>
                                     </g>
                                 </svg>
+                                crt
                                 <!--end::Svg Icon-->
                             </span>
                         </span>
@@ -51,8 +52,10 @@
                                                 fill="#000000"></path>
                                         </g>
                                     </svg>
+                                    
                                     <!--end::Svg Icon-->
                                 </span>
+                                
                                 <span class="text-muted font-weight-bold">{{ $p->created_at }}</span>
                             </div>
                             <div class="d-flex align-items-center">
@@ -79,6 +82,15 @@
                     <!--end::Info-->
                     <!--begin::Dropdown-->
                     
+                    @if ($p->user_id == session()->get('user')->id)
+                        <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip" title="" data-placement="left"
+                            data-original-title="Quick actions">
+                            <a href="#" onclick="eliminaPublicacion('{{ $p->id }}');" class="btn btn-danger btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="icon ki ki-close"></i>
+                            </a>
+                        </div>
+                    @endif
                     <!--end::Dropdown-->
                 </div>
                 <!--end::Top-->
@@ -188,3 +200,35 @@
     </div>
 </div>
 @endforeach
+<script type="text/javascript">
+    function eliminaPublicacion(id){
+    // alert(id);
+    Swal.fire({
+        title: "Quieres eliminar la publicacion",
+        text: "Ya no podras recuperarlo!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, borrar!",
+        cancelButtonText: "No, cancelar!",
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.value) {
+            window.location.href = "{{ url('Social/eliminaPublicacion') }}/"+id;
+            Swal.fire(
+                "Borrado!",
+                "El registro fue eliminado.",
+                "success"
+            )
+            // result.dismiss can be "cancel", "overlay",
+            // "close", and "timer"
+        } else if (result.dismiss === "cancel") {
+            Swal.fire(
+                "Cancelado",
+                "La operacion fue cancelada",
+                "error"
+            )
+        }
+    });
+}
+
+</script>
