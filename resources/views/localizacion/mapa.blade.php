@@ -35,7 +35,7 @@
               <tbody>
                 @forelse ($localizaciones as $l)
                 <tr>
-                  <td>{{ $l->id }}</td>
+                  <td>{{ $l->user->name }}</td>
                   <td>{{ $l->latitud }}</td>
                   <td>{{ $l->longitud }}</td>
                 </tr>
