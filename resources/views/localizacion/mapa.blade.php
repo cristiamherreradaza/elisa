@@ -17,11 +17,11 @@
         </div>
         
     </div>
-    <div class="card-body" id="cargaMapa">
+    <div class="card-body">
         
         <div class="row">
           <div class="col-md-12">
-            <div id="map" style="height: 800px;"></div>
+            <div id="map" style="height:650px;"></div>
           </div>
           <div class="col-md-12">
             <table class="table table-bordered table-hover table-striped" id="tabla_criaderos">
@@ -55,34 +55,40 @@
 
 @section('js')
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDi5qf2KXyB7kq7BOO-i9bVUNaq-paBe3A&callback=initMap&v=weekly" async></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDi5qf2KXyB7kq7BOO-i9bVUNaq-paBe3A"></script>
 <script type="text/javascript">
 
-function initMap() {
-  const myLatLng = { lat: {{ $ultimaLocalizacion->latitud }}, lng: {{ $ultimaLocalizacion->longitud }} };
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 16,
-    center: myLatLng,
-  });
+var locations = [
+      @forelse ($localizaciones as $l)
+        ['{{ $l->user->name }}', {{ $l->latitud }}, {{ $l->longitud }}, 4],  
+      @empty
+        
+      @endforelse      
+    ];
+    
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(-16.710007529850046, -66.5542904284719),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    
+    var infowindow = new google.maps.InfoWindow();
 
-  new google.maps.Marker({
-    position: myLatLng,
-    map,
-    title: "Hello World!",
-  });
-}
-
-    // let map, infoWindow;
-function loadlink(){
-    // initMap();
-    console.log('entro cada 5 segundos');
-    $("#cargaMapa").load("{{ url('localizacion/ajaxMapa') }}");
-}
-
-// loadlink(); // This will run on page load
-setInterval(function(){
-    loadlink() // this will run after every 5 seconds
-}, 15000);
+    var marker, i;
+    
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+      
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
 
 
 
