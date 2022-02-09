@@ -11,14 +11,6 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    //
-    public function __construct()
-    {
-        // $this->middleware('auth');
-        $this->middleware('auth');
-
-    }
-
 
     public function familiares(Request $request)
     {
