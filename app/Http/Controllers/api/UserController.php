@@ -93,6 +93,16 @@ class UserController extends Controller
         $localizacion->user_id = $request->user_id;
         $localizacion->latitud = $request->latitud;
         $localizacion->longitud = $request->longitud;
-        $localizacion->save();
+        if($localizacion->save()){
+            $estado = 201;
+            $mensaje = "Exito";
+        }else{
+            $estado = 400;
+            $mensaje = "Error";
+        }
+
+         return response()->json([
+            'mensaje' => $mensaje
+        ], $estado);
     }
 }
