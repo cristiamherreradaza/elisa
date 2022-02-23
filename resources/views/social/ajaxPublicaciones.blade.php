@@ -27,7 +27,6 @@
                                         </rect>
                                     </g>
                                 </svg>
-                                crt
                                 <!--end::Svg Icon-->
                             </span>
                         </span>

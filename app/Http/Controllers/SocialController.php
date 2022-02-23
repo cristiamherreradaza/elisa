@@ -123,22 +123,27 @@ class SocialController extends Controller
 
     public function muestraCategoria(Request $request){
         // dd($request->input('categoria'));
-        if($request->input('categoria') ==  'todos'){
+        /*if($request->input('categoria') ==  'todos'){
             $publicaciones = Publicacion::orderBy('id', 'desc')
                                         ->get();
-        }elseif($request->input('categoria') ==  'general'){
+        }elseif($request->input('categoria') ==  'General'){
             $publicaciones = Publicacion::where('categoria_id',1)
                                         ->orderBy('id', 'desc')
                                         ->get();
-        }elseif($request->input('categoria') ==  'desaparecidos'){
+        }elseif($request->input('categoria') ==  'Desaparecidos'){
             $publicaciones = Publicacion::where('categoria_id',2)
                                         ->orderBy('id', 'desc')
                                         ->get();
         }else{
-            $publicaciones = Publicacion::where('categoria_id',3)
+            $publicaciones = Publicacion::where('Categoria_id',3)
                                         ->orderBy('id', 'desc')
                                         ->get();
-        }
+        }*/
+
+        $publicaciones = Publicacion::where('categoria_id', $request->input('categoria'))
+                                ->orderBy('id', 'desc')
+                                ->get();
+
 
         $categorias = Categoria::all();
 
