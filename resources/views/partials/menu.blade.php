@@ -3,22 +3,46 @@
 	<div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500">
 		<!--begin::Menu Nav-->
 		<ul class="menu-nav">
+
+			<li>
+				<div class="text-center mb-10">
+					<div class="symbol symbol-60 symbol-circle">
+						<div class="symbol-label" style="background-image:url('{{ url('assets/media/users/fotoPerfil.jpg') }}')">
+						</div>
+						<i class="symbol-badge symbol-badge-bottom bg-success"></i>
+					</div>
+					@guest
+						<h4 class="font-weight-bold my-2 text-success">INVITADO</h4>
+						<a href="{{ url('User/registro')}}"class="text-light mb-2">REGISTRATE</a>
+					@endguest
+
+					@auth
+						<h4 class="font-weight-bold my-2 text-success">{{ Auth::user()->name }}</h4>
+						<div class="text-light mb-2">{{ Auth::user()->perfil }}</div>
+				
+						<br />
+						<a href="{{ route('logout') }}"
+							onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+							class="label label-light-danger label-inline font-weight-bold label-lg">Salir</a>
+						<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+							@csrf
+						</form>
+					@endauth
+				</div>
+			</li>
+
 			<li class="menu-item" aria-haspopup="true">
 				<a href="{{ url('localizacion/mapa') }}" class="menu-link">
-					<i class="icon-xl fas fa-solar-panel"></i>
-					<span class="menu-text">&nbsp;Mapa</span>
+					<i class="fas fa-solar-panel menu-icon"></i>
+					<span class="menu-text">Mapa</span>
 				</a>
 			</li>
 
 			<li class="menu-item" aria-haspopup="true">
 				<a href="{{ url('/') }}" class="menu-link" target="_blank">
-					<i class="icon-xl far fa-user-circle"></i>
-					<span class="menu-text">&nbsp;Social</span>
+					<i class="far fa-user-circle menu-icon"></i>
+					<span class="menu-text">Social</span>
 				</a>
-			</li>
-			<li class="menu-section">
-				<h4 class="menu-text">Custom</h4>
-				<i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 			</li>
 		
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">

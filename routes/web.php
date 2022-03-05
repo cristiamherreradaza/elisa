@@ -25,10 +25,12 @@ Route::get('/', 'SocialController@inicio');
 
 Auth::routes();
 
+//USUARIOS
 // Route::post('login', 'UserController@login');
 Route::post('User/verificaUser','UserController@verificaUser');
 Route::post('User/addUser','UserController@addUser');
 Route::get('User/logout','UserController@logout');
+Route::get('User/registro','UserController@registro');
 
 
 // PANEL DE CONTROL

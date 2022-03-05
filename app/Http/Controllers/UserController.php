@@ -18,7 +18,7 @@ class UserController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
-        $this->middleware('auth', ['except' => ['verificaUser', 'logout', 'addUser']]);
+        $this->middleware('auth', ['except' => ['verificaUser', 'logout', 'addUser', 'registro']]);
 
     }
 
@@ -233,5 +233,9 @@ class UserController extends Controller
         return redirect("User/listaSector/".$encargado->user_id);
     }
 
-    
+    public function registro()
+    {
+        return view('user.registro');        			
+    }
+
 }

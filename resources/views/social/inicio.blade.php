@@ -1,4 +1,4 @@
-@extends('layouts.social')
+@extends('layouts.app')
 @section('metadatos')
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
@@ -105,6 +105,7 @@
                     </div>
                 </div>
             </div>
+
         @endif
         {{-- end modal registrar --}}
         
