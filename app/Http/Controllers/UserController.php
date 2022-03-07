@@ -18,7 +18,7 @@ class UserController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
-        $this->middleware('auth', ['except' => ['verificaUser', 'logout', 'addUser', 'registro']]);
+        $this->middleware('auth', ['except' => ['verificaUser', 'logout', 'addUser', 'registro', 'validaEmail']]);
 
     }
 
@@ -237,5 +237,14 @@ class UserController extends Controller
     {
         return view('user.registro');        			
     }
+
+    public function validaEmail(Request $request)
+    {
+        $verificaEmail = User::where('email', $request->email)
+                            ->count();
+
+        return response()->json(['vEmail'=>$verificaEmail]);
+    }
+
 
 }

@@ -31,7 +31,7 @@ Route::post('User/verificaUser','UserController@verificaUser');
 Route::post('User/addUser','UserController@addUser');
 Route::get('User/logout','UserController@logout');
 Route::get('User/registro','UserController@registro');
-
+Route::post('User/validaEmail', 'UserController@validaEmail');
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');

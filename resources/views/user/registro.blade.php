@@ -43,7 +43,8 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Email
                                 <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="email" name="email" required />
+                                <input type="email" class="form-control" id="email" name="email" onfocusout="validaEmail()" required />
+                                <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
                             </div>
                         </div>
 
@@ -194,6 +195,25 @@
             // adicionamos el marcador en el mapa
             vMarker.setMap(map);
 
+        }
+
+        function validaEmail()
+        {
+            let email = $("#email").val();
+
+            $.ajax({
+                url: "{{ url('User/validaEmail') }}",
+                data: {email: email},
+                type: 'POST',
+                success: function(data) {
+                    // console.log(data.vEmail);     
+                    if(data.vEmail > 0){
+                        $("#msg-error-email").show();
+                    }else{
+                        $("#msg-error-email").hide();
+                    }
+                }
+            });
         }
 
     </script>
