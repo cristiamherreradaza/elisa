@@ -203,27 +203,24 @@
         {
             var myLatlng = new google.maps.LatLng(lat, long);
 
-            // const infoWindow = new google.maps.InfoWindow();
-            // var geocoder = geocoder = new google.maps.Geocoder();
-
-            // Creating map object
+            // creamos el mapa
             var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
-            center: new google.maps.LatLng(lat, long),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+                zoom: 15,
+                center: new google.maps.LatLng(lat, long),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-            // creates a draggable marker to the given coords
+            // ponemos el marcador que se pueda mover
             var vMarker = new google.maps.Marker({
-            position: new google.maps.LatLng(lat, long),
-            draggable: true
+                position: new google.maps.LatLng(lat, long),
+                draggable: true
             });
-            // adds a listener to the marker
-            // gets the coords when drag event ends
-            // then updates the input with the new coords
+            // adicionamos el escuchador del evento
+            // capturamos las coordenadas 
+            // llenamos los dats en el formulario
             google.maps.event.addListener(vMarker, 'dragend', function (evt) {
-            $("#lat1").val(evt.latLng.lat().toFixed(6));
-            $("#lng1").val(evt.latLng.lng().toFixed(6));
-            map.panTo(evt.latLng);
+                $("#lat1").val(evt.latLng.lat().toFixed(6));
+                $("#lng1").val(evt.latLng.lng().toFixed(6));
+                map.panTo(evt.latLng);
             });
             // centers the map on markers coords
             map.setCenter(vMarker.position);
