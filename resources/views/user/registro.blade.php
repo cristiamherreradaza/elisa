@@ -84,9 +84,10 @@
 
                     <div class="row">
                         <div id="map" style="height:650px; width:100%;"></div>                
-                        <input type="text" class="form-control" id="lat1">
-                        <input type="text" class="form-control" id="lng1">
+                        <input type="hidden" class="form-control" id="lat1">
+                        <input type="hidden" class="form-control" id="lng1">
                     </div>
+                    <br />
 
                     <div class="row">
                         <div class="col-md-6">
