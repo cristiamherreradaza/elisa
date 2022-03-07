@@ -13,7 +13,7 @@
 					</div>
 					@guest
 						<h4 class="font-weight-bold my-2 text-success">INVITADO</h4>
-						<a href="{{ url('User/registro')}}"class="text-light mb-2">REGISTRATE</a>
+						{{-- <a href="{{ url('User/registro')}}"class="text-light mb-2">REGISTRATE</a> --}}
 					@endguest
 
 					@auth
@@ -31,6 +31,24 @@
 				</div>
 			</li>
 
+			@guest
+
+				<li class="menu-item" aria-haspopup="true">
+					<a href="{{ url('User/registro') }}" class="menu-link">
+						<i class="far fa-edit menu-icon"></i>
+						<span class="menu-text">REGISTRATE</span>
+					</a>
+				</li>
+
+				<li class="menu-item" aria-haspopup="true">
+					<a href="{{ url('/login') }}" class="menu-link">
+						<i class="fas fa-user-circle menu-icon"></i>
+						<span class="menu-text">INGRESA</span>
+					</a>
+				</li>
+				
+			@endguest
+
 			<li class="menu-item" aria-haspopup="true">
 				<a href="{{ url('localizacion/mapa') }}" class="menu-link">
 					<i class="fas fa-solar-panel menu-icon"></i>
@@ -39,12 +57,13 @@
 			</li>
 
 			<li class="menu-item" aria-haspopup="true">
-				<a href="{{ url('/') }}" class="menu-link" target="_blank">
+				<a href="{{ url('/') }}" class="menu-link">
 					<i class="far fa-user-circle menu-icon"></i>
 					<span class="menu-text">Social</span>
 				</a>
 			</li>
-		
+
+			@auth
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 				<a href="javascript:;" class="menu-link menu-toggle">
 					<span class="svg-icon menu-icon">
@@ -175,6 +194,8 @@
 				</div>
 			</li>
 		</ul>
+
+		@endauth
 		<!--end::Menu Nav-->
 	</div>
 	<!--end::Menu Container-->

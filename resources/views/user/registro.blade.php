@@ -136,42 +136,6 @@
             }
         }
 
-      
-        /*function map_init() {
-            var lt=48.451778;
-            var lg=31.646305;
-
-            var myLatlng = new google.maps.LatLng(lt,lg);
-            var mapOptions = {
-                center: new google.maps.LatLng(lt,lg),
-                zoom: 6,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
-            var map = new google.maps.Map(document.getElementById('map'),mapOptions);   
-            var marker = new google.maps.Marker({
-                position:myLatlng,
-                map:map,
-                draggable:true
-            });
-
-            google.maps.event.addListener(
-                marker,
-                'drag',
-                function() {
-                    document.getElementById('lat1').innerHTML = marker.position.lat();
-                    document.getElementById('lng1').innerHTML = marker.position.lng();
-                    document.getElementById('zoom').innerHTML = mapObject.getZoom();
-
-                    // Dynamically show it somewhere if needed
-                    // $(".x").text(marker.position.lat().toFixed(6));
-                    // $(".y").text(marker.position.lng().toFixed(6));
-                    // $(".z").text(map.getZoom());
-
-                }
-            );                  
-        }*/
-
         $(function() {
 
             // let
@@ -190,6 +154,8 @@
         {
             var lat = position.coords.latitude;
             var long = position.coords.longitude;
+            $("#lat1").val(lat);
+            $("#lng1").val(long);
             muestraMapa(lat, long);
             // alert('Your latitude is :'+lat+' and longitude is '+long);
         }
@@ -222,9 +188,9 @@
                 $("#lng1").val(evt.latLng.lng().toFixed(6));
                 map.panTo(evt.latLng);
             });
-            // centers the map on markers coords
+            // centramos la posicion del mapa
             map.setCenter(vMarker.position);
-            // adds the marker on the map
+            // adicionamos el marcador en el mapa
             vMarker.setMap(map);
 
         }
