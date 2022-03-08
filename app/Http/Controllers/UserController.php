@@ -246,5 +246,21 @@ class UserController extends Controller
         return response()->json(['vEmail'=>$verificaEmail]);
     }
 
+    public function guardaRegistro(Request $request)
+    {
+        $persona                   = new User();
+        $persona->sector_id        = $request->sector_id;
+        $persona->name             = $request->name;
+        $persona->ci               = $request->ci;
+        $persona->email            = $request->email;
+        $persona->password         = Hash::make($request->password);
+        $persona->fecha_nacimiento = $request->fecha_nacimiento;
+        $persona->direccion        = $request->direccion;
+        $persona->celulares        = $request->celulares;
+        $persona->perfil           = $request->perfil;
+        $persona->save();
+
+        return redirect('User/listado');
+    }
 
 }

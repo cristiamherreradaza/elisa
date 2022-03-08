@@ -16,7 +16,8 @@
         {{-- fin cabeceras --}}
 
         {{-- modal registra publicacion --}}
-        @if (session()->get('user'))
+        @auth
+            
             <div class="modal fade" id="modal-publicacion-articulos" data-backdrop="static" tabindex="-1" role="dialog"
                 aria-labelledby="staticBackdrop" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -39,8 +40,7 @@
                                                 </div>
                                                 <!--end::Symbol-->
                                                 <!--begin::Description-->
-                                                <span class="text-muted font-weight-bold font-size-lg">{{
-                                                    session()->get('user')->name }}</span>
+                                                <span class="text-muted font-weight-bold font-size-lg">{{ Auth::user()->name }}</span>
                                                 <!--end::Description-->
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
                 </div>
             </div>
 
-        @endif
+        @endauth
         {{-- end modal registrar --}}
         
 
@@ -172,8 +172,8 @@
 
                 {{-- crea publicacion --}}
                 <div class="row" data-sticky-container>
-                    @if (session()->get('user'))
-
+                    @auth
+                        
                         {{-- <a onclick="abre_modal()"> --}}
                         <div class="col-md-12">
                             <div class="card card-custom gutter-b">
@@ -189,7 +189,7 @@
                                         </div>
                                         <!--end::Symbol-->
                                         <!--begin::Description-->
-                                        <span class="text-muted font-weight-bold font-size-lg">Que estas pensando, {{ session()->get('user')->name }}?</span>
+                                        <span class="text-muted font-weight-bold font-size-lg">Que estas pensando, {{ Auth::user()->name }}?</span>
                                         <!--end::Description-->
                                     </div>
                                     <!--end::Top-->
@@ -207,7 +207,7 @@
                             </div>
                         </div>      
                         {{-- </a>                         --}}
-                    @endif
+                    @endauth
                 </div>
                 {{-- fin crea publicacion --}}
                 <div id="publicacionesAjax">

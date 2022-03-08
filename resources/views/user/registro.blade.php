@@ -19,7 +19,7 @@
                 
             </div>
             <!--begin::Form-->
-            <form action="{{ url('User/guarda') }}" method="POST" id="formularioPersona">
+            <form action="{{ url('User/guardaRegistro') }}" method="POST" id="formularioPersona">
                 @csrf
                 <div class="card-body">
 
