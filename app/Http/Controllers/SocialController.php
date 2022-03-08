@@ -7,6 +7,7 @@ use App\Categoria;
 use App\Comentario;
 use App\Publicacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SocialController extends Controller
 {
@@ -32,11 +33,11 @@ class SocialController extends Controller
 
     public function guarda(Request $request){
 
-        // dd($request->session()->get('user')->id);
+        // dd(Auth::user()->id;);
         // dd($request->all());
 
         $publicacion               = new Publicacion();
-        $publicacion->user_id      = $request->session()->get('user')->id;
+        $publicacion->user_id      = Auth::user()->id;;
         $publicacion->categoria_id = $request->input('categoria_id');
         $publicacion->contenido    = $request->input('publicacion');
 
@@ -77,7 +78,7 @@ class SocialController extends Controller
         $coment =  new Comentario();
 
         $coment->publicacion_id = $request->input('publicacion_id');
-        $coment->user_id        = $request->session()->get('user')->id;
+        $coment->user_id        = Auth::user()->id;;
         $coment->comentario     =  $request->input('coment');
 
         $coment->save();
