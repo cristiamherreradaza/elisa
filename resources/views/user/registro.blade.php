@@ -85,14 +85,14 @@
 
                     <div class="row">
                         <div id="map" style="height:650px; width:100%;"></div>                
-                        <input type="hidden" class="form-control" id="lat1">
-                        <input type="hidden" class="form-control" id="lng1">
+                        <input type="hidden" class="form-control" id="lat1" name="latitud" />
+                        <input type="hidden" class="form-control" id="lng1" name="longitud" />
                     </div>
                     <br />
 
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary mr-2 btn-block" onclick="guarda()">Guardar</button>
+                            <button type="button" id="boton-guarda" class="btn btn-primary mr-2 btn-block" onclick="guarda()">Guardar</button>
                         </div>
                         <div class="col-md-6">
                             <a href="{{ url('User/listado') }}" class="btn btn-secondary btn-block">Volver</a>
@@ -209,8 +209,10 @@
                     // console.log(data.vEmail);     
                     if(data.vEmail > 0){
                         $("#msg-error-email").show();
+                        $("#boton-guarda").hide();
                     }else{
                         $("#msg-error-email").hide();
+                        $("#boton-guarda").show();
                     }
                 }
             });

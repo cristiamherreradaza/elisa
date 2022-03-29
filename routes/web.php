@@ -32,6 +32,7 @@ Route::post('User/addUser','UserController@addUser');
 Route::get('User/logout','UserController@logout');
 Route::get('User/registro','UserController@registro');
 Route::post('User/validaEmail', 'UserController@validaEmail');
+Route::post('User/guardaRegistro', 'UserController@guardaRegistro');
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
