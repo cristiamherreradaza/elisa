@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8" />
 	@yield('metadatos')
-	<title>KENNEL CLUB BOLIVIANO</title>
+	<title>ELISA</title>
 	<meta name="description" content="Base form control examples" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<link rel="canonical" href="https://keenthemes.com/metronic" />
@@ -178,16 +178,12 @@
 						<div class="text-dark order-2 order-md-1">
 							<span class="text-muted font-weight-bold mr-2">2021©</span>
 							<a href="http://keenthemes.com/metronic" target="_blank"
-								class="text-dark-75 text-hover-primary">Keenthemes</a>
+								class="text-dark-75 text-hover-primary">ELISA</a>
 						</div>
 						<!--end::Copyright-->
 						<!--begin::Nav-->
 						<div class="nav nav-dark">
-							<a href="http://keenthemes.com/metronic" target="_blank"
-								class="nav-link pl-0 pr-5">About</a>
-							<a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-0 pr-5">Team</a>
-							<a href="http://keenthemes.com/metronic" target="_blank"
-								class="nav-link pl-0 pr-0">Contact</a>
+							Empresa de Localizacion Inteligente Seguridad Activa
 						</div>
 						<!--end::Nav-->
 					</div>
