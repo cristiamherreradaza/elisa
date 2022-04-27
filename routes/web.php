@@ -95,4 +95,5 @@ Route::get('Publicidad/delet/{publicidad_id}', 'PublicidadController@delet');
 //PUBLICIDAD
 Route::get('Social/eliminaPublicacion/{publicacion_id}', 'SocialController@eliminaPublicacion');
 
-
+// CHATS
+Route::get('Mensaje/chat', 'MensajeChatsController@chat');
