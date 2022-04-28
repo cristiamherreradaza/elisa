@@ -17,8 +17,8 @@ class CreateUserGruposChatsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('grupo_id')->nullable();
-            $table->foreign('grupo_id')->references('id')->on('grupos_chats');
+            $table->unsignedBigInteger('grupo_chat_id')->nullable();
+            $table->foreign('grupo_chat_id')->references('id')->on('grupos_chats');
             $table->string('estado')->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();

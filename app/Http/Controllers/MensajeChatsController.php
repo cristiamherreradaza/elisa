@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\GruposChats;
 use App\MensajeChats;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,14 +20,21 @@ class MensajeChatsController extends Controller
 
         $id = Auth::user()->id;
 
-        $users = User::Where('id','!=',$id)->get();
+        $users = GruposChats::where('user_id',$id)
+                            ->orWhere('user_id_to',$id)
+                            ->get();
         
         return view('chats.chat')->with(compact('users'));
     }
 
-    public function index()
-    {
-        //
+    public function ajaxMensaje(Request $request){
+        
+        $grupo_id = $request->input('grupo');
+
+        $mensajes = MensajeChats::where('grupo_chat_id',$grupo_id)
+                                ->get();
+
+        return view('chats.ajaxMensaje')->with(compact('mensajes'));
     }
 
     /**
