@@ -197,8 +197,16 @@
         <div class="scroll scroll-pull" data-mobile-height="350">
             <!--begin::Messages-->
             <div class="messages">
+
                 {{-- @dd($mensajes) --}}
+                {{-- @if ($mensajes)
+                    @dd("si")
+                @else
+                    @dd("no")
+                @endif --}}
                 @foreach ( $mensajes as $m)
+                    {{-- @dd("entre") --}}
+
                     {{-- @if ($m->user_id == Auth::user()->id) --}}
                         {{-- aqui cambia --}}
                         <div class="d-flex flex-column mb-5 align-items-{{ ($m->user_id == Auth::user()->id)? 'end':'start' }}">
@@ -356,7 +364,7 @@
     <!--begin::Footer-->
     <div class="card-footer align-items-center">
         <!--begin::Compose-->
-        <textarea class="form-control border-0 p-0" rows="2" placeholder="Type a message"></textarea>
+        <textarea id="mensaje" name="mensaje" class="form-control border-0 p-0" rows="2" placeholder="Escriba su mensaje"></textarea>
         <div class="d-flex align-items-center justify-content-between mt-5">
             <div class="mr-3">
                 <a href="#" class="btn btn-clean btn-icon btn-md mr-1">
@@ -367,7 +375,8 @@
                 </a>
             </div>
             <div>
-                <button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
+                {{-- @dd($mensajes[0]->grupo_chat_id) --}}
+                <button type="button" onclick="enviarMensaje({{ $grupo_id }})" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Enviar</button>
             </div>
         </div>
         <!--begin::Compose-->

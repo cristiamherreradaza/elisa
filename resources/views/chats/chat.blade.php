@@ -205,11 +205,14 @@
                                         </span>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control py-4 h-auto" placeholder="Email" />
+                                <input type="text" id="busca-chat" class="form-control py-4 h-auto" placeholder="Buscar persona" />
                             </div>
                             <!--end:Search-->
                             <!--begin:Users-->
                             <div class="mt-7 scroll scroll-pull">
+                                <div id="chat-busqueda">
+                                    
+                                </div>
                                 <!--begin:User-->
                                 {{-- @dd($users[0]->user) --}}
                                 @foreach ( $users as $u)
@@ -604,12 +607,13 @@
             window.location.href = "{{ url('Publicidad/listado')}}/"+id;
         }
 
-        function ajaxMensaje(grupo_id){
+        function ajaxMensaje(grupo_id, persona){
 
             $.ajax({
                 url: "{{ url('Mensaje/ajaxMensaje') }}",
                 data: {
-                    grupo: grupo_id
+                    grupo: grupo_id,
+                    persona: persona
                 },
                 type: 'POST',
                 success: function(data) {
@@ -620,41 +624,53 @@
             })
 
         }
-		// $(function () {
-		// 	// funcion para llamar a los datos iniciales de la tabla
-		// 	let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
 
-		// 	$.ajax({
-		// 		url: "{{ url('User/ajaxListado') }}",
-		// 		data: datosBusquda,
-		// 		type: 'POST',
-		// 		success: function(data) {
-		// 			$('#ajaxUser').html(data);
-		// 		}
-		// 	});
-    	// });
+        function enviarMensaje(grupo_id){
 
-		// function buscaUsuario(){
+            var mensaje = $('#mensaje').val();
 
-		// 	let datosBusqueda = $('#formulario-busqueda-usuarios').serializeArray();
+            $.ajax({
+                url: "{{ url('Mensaje/enviaMensaje') }}",
+                data: {
+                    grupo: grupo_id, 
+                    messege: mensaje
+                },
+                type: 'POST',
+                success: function(data) {
 
-		// 	$.ajax({
-		// 		url: "{{ url('User/ajaxListado') }}",
-		// 		data: datosBusqueda,
-		// 		type: 'POST',
-		// 		success: function(data) {
-		// 			$('#ajaxUser').html(data);
-		// 		}
-		// 	});
+                    $('#mensajes-people').html(data);
 
-		// }
+                }
+            })
 
-		// function listaFamiliar(id){
-		// 	window.location.href = "{{ url('User/listaFamiliar')}}/"+id;
-		// }
+        }
 
-		// function listaSector(id){
-		// 	window.location.href = "{{ url('User/listaSector')}}/"+id;
-		// }
+        
+        $("#busca-chat").on('keyup', function(){
+
+            var persona = $('#busca-chat').val();
+
+            console.log(persona.length);
+
+            if(persona.length > 1){
+
+                $.ajax({
+                    url: "{{ url('Mensaje/ajaxBuscaPersonaChat') }}",
+                    data: {
+                        persona: persona, 
+                    },
+                    type: 'POST',
+                    success: function(data) {
+
+                        $('#chat-busqueda').html(data);
+
+                    }
+                })
+            
+            }else{
+                $('#chat-busqueda').html('');
+            }
+
+        }).keyup();
     </script>
 @endsection

@@ -98,3 +98,5 @@ Route::get('Social/eliminaPublicacion/{publicacion_id}', 'SocialController@elimi
 // CHATS
 Route::get('Mensaje/chat', 'MensajeChatsController@chat');
 Route::post('Mensaje/ajaxMensaje', 'MensajeChatsController@ajaxMensaje');
+Route::post('Mensaje/enviaMensaje', 'MensajeChatsController@enviaMensaje');
+Route::post('Mensaje/ajaxBuscaPersonaChat', 'MensajeChatsController@ajaxBuscaPersonaChat');

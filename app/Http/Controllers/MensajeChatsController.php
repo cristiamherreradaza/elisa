@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\GruposChats;
 use App\MensajeChats;
+use App\UserGruposChats;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,10 +32,41 @@ class MensajeChatsController extends Controller
         
         $grupo_id = $request->input('grupo');
 
-        $mensajes = MensajeChats::where('grupo_chat_id',$grupo_id)
-                                ->get();
+        if($grupo_id != 0){
 
-        return view('chats.ajaxMensaje')->with(compact('mensajes'));
+            $mensajes = MensajeChats::where('grupo_chat_id',$grupo_id)
+                                    ->get();
+
+        }else{
+            $persona = $request->input('persona');
+
+            $grupo = new GruposChats();
+
+            $id  = Auth::user()->id;
+
+            $grupo->user_id          = $id;
+            $grupo->user_id_to       = $persona;
+            $grupo->tipo_grupo_id    = 1;
+
+            $grupo->save();
+
+            $grupoPersona = new UserGruposChats();
+
+            $grupoPersona->user_id = $id;
+            $grupoPersona->grupo_chat_id = $grupo->id;
+
+            $grupoPersona->save();
+
+            
+            $mensajes = MensajeChats::where('grupo_chat_id',$grupo->id)
+                                    ->get();
+
+            $grupo_id = $grupo->id;
+
+        }
+
+
+        return view('chats.ajaxMensaje')->with(compact('mensajes', 'grupo_id'));
     }
 
     /**
@@ -42,9 +74,37 @@ class MensajeChatsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function enviaMensaje(Request $request){
+
+        $grupo_id = $request->input('grupo');
+
+        if($grupo_id != 0 ){
+
+            $mensaje = MensajeChats::where('grupo_chat_id',$grupo_id)->get();
+
+            if($mensaje){
+                
+                $addMessege = new MensajeChats();
+
+                $addMessege->user_id        = Auth::user()->id;
+                $addMessege->grupo_chat_id  = $request->input('grupo');
+                $addMessege->mensaje        = $request->input('messege');
+                $addMessege->fecha          = date('Y-m-d H:s:i');
+
+                $addMessege->save();
+
+            }else{
+
+            }
+
+            $mensajes = MensajeChats::where('grupo_chat_id',$grupo_id)
+                                    ->get();
+
+        }else{
+
+        }
+        
+        return view('chats.ajaxMensaje')->with(compact('mensajes', 'grupo_id'));
     }
 
     /**
@@ -53,9 +113,28 @@ class MensajeChatsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function ajaxBuscaPersonaChat(Request $request){
+
+        $querypersonas = User::query();
+
+        $id = Auth::user()->id;
+
+        $querypersonas->whereNotIn('id', [$id]);
+
+
+        if($request->filled('persona')){
+
+            $persona = $request->input('persona');
+            $querypersonas->where('name', 'like', "%$persona%");
+
+            $querypersonas->limit(5);
+
+        }
+        
+        $personas = $querypersonas->get();
+
+        return view('chats.ajaxBuscaPersonaChat')->with(compact('personas'));
+
     }
 
     /**
