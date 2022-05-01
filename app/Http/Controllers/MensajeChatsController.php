@@ -29,6 +29,8 @@ class MensajeChatsController extends Controller
     }
 
     public function ajaxMensaje(Request $request){
+
+        // dd($request->all());
         
         $grupo_id = $request->input('grupo');
 
