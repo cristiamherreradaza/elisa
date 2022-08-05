@@ -18,7 +18,7 @@ class UserController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
-        $this->middleware('auth', ['except' => ['verificaUser', 'logout', 'addUser', 'registro', 'validaEmail']]);
+        $this->middleware('auth', ['except' => ['verificaUser', 'logout', 'addUser', 'registro', 'validaEmail', 'guardaRegistro']]);
 
     }
 
@@ -248,6 +248,7 @@ class UserController extends Controller
 
     public function guardaRegistro(Request $request)
     {
+        // dd($request->input());
         $persona                   = new User();
         $persona->sector_id        = $request->sector_id;
         $persona->name             = $request->name;
@@ -258,9 +259,11 @@ class UserController extends Controller
         $persona->direccion        = $request->direccion;
         $persona->celulares        = $request->celulares;
         $persona->perfil           = $request->perfil;
+        $persona->latitud          = $request->latitud;
+        $persona->longitud         = $request->longitud;
         $persona->save();
 
-        return redirect('User/listado');
+        return redirect('/login');
     }
 
 }

@@ -32,6 +32,7 @@ Route::post('User/addUser','UserController@addUser');
 Route::get('User/logout','UserController@logout');
 Route::get('User/registro','UserController@registro');
 Route::post('User/validaEmail', 'UserController@validaEmail');
+Route::post('User/guardaRegistro', 'UserController@guardaRegistro');
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
@@ -97,4 +98,8 @@ Route::get('Social/eliminaPublicacion/{publicacion_id}', 'SocialController@elimi
 // examen
 Route::get('Estudiante/listado', 'EstudianteController@listado');
 
-
+// CHATS
+Route::get('Mensaje/chat', 'MensajeChatsController@chat');
+Route::post('Mensaje/ajaxMensaje', 'MensajeChatsController@ajaxMensaje');
+Route::post('Mensaje/enviaMensaje', 'MensajeChatsController@enviaMensaje');
+Route::post('Mensaje/ajaxBuscaPersonaChat', 'MensajeChatsController@ajaxBuscaPersonaChat');

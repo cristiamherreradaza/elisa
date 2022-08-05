@@ -191,7 +191,14 @@
 						</li>
 			
 					</ul>
-				</div>
+				</div>				
+			</li>
+
+			<li class="menu-item" aria-haspopup="true">
+				<a href="{{ url('Mensaje/chat') }}" class="menu-link">
+					<i class="fas fa-inbox menu-icon"></i>
+					<span class="menu-text">Chat</span>
+				</a>
 			</li>
 		</ul>
 
