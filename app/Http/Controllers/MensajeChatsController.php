@@ -123,7 +123,6 @@ class MensajeChatsController extends Controller
 
         $querypersonas->whereNotIn('id', [$id]);
 
-
         if($request->filled('persona')){
 
             $persona = $request->input('persona');
