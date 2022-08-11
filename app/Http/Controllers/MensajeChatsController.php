@@ -138,6 +138,29 @@ class MensajeChatsController extends Controller
 
     }
 
+    public function ajaxBuscaParticipanteChat(Request $request){
+
+        $querypersonas = User::query();
+
+        $id = Auth::user()->id;
+
+        $querypersonas->whereNotIn('id', [$id]);
+
+        if($request->filled('persona')){
+
+            $persona = $request->input('persona');
+            $querypersonas->where('name', 'like', "%$persona%");
+
+            $querypersonas->limit(5);
+
+        }
+        
+        $personas = $querypersonas->get();
+
+        return view('chats.ajaxBuscaParticipanteChat')->with(compact('personas'));
+
+    }
+
     /**
      * Display the specified resource.
      *

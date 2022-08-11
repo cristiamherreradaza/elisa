@@ -103,3 +103,7 @@ Route::get('Mensaje/chat', 'MensajeChatsController@chat');
 Route::post('Mensaje/ajaxMensaje', 'MensajeChatsController@ajaxMensaje');
 Route::post('Mensaje/enviaMensaje', 'MensajeChatsController@enviaMensaje');
 Route::post('Mensaje/ajaxBuscaPersonaChat', 'MensajeChatsController@ajaxBuscaPersonaChat');
+
+//CHATS GRUPALES
+
+Route::post('mensaje/ajaxBuscaParticipanteChat', 'MensajeChatsController@ajaxBuscaParticipanteChat');

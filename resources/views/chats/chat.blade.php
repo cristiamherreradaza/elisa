@@ -128,7 +128,7 @@
                                             <div class="card-body">
                                                 {{-- Nuevo grupo --}}
                                                 <div class="px-4 mb-2">
-                                                    <a href="#" class="btn btn-primary font-weight-bold text-uppercase py-2 px-1 text-center" data-toggle="modal" data-target="#kt_inbox_compose">Nuevo grupo</a>
+                                                    <a href="#" class="btn btn-primary font-weight-bold text-uppercase py-2 px-1 text-center" data-toggle="modal" data-target="#kt_nuevo_grupo">Nuevo grupo</a>
                                                 </div>
                                                 <!--begin:Search-->
                                                 <div class="input-group input-group-solid">
@@ -194,56 +194,69 @@
                             </div>
                         </div>
                         <!--end::Table-->
-                        <div class="modal modal-sticky modal-sticky-lg modal-sticky-bottom-right" id="kt_inbox_compose" role="dialog" data-backdrop="false">
-                            <div class="modal-dialog" role="document">
+                         <!-- Modal-->
+                        <div class="modal fade" id="kt_nuevo_grupo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+                            <div class="modal-dialog " role="document">
                                 <div class="modal-content">
-                                    <!--begin::Form-->
-                                    <form id="kt_inbox_compose_form">
-                                        <!--begin::Header-->
-                                        <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5 border-bottom">
-                                            <h5 class="font-weight-bold m-0">Nuevo Grupo</h5>
-                                            <div class="d-flex ml-2">
-                                                <span class="btn btn-clean btn-sm btn-icon" data-dismiss="modal">
-                                                    <i class="ki ki-close icon-1x"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <!--end::Header-->
-                                        <!--begin::Body-->
-                                        <div class="d-block">
-                                            <!--begin::To-->
-                                            <div class="d-flex align-items-center border-bottom inbox-to px-8 min-h-45px">
-                                                <div class="text-dark-50 w-75px">Nombre: </div>
-                                                <div class="d-flex align-items-center flex-grow-1">
-                                                    <input type="text" class="form-control border-0" name="compose_to"/>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Nuevo grupo</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{-- url('Categoria/guardaResA') --}}" method="POST" id="formulario-grupo-chat" enctype="multipart/form-data">{{-- para enviar archivos --}}
+                                            @csrf
+                                            <div class="row">
+                                                {{-- Aqui guardamos el id_restaurant --}}
+                                                <input type="hidden" name="grupo_chat_id" id="grupo_chat_id" value="0">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Nombre
+                                                        <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="name" name="name" required />
+                                                    </div>        
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Descripcion
+                                                        <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="descripcion" name="descripcion" required />
+                                                    </div>        
                                                 </div>
                                             </div>
-                                            <!--end::To-->
-                                            <!--begin::Subject-->
-                                            <div class="border-bottom">
-                                                <input class="form-control border-0 px-8 min-h-45px" name="compose_subject" placeholder="Participantes" />
+                        
+                                        </form>
+
+                                        <div class="row">
+                                            {{-- Aqui Buscamos participantes --}}
+                                            <div class="col-md-12">
+                                                <div class="form-group mb-0">
+                                                    <input type="text" class="form-control" id="busca-participante" name="busca-participante" placeholder="Añade Participante" required />
+                                                </div>        
                                             </div>
-                                            <!--end::Subject-->
-                                            <!--begin::Message-->
-                                            <div id="kt_inbox_compose_editor" class="border-0" style="height: 150px"></div>
-                                            <!--end::Message-->
                                         </div>
-                                        <!--end::Body-->
-                                        <!--begin::Footer-->
-                                        <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5 border-top">
-                                            <!--begin::Actions-->
-                                            <div class="d-flex align-items-center mr-3">
-                                                <!--begin::Send-->
-                                                <div class="btn-group mr-4">
-                                                    <span class="btn btn-primary font-weight-bold px-6">Crear</span>
-                                                </div>
-                                                <!--end::Send-->
+                                        <div class="row">
+                                            {{-- Aqui Buscamos participantes --}}
+                                            <div class="col-md-12">
+                                                <div class="mt-4 scroll scroll-pull">
+                                                    <div id="chat-busqueda-participante">
+                                                        
+                                                    </div> 
+                                                </div>     
                                             </div>
-                                            <!--end::Actions-->
                                         </div>
-                                        <!--end::Footer-->
-                                    </form>
-                                    <!--end::Form-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold " data-dismiss="modal">Cancelar</button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-sm btn-success font-weight-bold"  onclick="crear()">Crear</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -423,6 +436,33 @@
             
             }else{
                 $('#chat-busqueda').html('');
+            }
+
+        }).keyup();
+
+        $("#busca-participante").on('keyup', function(){
+
+            var persona = $('#busca-participante').val();
+
+            console.log(persona.length);
+
+            if(persona.length > 1){
+
+                $.ajax({
+                    url: "{{ url('Mensaje/ajaxBuscaPersonaChat') }}",
+                    data: {
+                        persona: persona, 
+                    },
+                    type: 'POST',
+                    success: function(data) {
+
+                        $('#chat-busqueda-participante').html(data);
+
+                    }
+                })
+
+            }else{
+                $('#chat-busqueda-participante').html('');
             }
 
         }).keyup();
