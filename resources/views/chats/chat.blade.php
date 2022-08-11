@@ -8,6 +8,84 @@
 @endsection
 
 @section('content')
+
+    <!-- Modal NUEVO GRUPO-->
+    <div class="modal fade" id="kt_nuevo_grupo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo grupo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST" id="formulario-grupo-chat" enctype="multipart/form-data">{{-- para enviar archivos --}}
+                        @csrf
+                        <input type="text" name="grupo_chat_id" id="grupo_chat_id" value="0">
+                        <div class="row">
+                            {{-- Aqui guardamos el id_restaurant --}}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Nombre
+                                    <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="grupo_name" name="grupo_name" required />
+                                </div>        
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Descripcion
+                                    <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="grupo_descripcion" name="grupo_descripcion" required />
+                                </div>        
+                            </div>
+                        </div>
+                        <div class="row" id="btn_crear_grupo">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-block btn-success" onclick="guardarPeopleGroup()">Guardar</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <hr>
+
+                    <div class="row" style="display: none;" id="input_busca_personas_grupos">
+                        {{-- Aqui Buscamos participantes --}}
+                        <div class="col-md-12">
+                            <div class="form-group mb-0">
+                                <input type="text" class="form-control" id="busca-participante" name="busca-participante" placeholder="Añade Participante" required />
+                            </div>        
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        {{-- Aqui Buscamos participantes --}}
+                        <div class="col-md-12">
+                            <div class="mt-4 scroll scroll-pull">
+                                <div id="chat-busqueda-participante">
+                                    
+                                </div> 
+                            </div>     
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-sm btn-light-dark font-weight-bold " data-dismiss="modal">Cancelar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-sm btn-success font-weight-bold"  onclick="crear()">Crear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Modal NUEVO GRUPO-->
+
+
 	<!--begin::Card-->
 	{{-- <div class="card card-custom gutter-b"> --}}
 		
@@ -128,7 +206,7 @@
                                             <div class="card-body">
                                                 {{-- Nuevo grupo --}}
                                                 <div class="px-4 mb-2">
-                                                    <a href="#" class="btn btn-primary font-weight-bold text-uppercase py-2 px-1 text-center" data-toggle="modal" data-target="#kt_nuevo_grupo">Nuevo grupo</a>
+                                                    <a href="#" class="btn btn-primary font-weight-bold text-uppercase py-2 px-1 text-center" data-toggle="modal" onclick="abremodalNuevoGrupo()">Nuevo grupo</a>
                                                 </div>
                                                 <!--begin:Search-->
                                                 <div class="input-group input-group-solid">
@@ -175,73 +253,6 @@
                             </div>
                         </div>
                         <!--end::Table-->
-                         <!-- Modal-->
-                        <div class="modal fade" id="kt_nuevo_grupo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-                            <div class="modal-dialog " role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Nuevo grupo</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <i aria-hidden="true" class="ki ki-close"></i>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="{{-- url('Categoria/guardaResA') --}}" method="POST" id="formulario-grupo-chat" enctype="multipart/form-data">{{-- para enviar archivos --}}
-                                            @csrf
-                                            <div class="row">
-                                                {{-- Aqui guardamos el id_restaurant --}}
-                                                <input type="hidden" name="grupo_chat_id" id="grupo_chat_id" value="0">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Nombre
-                                                        <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="name" name="name" required />
-                                                    </div>        
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Descripcion
-                                                        <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="descripcion" name="descripcion" required />
-                                                    </div>        
-                                                </div>
-                                            </div>
-                        
-                                        </form>
-
-                                        <div class="row">
-                                            {{-- Aqui Buscamos participantes --}}
-                                            <div class="col-md-12">
-                                                <div class="form-group mb-0">
-                                                    <input type="text" class="form-control" id="busca-participante" name="busca-participante" placeholder="Añade Participante" required />
-                                                </div>        
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            {{-- Aqui Buscamos participantes --}}
-                                            <div class="col-md-12">
-                                                <div class="mt-4 scroll scroll-pull">
-                                                    <div id="chat-busqueda-participante">
-                                                        
-                                                    </div> 
-                                                </div>     
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold " data-dismiss="modal">Cancelar</button>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-sm btn-success font-weight-bold"  onclick="crear()">Crear</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Compose-->
                     </div>
                 </div>
             </div>
@@ -447,5 +458,65 @@
             }
 
         }).keyup();
+
+        function guardarPeopleGroup(){
+
+            Swal.fire({
+                title: "Esta seguro de crear el grupo",
+                text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, borrar!",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+
+                    var datos = $('#formulario-grupo-chat').serializeArray();
+
+                    $.ajax({
+                        url: "{{ url('mensaje/guardarPeopleGroup') }}",
+                        data: datos,
+						dataType: 'json',
+                        type: 'POST',
+                        success: function(data) {
+                            
+                            if(data.status == 'success'){
+
+                                Swal.fire({
+                                    title: "Se creo el grupo con Exito!",
+                                    icon : 'success',
+                                    tiumer: 1500
+                                })
+
+                                $('#grupo_chat_id').val(data.grupo_chat_id);
+                                $('#input_busca_personas_grupos').show('toggle');
+                                $('#btn_crear_grupo').hide('toggle');
+
+                            }
+
+                        }
+                    })
+
+
+                } else if (result.dismiss === "cancel") {
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
+
+        }
+
+        function abremodalNuevoGrupo(){
+
+            $('#formulario-grupo-chat')[0].reset();
+            $('#input_busca_personas_grupos').hide('toggle');
+            $('#btn_crear_grupo').show('toggle');
+
+            $('#kt_nuevo_grupo').modal('show');
+        }
     </script>
 @endsection
