@@ -219,7 +219,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="exampleInputPassword1">Descripcion
+                                                        <label for="exampleInputPassword1">Descripcion 
                                                         <span class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" id="descripcion" name="descripcion" required />
                                                     </div>        
