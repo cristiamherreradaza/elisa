@@ -161,6 +161,37 @@ class MensajeChatsController extends Controller
 
     }
 
+    public function guardarPeopleGroup(Request $request){
+
+        if($request->ajax()){
+
+            // dd($request->all());
+
+            $grupo_chat_id   = $request->input('grupo_chat_id');
+
+            if($grupo_chat_id == 0){
+                $grupo_chat = new GruposChats();
+            }else{
+                $grupo_chat = GruposChats::find($grupo_chat_id);
+            }
+
+            $grupo_chat->user_id        = Auth::user()->id;
+            $grupo_chat->tipo_grupo_id  = 2;
+            $grupo_chat->nombre         = $request->input('grupo_name');
+            $grupo_chat->descripcion    = $request->input('grupo_descripcion');
+
+            $grupo_chat->save();
+            
+            $data['status'] = 'success';
+            $data['grupo_chat_id'] = $grupo_chat->id;
+
+            return json_encode($data);
+
+        }
+
+
+    }
+
     /**
      * Display the specified resource.
      *
