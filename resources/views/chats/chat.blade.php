@@ -22,7 +22,7 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="formulario-grupo-chat" enctype="multipart/form-data">{{-- para enviar archivos --}}
                         @csrf
-                        <input type="text" name="grupo_chat_id" id="grupo_chat_id" value="0">
+                        <input type="hidden" name="grupo_chat_id" id="grupo_chat_id" value="0">
                         <div class="row">
                             {{-- Aqui guardamos el id_restaurant --}}
                             <div class="col-md-6">
@@ -69,15 +69,28 @@
                             </div>     
                         </div>
                     </div>
+
+                    <hr>
+
+                    <div class="row">
+                        {{-- Aqui mostramos a los participantes del grupo --}}
+                        <div class="col-md-12">
+                            <div class="mt-4 scroll scroll-pull">
+                                <div id="chat-grupo-participante">
+                                    
+                                </div> 
+                            </div>     
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-md-6">
                             <button type="button" class="btn btn-sm btn-light-dark font-weight-bold " data-dismiss="modal">Cancelar</button>
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <button type="button" class="btn btn-sm btn-success font-weight-bold"  onclick="crear()">Crear</button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -225,7 +238,7 @@
                                                             </span>
                                                         </span>
                                                     </div>
-                                                    <input type="text" id="busca-chat" class="form-control py-4 h-auto" placeholder="Buscar persona" />
+                                                    <input type="text" id="busca-chat-grupo" class="form-control py-4 h-auto" placeholder="Buscar Grupo" />
                                                 </div>
                                                 <!--end:Search-->
                                                 <!--begin:Users-->
@@ -463,10 +476,10 @@
 
             Swal.fire({
                 title: "Esta seguro de crear el grupo",
-                text: "Ya no podras recuperarlo!",
+                text: "Si lo creas podras añadir participantes!",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Si, borrar!",
+                confirmButtonText: "Si, crear!",
                 cancelButtonText: "No, cancelar!",
                 reverseButtons: true
             }).then(function(result) {
@@ -517,6 +530,26 @@
             $('#btn_crear_grupo').show('toggle');
 
             $('#kt_nuevo_grupo').modal('show');
+        }
+
+        function ajaxAdicionaParticipante(participante_id){
+
+            var grupo_id = $('#grupo_chat_id').val();
+            
+            $.ajax({
+                url: "{{ url('mensaje/ajaxAdicionaParticipante') }}",
+                data: {
+                    participante: participante_id, 
+                    grupo: grupo_id
+                },
+                type: 'POST',
+                success: function(data) {
+                    console.log(participante_id);
+                    $('#chat-grupo-participante').html(data);
+
+                }
+            })
+
         }
     </script>
 @endsection

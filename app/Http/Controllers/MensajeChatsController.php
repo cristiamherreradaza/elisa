@@ -6,6 +6,7 @@ use App\User;
 use App\GruposChats;
 use App\MensajeChats;
 use App\UserGruposChats;
+use App\ParticipanteGrupo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -189,6 +190,26 @@ class MensajeChatsController extends Controller
 
         }
 
+    }
+
+    public function ajaxAdicionaParticipante(Request $request){
+        
+        if($request->ajax()){
+
+            dd($request->all());
+
+            $grupo_chat_id   = $request->input('grupo');
+
+            $grupo_chat = new ParticipanteGrupo();
+            $grupo_chat->user_id        = $request->input('participante');;
+            $grupo_chat->grupo_chat_id  = $grupo_chat_id;
+
+            // $grupo_chat->save();
+            
+
+            return view('chats.ajaxAdicionaParticipante')->with(compact('personas'));
+
+        }
 
     }
 
