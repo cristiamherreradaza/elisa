@@ -196,16 +196,15 @@ class MensajeChatsController extends Controller
         
         if($request->ajax()){
 
-            dd($request->all());
-
             $grupo_chat_id   = $request->input('grupo');
 
             $grupo_chat = new ParticipanteGrupo();
             $grupo_chat->user_id        = $request->input('participante');;
             $grupo_chat->grupo_chat_id  = $grupo_chat_id;
 
-            // $grupo_chat->save();
-            
+            $grupo_chat->save();
+
+            $personas = [];
 
             return view('chats.ajaxAdicionaParticipante')->with(compact('personas'));
 
