@@ -172,6 +172,7 @@ class MensajeChatsController extends Controller
 
             if($grupo_chat_id == 0){
                 $grupo_chat = new GruposChats();
+
             }else{
                 $grupo_chat = GruposChats::find($grupo_chat_id);
             }
@@ -196,21 +197,25 @@ class MensajeChatsController extends Controller
         
         if($request->ajax()){
 
+            
             $grupo_chat_id   = $request->input('grupo');
 
             $grupo_chat = new ParticipanteGrupo();
-            $grupo_chat->user_id        = $request->input('participante');;
+            $grupo_chat->user_id        = $request->input('participante');
             $grupo_chat->grupo_chat_id  = $grupo_chat_id;
 
             $grupo_chat->save();
 
-            $personas = [];
+            $participantes = ParticipanteGrupo::where('grupo_chat_id', $grupo_chat_id)
+                                                ->get();
 
-            return view('chats.ajaxAdicionaParticipante')->with(compact('personas'));
+            return view('chats.ajaxAdicionaParticipante')->with(compact('participantes'));
 
         }
 
     }
+
+
 
     /**
      * Display the specified resource.

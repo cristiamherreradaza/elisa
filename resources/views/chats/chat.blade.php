@@ -86,7 +86,7 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-sm btn-light-dark font-weight-bold " data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-sm btn-light-dark font-weight-bold " data-dismiss="modal">Salir</button>
                         </div>
                         {{-- <div class="col-md-6">
                             <button type="button" class="btn btn-sm btn-success font-weight-bold"  onclick="crear()">Crear</button>
@@ -327,7 +327,7 @@
                     window.location.href = "{{ url('Cliente/elimina') }}/"+id;
                     Swal.fire(
                         "Borrado!",
-                        "El registro fue eliminado.",
+                        "El participante fue eliminado.",
                         "success"
                     )
                     // result.dismiss can be "cancel", "overlay",
@@ -552,5 +552,24 @@
             })
 
         }
+
+        // function EliminaParticipanteGrupoChat(pg_id){
+
+        //     var grupo_id = $('#grupo_chat_id').val();
+
+        //     $.ajax({
+        //         url: "{{ url('mensaje/EliminaParticipanteGrupoChat') }}",
+        //         data: {
+        //             participante: pg_id, 
+        //             grupo: grupo_id
+        //         },
+        //         type: 'POST',
+        //         success: function(data) {
+        //             console.log(participante_id);
+        //             $('#chat-grupo-participante').html(data);
+        //         }
+        //     })
+
+        // }
     </script>
 @endsection

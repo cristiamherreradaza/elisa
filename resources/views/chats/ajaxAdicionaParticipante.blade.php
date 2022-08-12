@@ -1,16 +1,9 @@
-@foreach ( $personas as $p) 
+@foreach ( $participantes as $p) 
     @php
 
-        $id  = Auth::user()->id;
 
-        $idp = $p->id;
-
-        $grupoChat = App\GruposChats::where('user_id',$id)
-                            ->where('user_id_to',$idp)
-                            ->orWhere(function($query) use($idp, $id){
-                                $query->where('user_id',$idp)
-                                      ->where('user_id_to',$id);
-                            })->first();
+        $idp = $p->user_id;
+        $persona = App\User::where('id',$idp)->first();
 
     @endphp
     <div class="d-flex align-items-center justify-content-between mb-1">
@@ -19,7 +12,9 @@
                 {{-- <img alt="Pic" src="/metronic/theme/html/demo1/dist/assets/media/users/300_12.jpg" /> --}}
             </div>
             <div class="d-flex flex-column">
-                <a type="button" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg" onclick="ajaxAdicionaParticipante('{{ $p->id }}')">{{ $p->name }}</a>
+                <p>{{ $persona->name }}
+                    <a type="button" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg" onclick="EliminaParticipanteGrupoChat('{{ $p->id }}')"><i class="flaticon2-cross"></i></a>
+                </p>
                 {{-- <span class="text-muted font-weight-bold font-size-sm">Head of Development</span> --}}
             </div>
         </div>
