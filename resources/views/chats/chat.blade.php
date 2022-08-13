@@ -244,9 +244,44 @@
                                                 </div>
                                                 <!--end:Search-->
                                                 <!--begin:Users-->
-                                                <div class="mt-7 scroll scroll-pull">
-                                                    
+                                                <div class="mt-1 scroll scroll-pull">
+                                                    <div id="chat-busqueda-grupos">
+                                                        
+                                                    </div>
                                                 </div>
+                                                <hr>
+                                                @php
+                                                    $grupos = App\GruposChats::where('tipo_grupo_id', 2)->get();
+                                                @endphp
+                                                @foreach ( $grupos as $g) 
+                                                    @php
+
+                                                        $id  = Auth::user()->id;
+
+                                                        $idg = $g->id;
+
+                                                        $gc = App\ParticipanteGrupo::where('user_id',$id)
+                                                                            ->where('grupo_chat_id',$idg)->first();
+
+                                                    @endphp
+                                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="symbol symbol-circle symbol-50 mr-3">
+                                                                {{-- <img alt="Pic" src="/metronic/theme/html/demo1/dist/assets/media/users/300_12.jpg" /> --}}
+                                                            </div>
+                                                            @if ($id==$g->user_id or $gc)
+                                                                <div class="d-flex flex-column">
+                                                                    <a type="button" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg" onclick="ajaxMensajeGrupo('{{ $g->id }}')">{{ $g->nombre }}</a>
+                                                                    {{-- <span class="text-muted font-weight-bold font-size-sm">Head of Development</span> --}}
+                                                                </div>
+                                                            @endif
+                                                            
+                                                        </div>
+                                                        <div class="d-flex flex-column align-items-end">
+                                                            {{-- <span class="text-muted font-weight-bold font-size-sm">35 mins</span> --}}
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                                 <!--end:Users-->
                                             </div>
                                             <!--end::Body-->
@@ -257,7 +292,7 @@
                                     <!--begin::Content-->
                                     <div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
                                         <!--begin::Card-->
-                                        <div id="mensajes-people">
+                                        <div id="mensajes-people-grupo">
                     
                                         </div>
                                         <!--end::Card-->
@@ -552,6 +587,8 @@
             })
 
         }
+
+
 
         // function EliminaParticipanteGrupoChat(pg_id){
 
