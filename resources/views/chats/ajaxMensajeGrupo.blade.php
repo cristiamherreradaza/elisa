@@ -89,7 +89,7 @@
                 </a>
             </div>
             <div>
-                <button type="button" onclick="enviarMensajeGrupo({{ $grupo_id }})" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Enviar</button>
+                <button type="button" onclick="enviarMensaje({{ $grupo_id }}, 2)" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Enviar</button>
             </div>
         </div>
         <!--begin::Compose-->

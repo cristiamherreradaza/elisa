@@ -119,6 +119,11 @@ class MensajeChatsController extends Controller
         }else{
 
         }
+
+        $tipo_chat = $request->input('tipo');
+        if($tipo_chat == 2){
+            return view('chats.ajaxMensajeGrupo')->with(compact('mensajes', 'grupo_id'));
+        }
         
         return view('chats.ajaxMensaje')->with(compact('mensajes', 'grupo_id'));
     }

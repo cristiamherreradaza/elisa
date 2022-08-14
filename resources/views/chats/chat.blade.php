@@ -421,7 +421,7 @@
 
         }
 
-        function enviarMensaje(grupo_id){
+        function enviarMensaje(grupo_id, tipo_chat){
 
             var mensaje = $('#mensaje').val();
 
@@ -429,12 +429,16 @@
                 url: "{{ url('Mensaje/enviaMensaje') }}",
                 data: {
                     grupo: grupo_id, 
-                    messege: mensaje
+                    messege: mensaje,
+                    tipo: tipo_chat
                 },
                 type: 'POST',
                 success: function(data) {
-
-                    $('#mensajes-people').html(data);
+                    if(tipo_chat == 2){
+                        $('#mensajes-people-grupo').html(data);
+                    }else{
+                        $('#mensajes-people').html(data);
+                    }
 
                 }
             })
@@ -552,6 +556,8 @@
             $('#formulario-grupo-chat')[0].reset();
             $('#input_busca_personas_grupos').hide('toggle');
             $('#btn_crear_grupo').show('toggle');
+            $('#chat-busqueda-participante').html('');
+            $('#chat-grupo-participante').html('');
 
             $('#kt_nuevo_grupo').modal('show');
         }
