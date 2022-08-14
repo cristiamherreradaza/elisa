@@ -25,8 +25,21 @@ class MensajeChatsController extends Controller
         $users = GruposChats::where('user_id',$id)
                             ->orWhere('user_id_to',$id)
                             ->get();
+
+        // PARA LOS GRUPOS
+        $grupos = GruposChats::select('grupos_chats.id', 'grupos_chats.nombre', 'grupos_chats.descripcion')
+                            ->join('participante_grupos', 'grupos_chats.id', '=', 'participante_grupos.grupo_chat_id')
+                            ->where(function($query) use ($id){
+                                $query->where('tipo_grupo_id', 2)
+                                ->where('grupos_chats.user_id', $id);
+                            })
+                            ->orWhere(function($query) use ($id){
+                                $query->where('participante_grupos.user_id', $id);  
+                            })
+                            ->groupBy('grupos_chats.id')
+                            ->get();
         
-        return view('chats.chat')->with(compact('users'));
+        return view('chats.chat')->with(compact('users', 'grupos'));
     }
 
     public function ajaxMensaje(Request $request){
@@ -166,13 +179,10 @@ class MensajeChatsController extends Controller
 
         if($request->ajax()){
 
-            // dd($request->all());
-
             $grupo_chat_id   = $request->input('grupo_chat_id');
 
             if($grupo_chat_id == 0){
                 $grupo_chat = new GruposChats();
-
             }else{
                 $grupo_chat = GruposChats::find($grupo_chat_id);
             }
@@ -183,6 +193,17 @@ class MensajeChatsController extends Controller
             $grupo_chat->descripcion    = $request->input('grupo_descripcion');
 
             $grupo_chat->save();
+
+
+            // GAREGAMOS AL NUEVO GRUPO
+            if($grupo_chat_id == 0){
+                $grupo_chatNew = new ParticipanteGrupo();
+                $grupo_chatNew->user_id        = Auth::user()->id;
+                $grupo_chatNew->grupo_chat_id  = $grupo_chat->id;
+
+                $grupo_chatNew->save();
+            }
+
             
             $data['status'] = 'success';
             $data['grupo_chat_id'] = $grupo_chat->id;
@@ -213,6 +234,34 @@ class MensajeChatsController extends Controller
 
         }
 
+    }
+
+    public function ajaxMensajeGrupo(Request $request){
+        if($request->ajax()){
+
+            $grupo_id = $request->input('grupo');
+
+            $mensajes = MensajeChats::where('grupo_chat_id', $grupo_id)
+                                    ->get();
+
+            return view('chats.ajaxMensajeGrupo')->with(compact('mensajes', 'grupo_id'));
+
+        }   
+    }
+
+    public function eliminaParticipanteGrupoChat(Request $request){
+        if($request->ajax()){
+
+            $participante_id = $request->input('participante');
+            $grupo_chat_id = $request->input('grupo');
+
+            ParticipanteGrupo::destroy($participante_id);
+            
+            $participantes = ParticipanteGrupo::where('grupo_chat_id', $grupo_chat_id)
+                                                ->get();
+
+            return view('chats.ajaxAdicionaParticipante')->with(compact('participantes'));
+        }
     }
 
     /**

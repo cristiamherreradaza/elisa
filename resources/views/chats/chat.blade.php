@@ -250,31 +250,18 @@
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                @php
-                                                    $grupos = App\GruposChats::where('tipo_grupo_id', 2)->get();
-                                                @endphp
                                                 @foreach ( $grupos as $g) 
-                                                    @php
-
-                                                        $id  = Auth::user()->id;
-
-                                                        $idg = $g->id;
-
-                                                        $gc = App\ParticipanteGrupo::where('user_id',$id)
-                                                                            ->where('grupo_chat_id',$idg)->first();
-
-                                                    @endphp
                                                     <div class="d-flex align-items-center justify-content-between mb-1">
                                                         <div class="d-flex align-items-center">
                                                             <div class="symbol symbol-circle symbol-50 mr-3">
                                                                 {{-- <img alt="Pic" src="/metronic/theme/html/demo1/dist/assets/media/users/300_12.jpg" /> --}}
                                                             </div>
-                                                            @if ($id==$g->user_id or $gc)
+                                                            {{-- @if ($id==$g->user_id or $gc) --}}
                                                                 <div class="d-flex flex-column">
                                                                     <a type="button" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg" onclick="ajaxMensajeGrupo('{{ $g->id }}')">{{ $g->nombre }}</a>
                                                                     {{-- <span class="text-muted font-weight-bold font-size-sm">Head of Development</span> --}}
                                                                 </div>
-                                                            @endif
+                                                            {{-- @endif --}}
                                                             
                                                         </div>
                                                         <div class="d-flex flex-column align-items-end">
@@ -590,23 +577,38 @@
 
 
 
-        // function EliminaParticipanteGrupoChat(pg_id){
+        function eliminaParticipanteGrupoChat(pg_id){
 
-        //     var grupo_id = $('#grupo_chat_id').val();
+            var grupo_id = $('#grupo_chat_id').val();
 
-        //     $.ajax({
-        //         url: "{{ url('mensaje/EliminaParticipanteGrupoChat') }}",
-        //         data: {
-        //             participante: pg_id, 
-        //             grupo: grupo_id
-        //         },
-        //         type: 'POST',
-        //         success: function(data) {
-        //             console.log(participante_id);
-        //             $('#chat-grupo-participante').html(data);
-        //         }
-        //     })
+            $.ajax({
+                url: "{{ url('mensaje/eliminaParticipanteGrupoChat') }}",
+                data: {
+                    participante: pg_id, 
+                    grupo: grupo_id
+                },
+                type: 'POST',
+                success: function(data) {
+                    $('#chat-grupo-participante').html(data);
+                }
+            })
 
-        // }
+        }
+
+        function ajaxMensajeGrupo(grupo){
+
+            $.ajax({
+                url: "{{ url('mensaje/ajaxMensajeGrupo') }}",
+                data: {
+                    grupo: grupo
+                },
+                type: 'POST',
+                success: function(data) {
+
+                    $('#mensajes-people-grupo').html(data)
+
+                }
+            })
+        }
     </script>
 @endsection
