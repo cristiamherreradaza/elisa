@@ -108,3 +108,5 @@ Route::post('Mensaje/ajaxBuscaPersonaChat', 'MensajeChatsController@ajaxBuscaPer
 Route::post('mensaje/ajaxBuscaParticipanteChat', 'MensajeChatsController@ajaxBuscaParticipanteChat');
 Route::post('mensaje/guardarPeopleGroup', 'MensajeChatsController@guardarPeopleGroup');
 Route::post('mensaje/ajaxAdicionaParticipante', 'MensajeChatsController@ajaxAdicionaParticipante');
+Route::post('mensaje/ajaxMensajeGrupo', 'MensajeChatsController@ajaxMensajeGrupo');
+Route::post('mensaje/eliminaParticipanteGrupoChat', 'MensajeChatsController@eliminaParticipanteGrupoChat');

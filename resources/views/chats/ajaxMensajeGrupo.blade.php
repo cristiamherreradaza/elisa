@@ -30,7 +30,9 @@
                 $id  = Auth::user()->id;
 
             @endphp
-            <div class="text-dark-75 font-weight-bold font-size-h5">{{ ($grupo->user_id == $id)? $grupo->user->name : $grupo->user_to->name}}</div>
+            <div class="text-dark-75 font-weight-bold font-size-h5">
+                {{-- {{ ($grupo->user_id == $id)? $grupo->user->name : $grupo->user_to->name}} --}}
+            </div>
             <div>
                 <span class="label label-sm label-dot label-success"></span>
                 <span class="font-weight-bold text-muted font-size-sm">Active</span>
@@ -87,7 +89,7 @@
                 </a>
             </div>
             <div>
-                <button type="button" onclick="enviarMensaje({{ $grupo_id }})" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Enviar</button>
+                <button type="button" onclick="enviarMensajeGrupo({{ $grupo_id }})" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Enviar</button>
             </div>
         </div>
         <!--begin::Compose-->
