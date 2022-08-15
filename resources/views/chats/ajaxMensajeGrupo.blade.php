@@ -31,19 +31,15 @@
 
             @endphp
             <div class="text-dark-75 font-weight-bold font-size-h5">
-                {{-- {{ ($grupo->user_id == $id)? $grupo->user->name : $grupo->user_to->name}} --}}
-            </div>
-            <div>
-                <span class="label label-sm label-dot label-success"></span>
-                <span class="font-weight-bold text-muted font-size-sm">Active</span>
+                {{ $grupo->nombre }}
             </div>
         </div>
         <div class="text-right flex-grow-1">
             <!--begin::Dropdown Menu-->
             <div class="dropdown dropdown-inline">
-                <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-md">
-                    
-                </div>
+                <button type="button" class="btn btn-xs btn-icon btn-secondary" onclick="abremodalAccionGrupo()">
+                    <i class="fa fa-ellipsis-v"></i>
+                </button>
             </div>
             <!--end::Dropdown Menu-->
         </div>

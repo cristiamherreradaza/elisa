@@ -600,6 +600,16 @@
             })
 
         }
+        function abremodalAccionGrupo(){
+
+            // $('#formulario-grupo-chat')[0].reset();
+            // $('#input_busca_personas_grupos').hide('toggle');
+            // $('#btn_crear_grupo').show('toggle');
+            // $('#chat-busqueda-participante').html('');
+            // $('#chat-grupo-participante').html('');
+
+            $('#kt_nuevo_grupo').modal('show');
+        }
 
         function ajaxMensajeGrupo(grupo){
 
@@ -616,5 +626,6 @@
                 }
             })
         }
+        
     </script>
 @endsection
