@@ -36,11 +36,13 @@
         </div>
         <div class="text-right flex-grow-1">
             <!--begin::Dropdown Menu-->
-            <div class="dropdown dropdown-inline">
-                <button type="button" class="btn btn-xs btn-icon btn-secondary" onclick="abremodalAccionGrupo({{ $grupo_id }})">
-                    <i class="fa fa-ellipsis-v"></i>
-                </button>
-            </div>
+            @if ($id == $grupo->user_id)
+                <div class="dropdown dropdown-inline">
+                    <button type="button" class="btn btn-xs btn-icon btn-secondary" onclick="abremodalAccionGrupo({{ $grupo_id }})">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+                </div>
+            @endif
             <!--end::Dropdown Menu-->
         </div>
     </div>
