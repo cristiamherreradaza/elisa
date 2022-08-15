@@ -603,26 +603,58 @@
 
         function eliminaParticipanteGrupoChat(pg_id){
 
-            var grupo_id = $('#grupo_chat_id').val();
+            Swal.fire({
+                title: "Esta seguro de eliminarlo",
+                text: "Si lo eliminas, el participante no vera nada del chat!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, eliminar!",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
 
-            $.ajax({
-                url: "{{ url('mensaje/eliminaParticipanteGrupoChat') }}",
-                data: {
-                    participante: pg_id, 
-                    grupo: grupo_id
-                },
-                type: 'POST',
-                success: function(data) {
-                    $('#chat-grupo-participante').html(data);
+                    var grupo_id = $('#grupo_chat_id').val();
+
+                    $.ajax({
+                        url: "{{ url('mensaje/eliminaParticipanteGrupoChat') }}",
+                        data: {
+                            participante: pg_id, 
+                            grupo: grupo_id
+                        },
+                        type: 'POST',
+                        success: function(data) {
+
+                            Swal.fire({
+                                title: "Se elimino al participante con Exito!",
+                                icon : 'success',
+                                tiumer: 1500
+                            })
+
+                            $('#chat-grupo-participante').html(data);
+                            
+                        }
+                    })
+
+
+                } else if (result.dismiss === "cancel") {
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
                 }
-            })
+            });
 
         }
+        
         function abremodalAccionGrupo(grupo_id){
 
             $('#grupo_chat_id').val(grupo_id);
 
             $('#input_busca_personas_grupos').show('toggle');
+            $('#busca-participante').val('');
+            $('#chat-busqueda-participante').html('');
             $('#btn_crear_grupo').hide('toggle');
             $('#exampleModalLabel').css('display', 'none');
             $('#formulario-grupo-chat').hide('toggle');
