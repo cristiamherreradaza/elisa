@@ -110,3 +110,4 @@ Route::post('mensaje/guardarPeopleGroup', 'MensajeChatsController@guardarPeopleG
 Route::post('mensaje/ajaxAdicionaParticipante', 'MensajeChatsController@ajaxAdicionaParticipante');
 Route::post('mensaje/ajaxMensajeGrupo', 'MensajeChatsController@ajaxMensajeGrupo');
 Route::post('mensaje/eliminaParticipanteGrupoChat', 'MensajeChatsController@eliminaParticipanteGrupoChat');
+Route::post('mensaje/ajaxListadoParticipante', 'MensajeChatsController@ajaxListadoParticipante');

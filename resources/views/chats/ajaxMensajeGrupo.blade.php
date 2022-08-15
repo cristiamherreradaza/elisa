@@ -37,7 +37,7 @@
         <div class="text-right flex-grow-1">
             <!--begin::Dropdown Menu-->
             <div class="dropdown dropdown-inline">
-                <button type="button" class="btn btn-xs btn-icon btn-secondary" onclick="abremodalAccionGrupo()">
+                <button type="button" class="btn btn-xs btn-icon btn-secondary" onclick="abremodalAccionGrupo({{ $grupo_id }})">
                     <i class="fa fa-ellipsis-v"></i>
                 </button>
             </div>

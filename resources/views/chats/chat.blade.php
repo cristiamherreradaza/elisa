@@ -14,7 +14,7 @@
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nuevo grupo</h5>
+                    <h5 class="modal-title"><span style="display:block;" id="exampleModalLabel">Nuevo grupo</span> </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
@@ -554,8 +554,10 @@
         function abremodalNuevoGrupo(){
 
             $('#formulario-grupo-chat')[0].reset();
+            $('#formulario-grupo-chat').show('toggle');
             $('#input_busca_personas_grupos').hide('toggle');
             $('#btn_crear_grupo').show('toggle');
+            $('#exampleModalLabel').css('display', 'block');
             $('#chat-busqueda-participante').html('');
             $('#chat-grupo-participante').html('');
 
@@ -581,6 +583,22 @@
 
         }
 
+        function ajaxListadoParticipante(){
+
+            var grupo_id = $('#grupo_chat_id').val();
+
+            $.ajax({
+                url: "{{ url('mensaje/ajaxListadoParticipante') }}",
+                data: {
+                    grupo: grupo_id
+                },
+                type: 'POST',
+                success: function(data) {
+                    $('#chat-grupo-participante').html(data);
+                }
+            })
+
+        }
 
 
         function eliminaParticipanteGrupoChat(pg_id){
@@ -600,13 +618,17 @@
             })
 
         }
-        function abremodalAccionGrupo(){
+        function abremodalAccionGrupo(grupo_id){
 
-            // $('#formulario-grupo-chat')[0].reset();
-            // $('#input_busca_personas_grupos').hide('toggle');
-            // $('#btn_crear_grupo').show('toggle');
-            // $('#chat-busqueda-participante').html('');
-            // $('#chat-grupo-participante').html('');
+            $('#grupo_chat_id').val(grupo_id);
+
+            $('#input_busca_personas_grupos').show('toggle');
+            $('#btn_crear_grupo').hide('toggle');
+            $('#exampleModalLabel').css('display', 'none');
+            $('#formulario-grupo-chat').hide('toggle');
+            $('#input_busca_personas_grupos').show('toggle');
+            $('#chat-grupo-participante').show('toggle');
+            ajaxListadoParticipante();
 
             $('#kt_nuevo_grupo').modal('show');
         }

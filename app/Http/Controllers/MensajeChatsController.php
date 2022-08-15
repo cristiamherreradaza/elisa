@@ -241,6 +241,22 @@ class MensajeChatsController extends Controller
 
     }
 
+    public function ajaxListadoParticipante(Request $request){
+        
+        if($request->ajax()){
+
+            
+            $grupo_chat_id   = $request->input('grupo');
+
+            $participantes = ParticipanteGrupo::where('grupo_chat_id', $grupo_chat_id)
+                                                ->get();
+
+            return view('chats.ajaxAdicionaParticipante')->with(compact('participantes'));
+
+        }
+
+    }
+
     public function ajaxMensajeGrupo(Request $request){
         if($request->ajax()){
 
