@@ -813,6 +813,29 @@
             })
 
         }
+
+        function enviarMensajePanico(){
+
+            var mensaje = $('#grupo_mensaje_panico').val();
+            var grupo_id = $('#grupo_panico_id').val();
+
+            $.ajax({
+                url: "{{ url('Mensaje/enviaMensajePanico') }}",
+                data: {
+                    grupo: grupo_id, 
+                    messege: mensaje
+                },
+                type: 'POST',
+                success: function(data) {
+                    Swal.fire({
+                        title: "Se envio correctamente el mensaje de panico!",
+                        icon : 'success',
+                        tiumer: 1500
+                    })
+                }
+            })
+
+        }
         
     </script>
 @endsection

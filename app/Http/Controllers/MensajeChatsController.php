@@ -267,7 +267,7 @@ class MensajeChatsController extends Controller
 
             return view('chats.ajaxMensajeGrupo')->with(compact('mensajes', 'grupo_id'));
 
-        }   
+        }
     }
 
     public function eliminaParticipanteGrupoChat(Request $request){
@@ -308,6 +308,18 @@ class MensajeChatsController extends Controller
 
             return view('chats.ajaxListaGrupoPanico')->with(compact('grupo'));
         }
+    }
+
+    public function enviaMensajePanico(Request $request){
+
+        $addMessege = new MensajeChats();
+
+        $addMessege->user_id        = Auth::user()->id;
+        $addMessege->grupo_chat_id  = $request->input('grupo');
+        $addMessege->mensaje        = $request->input('messege');
+        $addMessege->fecha          = date('Y-m-d H:s:i');
+
+        $addMessege->save();
     }
 
     /**
