@@ -312,14 +312,19 @@ class MensajeChatsController extends Controller
 
     public function enviaMensajePanico(Request $request){
 
-        $addMessege = new MensajeChats();
+        if($request->ajax()){
 
-        $addMessege->user_id        = Auth::user()->id;
-        $addMessege->grupo_chat_id  = $request->input('grupo');
-        $addMessege->mensaje        = $request->input('messege');
-        $addMessege->fecha          = date('Y-m-d H:s:i');
+            $addMessege = new MensajeChats();
+    
+            $addMessege->user_id        = Auth::user()->id;
+            $addMessege->grupo_chat_id  = $request->input('grupo');
+            $addMessege->mensaje        = $request->input('messege');
+            $addMessege->fecha          = date('Y-m-d H:s:i');
+    
+            $addMessege->save();
 
-        $addMessege->save();
+        }
+
     }
 
     /**

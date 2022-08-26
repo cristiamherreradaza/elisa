@@ -819,8 +819,9 @@
             var mensaje = $('#grupo_mensaje_panico').val();
             var grupo_id = $('#grupo_panico_id').val();
 
+            // console.log(mensaje, grupo_id);
             $.ajax({
-                url: "{{ url('Mensaje/enviaMensajePanico') }}",
+                url: "{{ url('mensaje/enviaMensajePanico') }}",
                 data: {
                     grupo: grupo_id, 
                     messege: mensaje
@@ -832,6 +833,8 @@
                         icon : 'success',
                         tiumer: 1500
                     })
+
+                    $('#kt_mensaje_panico').modal('hide');
                 }
             })
 
