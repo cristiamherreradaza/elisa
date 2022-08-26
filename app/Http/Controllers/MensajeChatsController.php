@@ -285,6 +285,31 @@ class MensajeChatsController extends Controller
         }
     }
 
+    //Mensajes de panicos
+    public function ajaxBuscaGrupoPanico(Request $request){
+
+        if($request->ajax()){
+            $grupo = $request->input('grupo');
+            $grupos = GruposChats::where('nombre', 'like', "%$grupo%")
+                                    ->limit(2)
+                                    ->get();
+
+            return view('chats.ajaxBuscaGrupoPanico')->with(compact('grupos'));
+        }
+    }
+
+    public function ajaxListaGrupoPanico(Request $request){
+        
+        if($request->ajax()){         
+            $grupo_chat_id   = $request->input('grupo');
+
+            $grupo = GruposChats::where('id', $grupo_chat_id)
+                                ->first();
+
+            return view('chats.ajaxListaGrupoPanico')->with(compact('grupo'));
+        }
+    }
+
     /**
      * Display the specified resource.
      *

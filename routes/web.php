@@ -111,3 +111,7 @@ Route::post('mensaje/ajaxAdicionaParticipante', 'MensajeChatsController@ajaxAdic
 Route::post('mensaje/ajaxMensajeGrupo', 'MensajeChatsController@ajaxMensajeGrupo');
 Route::post('mensaje/eliminaParticipanteGrupoChat', 'MensajeChatsController@eliminaParticipanteGrupoChat');
 Route::post('mensaje/ajaxListadoParticipante', 'MensajeChatsController@ajaxListadoParticipante');
+
+//MENSAJES DE PANICOS
+Route::post('mensaje/ajaxBuscaGrupoPanico', 'MensajeChatsController@ajaxBuscaGrupoPanico');
+Route::post('mensaje/ajaxListaGrupoPanico', 'MensajeChatsController@ajaxListaGrupoPanico');

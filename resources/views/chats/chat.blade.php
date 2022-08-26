@@ -98,6 +98,85 @@
     </div>
     <!--end::Modal NUEVO GRUPO-->
 
+    <!-- Modal MENSAJE DE PANICO-->
+    <div class="modal fade" id="kt_mensaje_panico" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span style="display:block;" id="exampleModalLabel">MENSAJE DE PANICO!!!</span> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" >
+                        {{-- Aqui Buscamos al grupo --}}
+                        <div class="col-md-12">
+                            <div class="form-group mb-0">
+                                <input type="text" class="form-control" id="busca-grupo-panico" name="busca-grupo-panico" placeholder="Busca un grupo" required />
+                            </div>        
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        {{-- Aqui Buscamos al grupo para enviar mensaje de panico --}}
+                        <div class="col-md-12">
+                            <div class="mt-4 scroll scroll-pull">
+                                <div id="busqueda-grupo-panico">
+                                    
+                                </div> 
+                            </div>     
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        {{-- Aqui mostramos al grupo donde se enviara el mensaje de panico --}}
+                        <div class="col-md-12">
+                            <div class="mt-4 scroll scroll-pull">
+                                <div id="chat-grupo-panico">
+                                    
+                                </div> 
+                            </div>     
+                        </div>
+                    </div>
+                    <hr>
+                    <form action="" method="POST" id="formulario-mensaje-panico" enctype="multipart/form-data">{{-- para enviar archivos --}}
+                        @csrf
+                        {{-- <input type="hidden" name="grupo_panico_id" id="grupo_panico_id" value="0"> --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Mensaje Panico
+                                    <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="grupo_mensaje_panico" name="grupo_mensaje_panico" required />
+                                </div>        
+                            </div>
+                        </div>
+                        <div class="row" id="btn_crear_grupo">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-block btn-success" onclick="enviarMensajePanico()">Enviar</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-sm btn-light-dark font-weight-bold " data-dismiss="modal">Salir</button>
+                        </div>
+                        {{-- <div class="col-md-6">
+                            <button type="button" class="btn btn-sm btn-success font-weight-bold"  onclick="crear()">Crear</button>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Modal MENSAJE DE PANICO-->
 
 	<!--begin::Card-->
 	{{-- <div class="card card-custom gutter-b"> --}}
@@ -108,6 +187,9 @@
                 <h3 class="card-title align-items-start flex-column">
                     <span class="card-label font-weight-bolder text-dark">Chats</span>
                 </h3>
+                <div class="px-4 mb-2">
+                    <a href="#" class="btn btn-danger font-weight-bold text-uppercase py-2 px-1 text-center" data-toggle="modal" onclick="abremodalMensajePanico()">Mensaje de panico</a>
+                </div>
                 <div class="card-toolbar">
                     <ul class="nav nav-pills nav-pills-sm nav-dark-75">
                         <li class="nav-item">
@@ -679,6 +761,57 @@
 
                 }
             })
+        }
+
+        function abremodalMensajePanico(){
+            $('#formulario-mensaje-panico')[0].reset();
+            $('#formulario-mensaje-panico').show('toggle');
+            $('#busca-grupo-panico').val('');
+            $('#busqueda-grupo-panico').html('');
+            $('#chat-grupo-panico').html('');
+
+            $('#kt_mensaje_panico').modal('show');
+        }
+
+        $("#busca-grupo-panico").on('keyup', function(){
+
+            var grupo = $('#busca-grupo-panico').val();
+
+            console.log(grupo.length);
+
+            if(grupo.length > 1){
+
+                $.ajax({
+                    url: "{{ url('mensaje/ajaxBuscaGrupoPanico') }}",
+                    data: {
+                        grupo: grupo, 
+                    },
+                    type: 'POST',
+                    success: function(data) {
+
+                        $('#busqueda-grupo-panico').html(data);
+
+                    }
+                })
+
+            }else{
+                $('#busqueda-grupo-panico').html('');
+            }
+
+        }).keyup();
+
+        function ajaxListaGrupoPanico(grupo_id){
+            $.ajax({
+                url: "{{ url('mensaje/ajaxListaGrupoPanico') }}",
+                data: {
+                    grupo: grupo_id
+                },
+                type: 'POST',
+                success: function(data) {
+                    $('#chat-grupo-panico').html(data);
+                }
+            })
+
         }
         
     </script>
