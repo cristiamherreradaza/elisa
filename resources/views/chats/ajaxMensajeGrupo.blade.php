@@ -64,7 +64,15 @@
                                 <img alt="Pic" src="/metronic/theme/html/demo1/dist/assets/media/users/300_21.jpg" />
                             </div>
                         </div>
-                        <div class="mt-2 rounded p-5 bg-light-{{ ($m->user_id == Auth::user()->id)? 'primary':'success' }} text-dark-50 font-weight-bold font-size-lg text-{{ ($m->user_id == Auth::user()->id)? 'right':'left' }} max-w-400px">{{ $m->mensaje }}</div>
+                        <div class="mt-2 rounded p-5 bg-light-{{ ($m->user_id == Auth::user()->id)? 'primary':'success' }} text-dark-50 font-weight-bold font-size-lg text-{{ ($m->user_id == Auth::user()->id)? 'right':'left' }} max-w-400px">
+
+                            @if ($m->tipo_mensaje_id == 1)
+                                {{ $m->mensaje }}
+                            @elseif($m->tipo_mensaje_id == 2)
+                                <audio src="{{ url('audiosPanicos', [$m->file_name]) }}" controls></audio>
+                            @endif
+
+                        </div>
                     </div>
                 @endforeach
             </div>

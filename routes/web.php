@@ -116,3 +116,4 @@ Route::post('mensaje/ajaxListadoParticipante', 'MensajeChatsController@ajaxLista
 Route::post('mensaje/ajaxBuscaGrupoPanico', 'MensajeChatsController@ajaxBuscaGrupoPanico');
 Route::post('mensaje/ajaxListaGrupoPanico', 'MensajeChatsController@ajaxListaGrupoPanico');
 Route::post('mensaje/enviaMensajePanico', 'MensajeChatsController@enviaMensajePanico');
+Route::post('mensaje/enviaAudio', 'MensajeChatsController@enviaAudio');

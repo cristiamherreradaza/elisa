@@ -90,10 +90,5 @@ var locations = [
       })(marker, i));
     }
 
-
-
-
-
-
 </script>
 @endsection
