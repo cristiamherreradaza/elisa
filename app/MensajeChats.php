@@ -12,8 +12,12 @@ class MensajeChats extends Model
     protected $fillable = [
         'user_id', 
         'grupo_chat_id', 
+        'tipo_mensaje_id', 
         'mensaje',
         'fecha',
+        'file_name',
+        'latitud',
+        'longitud',
         'estado',
         'deleted_at',
     ];

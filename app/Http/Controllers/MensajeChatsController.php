@@ -102,10 +102,11 @@ class MensajeChatsController extends Controller
                 
                 $addMessege = new MensajeChats();
 
-                $addMessege->user_id        = Auth::user()->id;
-                $addMessege->grupo_chat_id  = $request->input('grupo');
-                $addMessege->mensaje        = $request->input('messege');
-                $addMessege->fecha          = date('Y-m-d H:s:i');
+                $addMessege->user_id            = Auth::user()->id;
+                $addMessege->grupo_chat_id      = $request->input('grupo');
+                $addMessege->tipo_mensaje_id    = 1;
+                $addMessege->mensaje            = $request->input('messege');
+                $addMessege->fecha              = date('Y-m-d H:s:i');
 
                 $addMessege->save();
 
@@ -316,13 +317,38 @@ class MensajeChatsController extends Controller
 
             $addMessege = new MensajeChats();
     
-            $addMessege->user_id        = Auth::user()->id;
-            $addMessege->grupo_chat_id  = $request->input('grupo');
-            $addMessege->mensaje        = $request->input('messege');
-            $addMessege->fecha          = date('Y-m-d H:s:i');
+            $addMessege->user_id            = Auth::user()->id;
+            $addMessege->grupo_chat_id      = $request->input('grupo');
+            $addMessege->tipo_mensaje_id    = 1;
+            $addMessege->mensaje            = $request->input('messege');
+            $addMessege->fecha              = date('Y-m-d H:s:i');
     
             $addMessege->save();
 
+        }
+
+    }
+
+    public function enviaAudio(Request $request){
+
+        if($request->has('audio')){
+
+            $archivo = $request->file('audio');
+            $direccion = 'audiosPanicos/'; // upload path
+            $nombreArchivo = date('YmdHis'). ".mp3";
+            $archivo->move($direccion, $nombreArchivo);
+
+            $mensajeChats = new MensajeChats();
+
+            $mensajeChats->user_id              = Auth::user()->id;
+            $mensajeChats->grupo_chat_id        = $request->input('grupo_id');
+            $mensajeChats->tipo_mensaje_id      = 2;
+            $mensajeChats->fecha                = date('Y-m-d H:s:i');
+            $mensajeChats->file_name            = $nombreArchivo;
+            $mensajeChats->latitud              = $request->input('longitud');
+            $mensajeChats->longitud             = $request->input('latitude');
+
+            $mensajeChats->save();
         }
 
     }

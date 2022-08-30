@@ -130,32 +130,43 @@
                     </div>
 
                     <hr>
-
-                    <div class="row">
-                        {{-- Aqui mostramos al grupo donde se enviara el mensaje de panico --}}
-                        <div class="col-md-12">
-                            <div class="mt-4 scroll scroll-pull">
-                                <div id="chat-grupo-panico">
-                                    
-                                </div> 
-                            </div>     
-                        </div>
-                    </div>
-                    <hr>
                     <form action="" method="POST" id="formulario-mensaje-panico" enctype="multipart/form-data">{{-- para enviar archivos --}}
                         @csrf
-                        {{-- <input type="hidden" name="grupo_panico_id" id="grupo_panico_id" value="0"> --}}
+                        <div class="row">
+                            {{-- Aqui mostramos al grupo donde se enviara el mensaje de panico --}}
+                            <div class="col-md-12">
+                                <div class="mt-4 scroll scroll-pull">
+                                    <div id="chat-grupo-panico">
+                                        
+                                    </div> 
+                                </div>     
+                            </div>
+                        </div>
+                        <hr>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Mensaje Panico
                                     <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="grupo_mensaje_panico" name="grupo_mensaje_panico" required />
+                                    <textarea name="grupo_mensaje_panico" id="grupo_mensaje_panico" cols="10" rows="5" class="form-control" placeholder="Excriba su mensaje"></textarea>
                                 </div>        
                             </div>
                         </div>
-                        <div class="row" id="btn_crear_grupo">
+                        <div class="row">
                             <div class="col-md-12">
+                                <audio class="form-control" id="audio" controls></audio>
+                                <input type="hidden" name="latitud" id="latitud">
+                                <input type="hidden" name="longitud" id="longitud">
+                            </div>
+                        </div>
+                        <div class="row" id="btn_crear_grupo">
+                            <div class="col-md-1">
+                                <button type="button" name="record" class="btn btn-icon btn-danger"><i class="fa fa-microphone"></i></button>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" name="stop" class="btn btn-icon btn-warning"><i class="fa fa-stop"></i></button>
+                            </div>
+                            <div class="col-md-10">
                                 <button type="button" class="btn btn-block btn-success" onclick="enviarMensajePanico()">Enviar</button>
                             </div>
                         </div>
@@ -384,6 +395,68 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/pages/crud/datatables/basic/basic.js') }}"></script>
     <script type="text/javascript">
+
+        var btnStart = document.querySelector('button[name="record"]');
+        var btnStop = document.querySelector('button[name="stop"]');
+        var audio = document.querySelector('#audio');
+        var archivoAudio = document.querySelector('#audioPanico');
+
+        btnStart.addEventListener('click', async () => {
+            //event will handle here
+            let stream = await navigator.mediaDevices.getUserMedia({audio: true, video: false});
+            let mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+
+            let chunks = [];
+            mediaRecorder.ondataavailable = (e)=>{
+                chunks.push(e.data);
+            }
+            //function to catch error
+            mediaRecorder.onerror = (e)=>{
+                alert(e.error);
+            }
+            mediaRecorder.onstop = (e)=>{
+                let blod = new Blob(chunks);
+                //create url for audio
+                let url = URL.createObjectURL(blod);
+                //pass url into audio tag
+                audio.src = url;
+
+                const formData = new FormData();
+                // Enviar el BinaryLargeObject con FormData
+                formData.append("audio", blod);
+                formData.append('_token',$('input[name=_token]').val());
+                formData.append("grupo_id", $('#grupo_panico_id').val());
+                formData.append("longitud", $('#latitud').val());
+                formData.append("latitude", $('#longitud').val());
+
+                const RUTA_SERVIDOR = "{{ url('mensaje/enviaAudio') }}";
+
+                fetch(RUTA_SERVIDOR, {
+                    method: "POST",
+                    body: formData,
+                })
+                .then(respuestaRaw => respuestaRaw.text()) // Decodificar como texto
+                .then(respuestaComoTexto => {
+                    // Aquí haz algo con la respuesta ;)
+                    console.log("La respuesta: ", respuestaComoTexto);
+                    // Abrir el archivo, es opcional y solo lo pongo como demostración
+                    // $duracion.innerHTML = `<strong>Audio subido correctamente.</strong>&nbsp; <a target="_blank" href="${respuestaComoTexto}">Abrir</a>`
+                    Swal.fire(
+                        "Exito!",
+                        "Audio se envio con exito.",
+                        "success"
+                    )
+                    $('#kt_mensaje_panico').modal('hide');
+
+                })
+
+            }
+            btnStop.addEventListener('click',()=>{
+                mediaRecorder.stop();
+            })
+        })
+
 		//Llamamamos a lista de ajax
 		$.ajaxSetup({
 			headers: {
@@ -526,7 +599,6 @@
             })
 
         }
-
         
         $("#busca-chat").on('keyup', function(){
 
@@ -770,6 +842,17 @@
             $('#busqueda-grupo-panico').html('');
             $('#chat-grupo-panico').html('');
 
+            if ("geolocation" in navigator){ //check geolocation available 
+                //try to get user current location using getCurrentPosition() method
+                navigator.geolocation.getCurrentPosition(function(position){ 
+                        // console.log("Found your location nLat : "+position.coords.latitude+" nLang :"+ position.coords.longitude);
+                    $('#latitud').val(position.coords.latitude);
+                    $('#longitud').val(position.coords.longitude);
+                });
+            }else{
+                console.log("Browser doesn't support geolocation!");
+            }
+
             $('#kt_mensaje_panico').modal('show');
         }
 
@@ -819,14 +902,13 @@
             var mensaje = $('#grupo_mensaje_panico').val();
             var grupo_id = $('#grupo_panico_id').val();
 
-            // console.log(mensaje, grupo_id);
             $.ajax({
                 url: "{{ url('mensaje/enviaMensajePanico') }}",
                 data: {
-                    grupo: grupo_id, 
-                    messege: mensaje
+                    grupo : grupo_id,
+                    messege :  mensaje
                 },
-                type: 'POST',
+                type: "POST",
                 success: function(data) {
                     Swal.fire({
                         title: "Se envio correctamente el mensaje de panico!",
