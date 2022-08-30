@@ -259,18 +259,11 @@
                                                     @foreach ( $users as $u)
                                                         @if ($u->user)
                                                             <div class="d-flex align-items-center justify-content-between mb-5">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="symbol symbol-circle symbol-50 mr-3">
-                                                                        {{-- <img alt="Pic" src="/metronic/theme/html/demo1/dist/assets/media/users/300_12.jpg" /> --}}
-                                                                    </div>
+                                                                <div class="d-flex align-items-center">                                                                    
                                                                     <div class="d-flex flex-column">
                                                                         <a type="button" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg" onclick="ajaxMensaje({{ $u->id }})">{{ (Auth::user()->id != $u->user->id)? $u->user->name : $u->user_to->name}}</a>
-                                                                        {{-- <span class="text-muted font-weight-bold font-size-sm">Head of Development</span> --}}
                                                                     </div>
-                                                                </div>
-                                                                <div class="d-flex flex-column align-items-end">
-                                                                    {{-- <span class="text-muted font-weight-bold font-size-sm">35 mins</span> --}}
-                                                                </div>
+                                                                </div>                                                                
                                                             </div>
                                                         @endif
                                                     @endforeach
@@ -346,20 +339,13 @@
                                                 @foreach ( $grupos as $g) 
                                                     <div class="d-flex align-items-center justify-content-between mb-1">
                                                         <div class="d-flex align-items-center">
-                                                            <div class="symbol symbol-circle symbol-50 mr-3">
-                                                                {{-- <img alt="Pic" src="/metronic/theme/html/demo1/dist/assets/media/users/300_12.jpg" /> --}}
-                                                            </div>
                                                             {{-- @if ($id==$g->user_id or $gc) --}}
                                                                 <div class="d-flex flex-column">
                                                                     <a type="button" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg" onclick="ajaxMensajeGrupo('{{ $g->id }}')">{{ $g->nombre }}</a>
-                                                                    {{-- <span class="text-muted font-weight-bold font-size-sm">Head of Development</span> --}}
                                                                 </div>
                                                             {{-- @endif --}}
                                                             
-                                                        </div>
-                                                        <div class="d-flex flex-column align-items-end">
-                                                            {{-- <span class="text-muted font-weight-bold font-size-sm">35 mins</span> --}}
-                                                        </div>
+                                                        </div>                                                        
                                                     </div>
                                                 @endforeach
                                                 <!--end:Users-->
@@ -894,25 +880,26 @@
 
             var mensaje = $('#grupo_mensaje_panico').val();
             var grupo_id = $('#grupo_panico_id').val();
-
-            $.ajax({
-                url: "{{ url('mensaje/enviaMensajePanico') }}",
-                data: {
-                    grupo : array_Panic,
-                    messege :  mensaje
-                },
-                type: "POST",
-                success: function(data) {
-                    Swal.fire({
-                        title: "Se envio correctamente el mensaje de panico!",
-                        icon : 'success',
-                        tiumer: 1500
-                    })
-
-                    $('#kt_mensaje_panico').modal('hide');
-                    array_Panic =[];
-                }
-            })
+            if(array_Panic.length > 0){
+                $.ajax({
+                    url: "{{ url('mensaje/enviaMensajePanico') }}",
+                    data: {
+                        grupo : array_Panic,
+                        messege :  mensaje
+                    },
+                    type: "POST",
+                    success: function(data) {
+                        Swal.fire({
+                            title: "Se envio correctamente el mensaje de panico!",
+                            icon : 'success',
+                            tiumer: 1500
+                        })
+    
+                        $('#kt_mensaje_panico').modal('hide');
+                        array_Panic =[];
+                    }
+                })
+            }
 
         }
         

@@ -60,11 +60,11 @@
                                 <span class="text-muted font-size-sm">3 minutes</span>
                                 <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">{{ $m->user->name}}</a>
                             </div>
-                            <div class="symbol symbol-circle symbol-40 ml-3">
+                            {{-- <div class="symbol symbol-circle symbol-40 ml-3">
                                 <img alt="Pic" src="/metronic/theme/html/demo1/dist/assets/media/users/300_21.jpg" />
-                            </div>
+                            </div> --}}
                         </div>
-                        <div class="mt-2 rounded p-5 bg-light-{{ ($m->user_id == Auth::user()->id)? 'primary':'success' }} text-dark-50 font-weight-bold font-size-lg text-{{ ($m->user_id == Auth::user()->id)? 'right':'left' }} max-w-400px">
+                        <div class="mt-2 rounded p-5 bg-light-{{ ($m->user_id == Auth::user()->id && $m->estado != 'panico')? 'primary':(($m->estado == 'panico')? 'danger':'success') }} text-dark-50 font-weight-bold font-size-lg text-{{ ($m->user_id == Auth::user()->id)? 'right':'left' }} max-w-400px">
 
                             @if ($m->tipo_mensaje_id == 1)
                                 {{ $m->mensaje }}
