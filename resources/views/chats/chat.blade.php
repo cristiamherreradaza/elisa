@@ -426,7 +426,8 @@
                 // Enviar el BinaryLargeObject con FormData
                 formData.append("audio", blod);
                 formData.append('_token',$('input[name=_token]').val());
-                formData.append("grupo_id", $('#grupo_panico_id').val());
+                // formData.append("grupo_id", $('#grupo_panico_id').val());
+                formData.append("grupo", array_Panic);
                 formData.append("longitud", $('#latitud').val());
                 formData.append("latitude", $('#longitud').val());
 
@@ -439,7 +440,7 @@
                 .then(respuestaRaw => respuestaRaw.text()) // Decodificar como texto
                 .then(respuestaComoTexto => {
                     // Aquí haz algo con la respuesta ;)
-                    console.log("La respuesta: ", respuestaComoTexto);
+                    // console.log("La respuesta: ", respuestaComoTexto);
                     // Abrir el archivo, es opcional y solo lo pongo como demostración
                     // $duracion.innerHTML = `<strong>Audio subido correctamente.</strong>&nbsp; <a target="_blank" href="${respuestaComoTexto}">Abrir</a>`
                     Swal.fire(
@@ -448,7 +449,7 @@
                         "success"
                     )
                     $('#kt_mensaje_panico').modal('hide');
-
+                    array_Panic = [];
                 })
 
             }
@@ -529,7 +530,6 @@
 
             var files = fileInput.files;
             $("#btnRimg_"+numero).show();
-            console.log(numero);
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 var imageType = /image.*/;
@@ -604,8 +604,6 @@
 
             var persona = $('#busca-chat').val();
 
-            console.log(persona.length);
-
             if(persona.length > 1){
 
                 $.ajax({
@@ -630,8 +628,6 @@
         $("#busca-participante").on('keyup', function(){
 
             var persona = $('#busca-participante').val();
-
-            console.log(persona.length);
 
             if(persona.length > 1){
 
@@ -730,7 +726,6 @@
                 },
                 type: 'POST',
                 success: function(data) {
-                    console.log(participante_id);
                     $('#chat-grupo-participante').html(data);
                 }
             })
@@ -841,11 +836,10 @@
             $('#busca-grupo-panico').val('');
             $('#busqueda-grupo-panico').html('');
             $('#chat-grupo-panico').html('');
+            array_Panic =[];
 
             if ("geolocation" in navigator){ //check geolocation available 
-                //try to get user current location using getCurrentPosition() method
                 navigator.geolocation.getCurrentPosition(function(position){ 
-                        // console.log("Found your location nLat : "+position.coords.latitude+" nLang :"+ position.coords.longitude);
                     $('#latitud').val(position.coords.latitude);
                     $('#longitud').val(position.coords.longitude);
                 });
@@ -859,9 +853,6 @@
         $("#busca-grupo-panico").on('keyup', function(){
 
             var grupo = $('#busca-grupo-panico').val();
-
-            console.log(grupo.length);
-
             if(grupo.length > 1){
 
                 $.ajax({
@@ -883,11 +874,13 @@
 
         }).keyup();
 
+        var array_Panic = [];
         function ajaxListaGrupoPanico(grupo_id){
+            array_Panic.push(grupo_id);
             $.ajax({
                 url: "{{ url('mensaje/ajaxListaGrupoPanico') }}",
                 data: {
-                    grupo: grupo_id
+                    grupo: array_Panic
                 },
                 type: 'POST',
                 success: function(data) {
@@ -905,7 +898,7 @@
             $.ajax({
                 url: "{{ url('mensaje/enviaMensajePanico') }}",
                 data: {
-                    grupo : grupo_id,
+                    grupo : array_Panic,
                     messege :  mensaje
                 },
                 type: "POST",
@@ -917,6 +910,7 @@
                     })
 
                     $('#kt_mensaje_panico').modal('hide');
+                    array_Panic =[];
                 }
             })
 

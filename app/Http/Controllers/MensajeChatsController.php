@@ -7,6 +7,7 @@ use App\GruposChats;
 use App\MensajeChats;
 use App\UserGruposChats;
 use App\ParticipanteGrupo;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -300,55 +301,56 @@ class MensajeChatsController extends Controller
     }
 
     public function ajaxListaGrupoPanico(Request $request){
-        
-        if($request->ajax()){         
-            $grupo_chat_id   = $request->input('grupo');
-
-            $grupo = GruposChats::where('id', $grupo_chat_id)
-                                ->first();
-
-            return view('chats.ajaxListaGrupoPanico')->with(compact('grupo'));
+        // dd($request->input('grupo'));
+        if($request->ajax()){     
+            $grupos = $request->input('grupo');
+            
+            return view('chats.ajaxListaGrupoPanico')->with(compact('grupos'));
         }
     }
 
     public function enviaMensajePanico(Request $request){
-
+        // dd($request->input('grupo'));
         if($request->ajax()){
+            $grupos = $request->input('grupo');
+            foreach($grupos as $g){
 
-            $addMessege = new MensajeChats();
-    
-            $addMessege->user_id            = Auth::user()->id;
-            $addMessege->grupo_chat_id      = $request->input('grupo');
-            $addMessege->tipo_mensaje_id    = 1;
-            $addMessege->mensaje            = $request->input('messege');
-            $addMessege->fecha              = date('Y-m-d H:s:i');
-    
-            $addMessege->save();
-
+                $addMessege = new MensajeChats();
+        
+                $addMessege->user_id            = Auth::user()->id;
+                $addMessege->grupo_chat_id      = (int)$g;
+                $addMessege->tipo_mensaje_id    = 1;
+                $addMessege->estado             = 'panico';
+                $addMessege->mensaje            = $request->input('messege');
+                $addMessege->fecha              = date('Y-m-d H:s:i');
+        
+                $addMessege->save();
+            }
         }
-
     }
 
     public function enviaAudio(Request $request){
 
         if($request->has('audio')){
-
+            $grupos = explode(',',$request->input('grupo'));
             $archivo = $request->file('audio');
             $direccion = 'audiosPanicos/'; // upload path
             $nombreArchivo = date('YmdHis'). ".mp3";
             $archivo->move($direccion, $nombreArchivo);
+            foreach($grupos as $g){
+                $mensajeChats = new MensajeChats();
 
-            $mensajeChats = new MensajeChats();
+                $mensajeChats->user_id              = Auth::user()->id;
+                $mensajeChats->grupo_chat_id        = (int)$g;
+                $mensajeChats->tipo_mensaje_id      = 2;
+                $mensajeChats->estado               = 'panico';
+                $mensajeChats->fecha                = date('Y-m-d H:s:i');
+                $mensajeChats->file_name            = $nombreArchivo;
+                $mensajeChats->latitud              = $request->input('longitud');
+                $mensajeChats->longitud             = $request->input('latitude');
 
-            $mensajeChats->user_id              = Auth::user()->id;
-            $mensajeChats->grupo_chat_id        = $request->input('grupo_id');
-            $mensajeChats->tipo_mensaje_id      = 2;
-            $mensajeChats->fecha                = date('Y-m-d H:s:i');
-            $mensajeChats->file_name            = $nombreArchivo;
-            $mensajeChats->latitud              = $request->input('longitud');
-            $mensajeChats->longitud             = $request->input('latitude');
-
-            $mensajeChats->save();
+                $mensajeChats->save();
+            }
         }
 
     }
