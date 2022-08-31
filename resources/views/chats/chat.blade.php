@@ -636,6 +636,31 @@
 
         }).keyup();
 
+        $("#busca-chat-grupo").on('keyup', function(){
+
+            var grupo = $('#busca-chat-grupo').val();
+
+            if(grupo.length > 1){
+
+                $.ajax({
+                    url: "{{ url('mensaje/ajaxBuscaGrupoChat') }}",
+                    data: {
+                        grupo: grupo, 
+                    },
+                    type: 'POST',
+                    success: function(data) {
+
+                        $('#chat-busqueda-grupos').html(data);
+
+                    }
+                })
+
+            }else{
+                $('#chat-busqueda-grupos').html('');
+            }
+
+        }).keyup();
+
         function guardarPeopleGroup(){
 
             Swal.fire({

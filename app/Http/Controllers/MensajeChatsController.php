@@ -182,6 +182,23 @@ class MensajeChatsController extends Controller
 
     }
 
+    public function ajaxBuscaGrupoChat(Request $request){
+        
+        if($request->ajax()){
+            $id = Auth::user()->id;
+
+            $grupo = $request->input('grupo');
+            $grupos = GruposChats::where('nombre', 'like', "%$grupo%")
+                                ->where('')
+                                ->limit(2)
+                                ->get();
+
+            return view('chats.ajaxBuscaGrupoChat')->with(compact('grupos'));
+        }
+
+
+    }
+
     public function guardarPeopleGroup(Request $request){
 
         if($request->ajax()){
