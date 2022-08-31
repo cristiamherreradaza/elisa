@@ -50,7 +50,7 @@
     <!--begin::Body-->
     <div class="card-body" >
         <!--begin::Scroll-->
-        <div class="scroll scroll-pull ps ps--active-y ps--scrolling-y" data-mobile-height="350" style="height: 200px; overflow: hidden;">
+        <div class="scroll scroll-pull" data-mobile-height="350" >
             <!--begin::Messages-->
             <div class="messages">
                 @foreach ( $mensajes as $m)

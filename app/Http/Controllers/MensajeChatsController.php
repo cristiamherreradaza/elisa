@@ -190,12 +190,8 @@ class MensajeChatsController extends Controller
             $grupo = $request->input('grupo');
             $grupos = GruposChats::select('grupos_chats.id', 'grupos_chats.nombre')
                                 ->join('participante_grupos', 'grupos_chats.id', '=', 'participante_grupos.grupo_chat_id')
-                                ->where(function($query) use ($id){
-                                    $query->where('participante_grupos.user_id', $id); 
-                                })
-                                ->where(function($query) use ($grupo){
-                                    $query->where('nombre', 'like', "%$grupo%"); 
-                                })
+                                ->where('participante_grupos.user_id', $id)
+                                ->where('grupos_chats.nombre', 'like', "%$grupo%")
                                 ->groupBy('grupos_chats.id')
                                 ->limit(3)
                                 ->get();

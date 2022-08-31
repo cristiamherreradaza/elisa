@@ -658,7 +658,6 @@
             }else{
                 $('#chat-busqueda-grupos').html('');
             }
-
         }).keyup();
 
         function guardarPeopleGroup(){
