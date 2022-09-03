@@ -244,7 +244,6 @@ class MensajeChatsController extends Controller
     public function ajaxAdicionaParticipante(Request $request){
         
         if($request->ajax()){
-
             
             $grupo_chat_id   = $request->input('grupo');
 
@@ -323,7 +322,7 @@ class MensajeChatsController extends Controller
     public function ajaxListaGrupoPanico(Request $request){
         // dd($request->input('grupo'));
         if($request->ajax()){     
-            $grupos = $request->input('grupo');
+            $grupos = array_unique($request->input('grupo'));
             
             return view('chats.ajaxListaGrupoPanico')->with(compact('grupos'));
         }
@@ -332,7 +331,7 @@ class MensajeChatsController extends Controller
     public function enviaMensajePanico(Request $request){
         // dd($request->input('grupo'));
         if($request->ajax()){
-            $grupos = $request->input('grupo');
+            $grupos = array_unique($request->input('grupo'));
             foreach($grupos as $g){
 
                 $addMessege = new MensajeChats();
@@ -352,7 +351,8 @@ class MensajeChatsController extends Controller
     public function enviaAudio(Request $request){
 
         if($request->has('audio')){
-            $grupos = explode(',',$request->input('grupo'));
+            $gruposM = explode(',',$request->input('grupo'));
+            $grupos = array_unique($gruposM);
             $archivo = $request->file('audio');
             $direccion = 'audiosPanicos/'; // upload path
             $nombreArchivo = date('YmdHis'). ".mp3";

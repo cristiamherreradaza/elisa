@@ -886,6 +886,7 @@
 
         var array_Panic = [];
         function ajaxListaGrupoPanico(grupo_id){
+            
             array_Panic.push(grupo_id);
             $.ajax({
                 url: "{{ url('mensaje/ajaxListaGrupoPanico') }}",
@@ -897,7 +898,6 @@
                     $('#chat-grupo-panico').html(data);
                 }
             })
-
         }
 
         function enviarMensajePanico(){
