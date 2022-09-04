@@ -715,6 +715,7 @@
 
             $('#formulario-grupo-chat')[0].reset();
             $('#formulario-grupo-chat').show('toggle');
+            $('#grupo_chat_id').val(0);
             $('#input_busca_personas_grupos').hide('toggle');
             $('#btn_crear_grupo').show('toggle');
             $('#exampleModalLabel').css('display', 'block');
