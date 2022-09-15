@@ -20,6 +20,9 @@ class CreatePublicacionesTable extends Migration
             $table->unsignedBigInteger('categoria_id')->nullable();
             $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->string('contenido', 500)->nullable();
+            $table->string('longitud')->nullable();
+            $table->string('latitud')->nullable();
+            $table->string('ciudad')->nullable();
             $table->string('estado', 30)->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();
