@@ -12,24 +12,29 @@
         <!--begin::Dashboard-->
         <h3>&nbsp;</h3>
         {{-- cabeceras --}}
-        
+
         {{-- fin cabeceras --}}
 
         {{-- modal registra publicacion --}}
         @auth
-            
+
             <div class="modal fade" id="modal-publicacion-articulos" data-backdrop="static" tabindex="-1" role="dialog"
                 aria-labelledby="staticBackdrop" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
-            
+
                         <div class="modal-body">
                             {{-- <form method="POST" action="{{ route('login') }}"> --}}
                                 <form method="POST" action="{{ url('Social/guarda') }}" enctype="multipart/form-data" id="formulario-publicacion">
                                     @csrf
+
+                                    <input type="text" name="latitud" id="latitud">
+                                    <input type="text" name="longitud" id="longitud">
+                                    <input type="text" name="ciudad" id="ciudad">
+
                                     <div class="row">
                                         <div class="col-md-12">
-            
+
                                             <div class="d-flex align-items-center">
                                                 <!--begin::Symbol-->
                                                 <div class="symbol symbol-40 symbol-light-success mr-5">
@@ -62,7 +67,7 @@
                                             </div>
                                         </div>
                                     </div>
-            
+
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -85,16 +90,16 @@
                                             <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_1"
                                                 style="display:none;" onclick="mueveImagen(1)">Quitar Imagen
                                             </button>
-            
+
                                             <h3>&nbsp;</h3>
                                         </div>
                                     </div>
-            
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <button type="button" class="btn btn-success btn-block" onclick="guarda();">PUBLICAR</button>
                                         </div>
-            
+
                                         <div class="col-md-6">
                                             <button type="button" class="btn btn-light-dark font-weight-bold btn-block"
                                                 data-dismiss="modal">CERRAR</button>
@@ -108,7 +113,7 @@
 
         @endauth
         {{-- end modal registrar --}}
-        
+
 
         <!--begin::Row-->
         <div class="row" data-sticky-container="">
@@ -116,7 +121,7 @@
             {{-- {{ session()->get('user')}} --}}
 
             {{-- lado izquierdo --}}
-            
+
             <div class="col-md-3">
 
                 <div class="card card-custom sticky" data-sticky="true" data-margin-top="90" data-sticky-for="1023"
@@ -157,11 +162,11 @@
                                     <!--end::Lable-->
                                 </div>
                             @empty
-                                
+
                             @endforelse
-                            
+
                         </div>
-                        
+
                 </div>
             </div>
 
@@ -173,7 +178,7 @@
                 {{-- crea publicacion --}}
                 <div class="row" data-sticky-container>
                     @auth
-                        
+
                         {{-- <a onclick="abre_modal()"> --}}
                         <div class="col-md-12">
                             <div class="card card-custom gutter-b">
@@ -205,7 +210,7 @@
                                 </div>
                                 <!--end::Body-->
                             </div>
-                        </div>      
+                        </div>
                         {{-- </a>                         --}}
                     @endauth
                 </div>
@@ -233,7 +238,7 @@
                                 @if ($cantFotos == 1)
                                     <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
                                         style="background-image: url({{ asset('img_publicidad/'.$fotos[0]->banner) }})">
-                                    </div>    
+                                    </div>
                                 @elseif ($cantFotos == 2)
                                     @php
                                         $ran = rand(0,($cantFotos-1));
@@ -282,7 +287,7 @@
                                     <div class="bgi-no-repeat bgi-size-cover rounded min-h-295px"
                                         style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
                                     </div>
-                                    @php                            
+                                    @php
                                         while(in_array($ran, $arrayShow)){
                                             $ran = rand(0,($cantFotos-1));
                                         }
@@ -293,16 +298,16 @@
                                         style="background-image: url({{ asset('img_publicidad/'.$fotos[$ran]->banner) }})">
                                     </div>
                                 @endif
-                                
+
                             @else
-                                
+
                             @endif
-                            
+
                         </div>
                 </div>
             </div>
 
-               
+
             {{-- fin lado derecho --}}
         </div>
 
@@ -358,13 +363,34 @@
     function mueveImagen(numero){
         $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");
         $("#customFile_"+numero).val('');
-        $("#btnRimg_1").hide();            
+        $("#btnRimg_1").hide();
     }
 
     function abre_modal(){
-        // alert("en desarrollo :v");
+        // para la geolocalizacion
+        if ("geolocation" in navigator){
+            //check geolocation available
+            let dat = navigator.geolocation.getCurrentPosition(function(position){
+                $('#latitud').val(position.coords.latitude);
+                $('#longitud').val(position.coords.longitude);
+                $.ajax({
+                    dataType: "json",
+                    url: "https://nominatim.openstreetmap.org/reverse",
+                    type: "get",
+                    data: {
+                        format: "json",
+                        lat:position.coords.latitude,
+                        lon:position.coords.longitude
+                    }
+                }).done(function(data) {
+                    ciudad = data.address.city;
+                    $('#ciudad').val(ciudad);
+                });
+            });
+        }
         $('#modal-publicacion-articulos').modal('show');
     }
+
 
     function guarda()
     {
@@ -385,7 +411,7 @@
         $.ajax({
             url: "{{ url('Social/addComent') }}",
             data: {coment: coment,
-                    publicacion_id: coment_id,    
+                    publicacion_id: coment_id,
             },
             type: 'GET',
             success: function(data) {
@@ -427,7 +453,7 @@
                         url: "{{ url('Social/editComent') }}",
                         data: {coment: resultado.value,
                                 publicacion_id: publicacion_id,
-                                coment_id:  coment_id  
+                                coment_id:  coment_id
                         },
                         type: 'GET',
                         success: function(data) {
@@ -445,7 +471,7 @@
                     url: "{{ url('Social/deleteComent') }}",
                     data: {
                         publicacion_id: publicacion_id,
-                        coment_id:  coment_id  
+                        coment_id:  coment_id
                     },
                     type: 'GET',
                     success: function(data) {
@@ -456,7 +482,7 @@
                 })
                 Swal.fire('Changes are not saved', '', 'info')
             }
-            
+
         });
 
         /*
@@ -510,7 +536,7 @@
         })
     }
 
-    
+
 
 </script>
 @endsection

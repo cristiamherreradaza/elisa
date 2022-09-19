@@ -30,14 +30,14 @@
                                     <label for="exampleInputPassword1">Nombre
                                     <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="grupo_name" name="grupo_name" required />
-                                </div>        
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Descripcion
                                     <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="grupo_descripcion" name="grupo_descripcion" required />
-                                </div>        
+                                </div>
                             </div>
                         </div>
                         <div class="row" id="btn_crear_grupo">
@@ -55,7 +55,7 @@
                         <div class="col-md-12">
                             <div class="form-group mb-0">
                                 <input type="text" class="form-control" id="busca-participante" name="busca-participante" placeholder="Añade Participante" required />
-                            </div>        
+                            </div>
                         </div>
                     </div>
 
@@ -64,9 +64,9 @@
                         <div class="col-md-12">
                             <div class="mt-4 scroll scroll-pull">
                                 <div id="chat-busqueda-participante">
-                                    
-                                </div> 
-                            </div>     
+
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -77,9 +77,9 @@
                         <div class="col-md-12">
                             <div class="mt-4 scroll scroll-pull">
                                 <div id="chat-grupo-participante">
-                                    
-                                </div> 
-                            </div>     
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                         <div class="col-md-12">
                             <div class="form-group mb-0">
                                 <input type="text" class="form-control" id="busca-grupo-panico" name="busca-grupo-panico" placeholder="Busca un grupo" required />
-                            </div>        
+                            </div>
                         </div>
                     </div>
 
@@ -123,9 +123,9 @@
                         <div class="col-md-12">
                             <div class="mt-4 scroll scroll-pull">
                                 <div id="busqueda-grupo-panico">
-                                    
-                                </div> 
-                            </div>     
+
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -137,9 +137,9 @@
                             <div class="col-md-12">
                                 <div class="mt-4 scroll scroll-pull">
                                     <div id="chat-grupo-panico">
-                                        
-                                    </div> 
-                                </div>     
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <hr>
@@ -149,7 +149,7 @@
                                     <label for="exampleInputPassword1">Mensaje Panico
                                     <span class="text-danger">*</span></label>
                                     <textarea name="grupo_mensaje_panico" id="grupo_mensaje_panico" cols="10" rows="5" class="form-control" placeholder="Excriba su mensaje"></textarea>
-                                </div>        
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -191,7 +191,7 @@
 
 	<!--begin::Card-->
 	{{-- <div class="card card-custom gutter-b"> --}}
-		
+
         <div class="card card-custom card-stretch gutter-b">
             <!--begin::Header-->
             <div class="card-header border-0 pt-5">
@@ -253,17 +253,17 @@
                                                 <!--begin:Users-->
                                                 <div class="mt-7 scroll scroll-pull">
                                                     <div id="chat-busqueda">
-                                                        
+
                                                     </div>
                                                     <!--begin:User-->
                                                     @foreach ( $users as $u)
                                                         @if ($u->user)
                                                             <div class="d-flex align-items-center justify-content-between mb-5">
-                                                                <div class="d-flex align-items-center">                                                                    
+                                                                <div class="d-flex align-items-center">
                                                                     <div class="d-flex flex-column">
                                                                         <a type="button" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg" onclick="ajaxMensaje({{ $u->id }})">{{ (Auth::user()->id != $u->user->id)? $u->user->name : $u->user_to->name}}</a>
                                                                     </div>
-                                                                </div>                                                                
+                                                                </div>
                                                             </div>
                                                         @endif
                                                     @endforeach
@@ -279,7 +279,7 @@
                                     <div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
                                         <!--begin::Card-->
                                         <div id="mensajes-people">
-                    
+
                                         </div>
                                         <!--end::Card-->
                                     </div>
@@ -332,11 +332,11 @@
                                                 <!--begin:Users-->
                                                 <div class="mt-1 scroll scroll-pull">
                                                     <div id="chat-busqueda-grupos">
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                @foreach ( $grupos as $g) 
+                                                @foreach ( $grupos as $g)
                                                     <div class="d-flex align-items-center justify-content-between mb-1">
                                                         <div class="d-flex align-items-center">
                                                             {{-- @if ($id==$g->user_id or $gc) --}}
@@ -344,8 +344,8 @@
                                                                     <a type="button" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg" onclick="ajaxMensajeGrupo('{{ $g->id }}')">{{ $g->nombre }}</a>
                                                                 </div>
                                                             {{-- @endif --}}
-                                                            
-                                                        </div>                                                        
+
+                                                        </div>
                                                     </div>
                                                 @endforeach
                                                 <!--end:Users-->
@@ -359,7 +359,7 @@
                                     <div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
                                         <!--begin::Card-->
                                         <div id="mensajes-people-grupo">
-                    
+
                                         </div>
                                         <!--end::Card-->
                                     </div>
@@ -380,7 +380,32 @@
 @section('js')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/pages/crud/datatables/basic/basic.js') }}"></script>
+
     <script type="text/javascript">
+
+        // function cargarCiudad(){
+        //     // latitud = "-16.492600270464656";
+        //     // longitud = "-68.11158660749308";
+
+        //     latitud = "-16.492643";
+        //     longitud = "-68.111496";
+
+        //     $.ajax({
+        //         dataType: "json",
+        //         url: "https://nominatim.openstreetmap.org/reverse",
+        //         type: "get",
+        //         data: {
+        //             format: "json",
+        //             lat:latitud,
+        //             lon:longitud
+        //         }
+        //     }).done(function(data) {
+        //         ciudad = data.address.city;
+        //         $("#cargando").hide();
+        //         $("#ciudad-demo").slideDown();
+        //         $(".ciudad").html(ciudad);
+        //     });
+        // }
 
         var btnStart = document.querySelector('button[name="record"]');
         var btnStop = document.querySelector('button[name="stop"]');
@@ -450,7 +475,7 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
-        
+
         $('#tabla_criaderos').DataTable({
             order: [[ 0, "desc" ]],
             // searching: false,
@@ -537,7 +562,7 @@
         function mueveImagen(numero){
             $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");
             $("#customFile_"+numero).val('');
-            $("#btnRimg_1").hide();            
+            $("#btnRimg_1").hide();
         }
 
         function publicidades(id){
@@ -569,7 +594,7 @@
             $.ajax({
                 url: "{{ url('Mensaje/enviaMensaje') }}",
                 data: {
-                    grupo: grupo_id, 
+                    grupo: grupo_id,
                     messege: mensaje,
                     tipo: tipo_chat
                 },
@@ -585,7 +610,7 @@
             })
 
         }
-        
+
         $("#busca-chat").on('keyup', function(){
 
             var persona = $('#busca-chat').val();
@@ -595,7 +620,7 @@
                 $.ajax({
                     url: "{{ url('Mensaje/ajaxBuscaPersonaChat') }}",
                     data: {
-                        persona: persona, 
+                        persona: persona,
                     },
                     type: 'POST',
                     success: function(data) {
@@ -604,7 +629,7 @@
 
                     }
                 })
-            
+
             }else{
                 $('#chat-busqueda').html('');
             }
@@ -620,7 +645,7 @@
                 $.ajax({
                     url: "{{ url('mensaje/ajaxBuscaParticipanteChat') }}",
                     data: {
-                        persona: persona, 
+                        persona: persona,
                     },
                     type: 'POST',
                     success: function(data) {
@@ -645,7 +670,7 @@
                 $.ajax({
                     url: "{{ url('mensaje/ajaxBuscaGrupoChat') }}",
                     data: {
-                        grupo: grupo, 
+                        grupo: grupo,
                     },
                     type: 'POST',
                     success: function(data) {
@@ -681,7 +706,7 @@
 						dataType: 'json',
                         type: 'POST',
                         success: function(data) {
-                            
+
                             if(data.status == 'success'){
 
                                 Swal.fire({
@@ -728,11 +753,11 @@
         function ajaxAdicionaParticipante(participante_id){
 
             var grupo_id = $('#grupo_chat_id').val();
-            
+
             $.ajax({
                 url: "{{ url('mensaje/ajaxAdicionaParticipante') }}",
                 data: {
-                    participante: participante_id, 
+                    participante: participante_id,
                     grupo: grupo_id
                 },
                 type: 'POST',
@@ -779,7 +804,7 @@
                     $.ajax({
                         url: "{{ url('mensaje/eliminaParticipanteGrupoChat') }}",
                         data: {
-                            participante: pg_id, 
+                            participante: pg_id,
                             grupo: grupo_id
                         },
                         type: 'POST',
@@ -792,7 +817,7 @@
                             })
 
                             $('#chat-grupo-participante').html(data);
-                            
+
                         }
                     })
 
@@ -807,7 +832,7 @@
             });
 
         }
-        
+
         function abremodalAccionGrupo(grupo_id){
 
             $('#grupo_chat_id').val(grupo_id);
@@ -849,8 +874,8 @@
             $('#chat-grupo-panico').html('');
             array_Panic =[];
 
-            if ("geolocation" in navigator){ //check geolocation available 
-                navigator.geolocation.getCurrentPosition(function(position){ 
+            if ("geolocation" in navigator){ //check geolocation available
+                navigator.geolocation.getCurrentPosition(function(position){
                     $('#latitud').val(position.coords.latitude);
                     $('#longitud').val(position.coords.longitude);
                 });
@@ -869,7 +894,7 @@
                 $.ajax({
                     url: "{{ url('mensaje/ajaxBuscaGrupoPanico') }}",
                     data: {
-                        grupo: grupo, 
+                        grupo: grupo,
                     },
                     type: 'POST',
                     success: function(data) {
@@ -887,7 +912,7 @@
 
         var array_Panic = [];
         function ajaxListaGrupoPanico(grupo_id){
-            
+
             array_Panic.push(grupo_id);
             $.ajax({
                 url: "{{ url('mensaje/ajaxListaGrupoPanico') }}",
@@ -919,7 +944,7 @@
                             icon : 'success',
                             tiumer: 1500
                         })
-    
+
                         $('#kt_mensaje_panico').modal('hide');
                         array_Panic =[];
                     }
@@ -927,6 +952,6 @@
             }
 
         }
-        
+
     </script>
 @endsection

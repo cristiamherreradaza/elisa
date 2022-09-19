@@ -33,13 +33,13 @@ class SocialController extends Controller
 
     public function guarda(Request $request){
 
-        // dd(Auth::user()->id;);
-        // dd($request->all());
-
         $publicacion               = new Publicacion();
         $publicacion->user_id      = Auth::user()->id;;
         $publicacion->categoria_id = $request->input('categoria_id');
         $publicacion->contenido    = $request->input('publicacion');
+        $publicacion->longitud     = $request->input('latitud');
+        $publicacion->latitud      = $request->input('longitud');
+        $publicacion->ciudad       = $request->input('ciudad');
 
         $publicacion->save();
 
@@ -69,10 +69,10 @@ class SocialController extends Controller
                                     ->get();
 
         return view('social.ajaxPublicaciones')->with(compact('publicaciones'));
-        
+
     }
 
-    public function addComent(Request $request){        
+    public function addComent(Request $request){
         // dd($request->input('coment'));
         // dd($request->all());
         $coment =  new Comentario();
